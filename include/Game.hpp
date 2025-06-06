@@ -3,6 +3,11 @@
 
 #include <memory> 
 #include <vector>
+#include <iostream>
+#include <cstring>
+#include <string>
+#include <ctime>
+#include <random>
 
 class CharacterState ;
 class Map ;
@@ -20,10 +25,11 @@ class Game {
     public :
 
         Game() ;
-
-        Item random_item() ; 
-        Perk random_perk() ; 
-        Monster_card random_monster_card() ;
+        
+        int random_number() ;
+        Item get_random_item() ; 
+        Perk get_random_perk() ; 
+        Monster_card get_random_monster_card() ;
 
     private :
     

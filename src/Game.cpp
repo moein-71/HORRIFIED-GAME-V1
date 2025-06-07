@@ -85,18 +85,23 @@ void Game::set_dracula_place(string place) {
     this->dracula.set_now_place(place) ;
 }
 
-void Game::set_last_hero_turn(string new_turn) {
+void Game::set_last_hero_turn(const string & new_turn) {
     this->last_hero_turn = new_turn ;
 }
 
-void Game::set_mayor_place(string place) {
+void Game::set_mayor_place(const string & place) {
     this->mayor.set_now_place(place) ;
 }
 
-void Game::set_archaeologist_place(string place) {
+void Game::set_archaeologist_place(const string & place) {
     this->archaeologist.set_now_place(place) ;
 
 }
+
+void Game::set_frenzy_monster( const string & name) {
+    this->frenzy_monster = name ;
+}
+
 
 string Game::get_invisible_man_place() {
     return this->invisible_man.get_now_place() ;
@@ -118,4 +123,17 @@ string Game::get_mayor_place() {
 string Game::get_archaeologist_place() {
     return archaeologist.get_now_place() ;
 }
+
+string Game::get_frenzy_monster() {
+    return this->frenzy_monster ;
+}
+
+string Game::get_dracula_name() {
+    return this->dracula.get_name() ;
+}
+
+string Game::get_invisible_man_name() {
+    return this->invisible_man.get_name() ;
+}
+
 

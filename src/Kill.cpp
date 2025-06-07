@@ -12,9 +12,9 @@ bool Kill::activate(Game & game , const std::string & monster) {
         return game.Game_map.kill_villager(game.invisible_man.get_now_place()) ;
     }
 
-    throw runtime_error("somthing goes wrong in Move_monster") ;    
+    throw runtime_error("somthing goes wrong in Kill") ;    
     return false ;
 }   
 std::string Kill::info() const {
-    
+
 }

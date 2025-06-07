@@ -41,16 +41,20 @@ class Game {
         Villager get_villager(string name) ;
         char throw_dice() ; 
 
-        void set_invisible_man_place(string place) ;
-        void set_dracula_place(string place) ;
-        void set_last_hero_turn(string new_turn) ;
-        void set_mayor_place(string place) ;
-        void set_archaeologist_place(string place) ;
-        string get_invisible_man_place() ;
-        string get_dracula_place() ;
-        string get_last_hero_turn() ;
-        string get_mayor_place() ;
-        string get_archaeologist_place() ;
+        void set_invisible_man_place(const std::string place) ;
+        void set_dracula_place(const std::string place) ;
+        void set_last_hero_turn(const std::string & new_turn) ;
+        void set_mayor_place(const std::string & place) ;
+        void set_archaeologist_place(const std::string & place) ;
+        void set_frenzy_monster(const std::string & name) ;
+        std::string get_invisible_man_place() ;
+        std::string get_dracula_place() ;
+        std::string get_last_hero_turn() ;
+        std::string get_mayor_place() ;
+        std::string get_archaeologist_place() ;
+        std::string get_frenzy_monster() ;
+        std::string get_dracula_name() ;
+        std::string get_invisible_man_name() ;
 
     private :
     
@@ -62,6 +66,7 @@ class Game {
         Mayor mayor ;
         Dracula dracula ;  
         Invisible_man invisible_man ; 
+        std::string frenzy_monster ; // first dracula // name of the monsters save in it 
         std::vector<Villager> villagers_bag ;
         std::vector<shared_ptr<Perk>> perk_bag ;
         std::vector<shared_ptr<Monster_card>> Monster_cards_bag ;

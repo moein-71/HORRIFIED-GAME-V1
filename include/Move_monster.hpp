@@ -7,7 +7,7 @@ class Move_monster : public Monster_action {
 
     public :
 
-        bool activate(Game & game , int move , const string & monster) override ;   
+        bool activate(Game & game , const std::string & monster) override ;   
         std::string info() const override ;  
 
     private :

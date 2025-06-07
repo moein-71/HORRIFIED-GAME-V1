@@ -8,7 +8,7 @@ class Monster_action {
     public :
 
         virtual ~Monster_action() = default ;
-        virtual bool activate(Game & game , int move , const string & monster) = 0 ;  // pure 
+        virtual bool activate(Game & game , const std::string & monster) = 0 ;  // pure 
         virtual std::string info() const = 0 ;  // pure 
 
     private :

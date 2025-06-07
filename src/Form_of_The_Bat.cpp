@@ -1,4 +1,7 @@
-#include "Form_of_The_Bat.hpp"
+#include "Form_of_The_Bat.hpp" 
+#include "Move_monster.hpp"
+#include "Kill.hpp"
+#include "Power.hpp"
 
 using namespace std ;
 
@@ -7,14 +10,20 @@ class Invisible_man {};
 void Form_of_The_bat::ability(Game& gamestage) {
 
     //Event 
-    string dracula_new_place = gamestage.last_hero_turn == "Mayor" ? gamestage.mayor.get_now_place() : gamestage.archaeologist.get_now_place() ;
-    gamestage.dracula.set_now_place(dracula_new_place) ;
+
+    string dracula_new_place = gamestage.get_last_hero_turn() == "Mayor" ? gamestage.get_mayor_place() : gamestage.get_archaeologist_place() ;
+    gamestage.set_dracula_place(dracula_new_place) ;
 
     //Strike
+
     constexpr int move = 1 ;
     constexpr int dice_number = 2 ;
 
-    gamestage.dracula.set_now_place(gamestage.Game_map.find_destination(move , gamestage.dracula.get_now_place() , gamestage.mayor.get_now_place() , gamestage.archaeologist.get_now_place())) ;
+    unique_ptr<Monster_action> action = make_unique<Move_monster>() ;
+
+    for(int i{} ; i < move ; ++i) {
+        action->activate(gamestage , "invisible_man") ;
+    }
 
     set<char> dice ;
 
@@ -24,7 +33,8 @@ void Form_of_The_bat::ability(Game& gamestage) {
 
     for(char chance : dice) {
         if(chance == 'K') {
-            if(gamestage.Game_map.kill_villager(gamestage.invisible_man.get_now_place())) {
+            action = make_unique<Kill>() ;
+            if(action->activate(gamestage , "invisible_man")) {
                 return ;
             }
             else {
@@ -32,7 +42,8 @@ void Form_of_The_bat::ability(Game& gamestage) {
             }
         }
         else if(chance == 'P') {
-            gamestage.invisible_man.set_now_place(gamestage.Game_map.find_destination(2 , gamestage.invisible_man.get_now_place() , "none" , "none")) ;
+            action = make_unique<Power>() ;
+            action->activate(gamestage , "invisible_man") ;
         }
         else if(chance == 'N') {
             break ;

@@ -26,8 +26,9 @@ class Monster_card ;
 
 class Game {
 
-    friend class Form_of_The_bat ;
-    friend class Sunrise ;
+    friend class Move_monster ;
+    friend class Kill ;
+    friend class Power ;
 
     public :
 
@@ -39,6 +40,17 @@ class Game {
         shared_ptr<Monster_card> get_random_monster_card() ;
         Villager get_villager(string name) ;
         char throw_dice() ; 
+
+        void set_invisible_man_place(string place) ;
+        void set_dracula_place(string place) ;
+        void set_last_hero_turn(string new_turn) ;
+        void set_mayor_place(string place) ;
+        void set_archaeologist_place(string place) ;
+        string get_invisible_man_place() ;
+        string get_dracula_place() ;
+        string get_last_hero_turn() ;
+        string get_mayor_place() ;
+        string get_archaeologist_place() ;
 
     private :
     

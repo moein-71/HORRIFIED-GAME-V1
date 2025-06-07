@@ -2,6 +2,7 @@
 #define MONSTER_CARD_HPP
 
 #include "Game.hpp"
+#include "Monster_Action.hpp"
 
 class Monster_card {
 

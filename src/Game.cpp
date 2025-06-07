@@ -1,16 +1,8 @@
 #include "Game.hpp"
 
-#include <memory> 
-#include <vector>
-#include <iostream>
-#include <cstring>
-#include <string>
-#include <ctime>
-#include <random>
-
 using namespace std ;
 
-Game::Game() {
+Game::Game() {////////////////////////////////////////////////// will be completed
     
 }
 
@@ -43,6 +35,10 @@ shared_ptr<Perk> Game::get_random_perk() {
     perk_bag.erase(perk_bag.begin() + number) ;
     perk_bag.shrink_to_fit() ;
 
+    if(random == nullptr) {
+        throw runtime_error("in get_random_perk somthing goes wrong \n") ;
+    }
+
     return random ;
 } 
 
@@ -54,5 +50,22 @@ shared_ptr<Monster_card> Game::get_random_monster_card() {
     Monster_cards_bag.erase(Monster_cards_bag.begin() + number) ;
     Monster_cards_bag.shrink_to_fit() ;
 
+    if(random == nullptr) {
+        throw runtime_error("in get_random_monster_card somthing goes wrong \n") ;
+    }
+
     return random ;
+}
+
+Villager Game::get_villager(string name) {
+
+    for(int counter = 0 ; Villager villager : villagers_bag) {
+        if(villager.get_name() == name) {
+            villagers_bag.erase( villagers_bag.begin() + counter) ;
+            return villager ;
+        }
+        ++counter ;
+    }
+
+    throw runtime_error("in Get_villager somthing goes wrong \n") ;
 }

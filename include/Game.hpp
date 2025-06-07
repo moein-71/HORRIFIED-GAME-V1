@@ -8,6 +8,8 @@
 #include <string>
 #include <ctime>
 #include <random>
+#include <stdexcept>
+#include <format>
 
 class CharacterState ;
 class Map ;
@@ -22,6 +24,8 @@ class Monster_card ;
 
 class Game {
 
+
+
     public :
 
         Game() ;
@@ -30,6 +34,7 @@ class Game {
         Item get_random_item() ; 
         shared_ptr<Perk> get_random_perk() ; 
         shared_ptr<Monster_card> get_random_monster_card() ;
+        Villager get_villager(string name) ;
 
     private :
     
@@ -38,9 +43,9 @@ class Game {
         int Terror_level ;
         Archaeologist archaeologist ;
         Mayor mayor ;
-        Dracula racula ;  
+        Dracula dracula ;  
         Invisible_man invisible_man ; 
-        std::vector<shared_ptr<Villager>> villagers_bag ;
+        std::vector<Villager> villagers_bag ;
         std::vector<shared_ptr<Perk>> perk_bag ;
         std::vector<shared_ptr<Monster_card>> Monster_cards_bag ;
         std::vector<Item> item_bag ;

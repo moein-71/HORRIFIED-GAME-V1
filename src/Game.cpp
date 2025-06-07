@@ -35,5 +35,24 @@ Item Game::get_random_item() {
 
     return random_item ;
 }
-Perk Game::get_random_perk() {} 
-Monster_card Game::get_random_monster_card() {}
+shared_ptr<Perk> Game::get_random_perk() {
+
+    int number = (this->random_number() % this->perk_bag.size())-1 ;
+
+    shared_ptr<Perk> random = perk_bag[number] ;
+    perk_bag.erase(perk_bag.begin() + number) ;
+    perk_bag.shrink_to_fit() ;
+
+    return random ;
+} 
+
+shared_ptr<Monster_card> Game::get_random_monster_card() {
+
+    int number = (this->random_number() % this->Monster_cards_bag.size())-1 ;
+
+    shared_ptr<Monster_card> random = Monster_cards_bag[number] ;
+    Monster_cards_bag.erase(Monster_cards_bag.begin() + number) ;
+    Monster_cards_bag.shrink_to_fit() ;
+
+    return random ;
+}

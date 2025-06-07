@@ -28,8 +28,8 @@ class Game {
         
         int random_number() ;
         Item get_random_item() ; 
-        Perk get_random_perk() ; 
-        Monster_card get_random_monster_card() ;
+        shared_ptr<Perk> get_random_perk() ; 
+        shared_ptr<Monster_card> get_random_monster_card() ;
 
     private :
     
@@ -40,10 +40,10 @@ class Game {
         Mayor mayor ;
         Dracula racula ;  
         Invisible_man invisible_man ; 
-        std::vector<Villager> villagers_bag ;
-        std::vector<Perk> perk_bag ;
+        std::vector<shared_ptr<Villager>> villagers_bag ;
+        std::vector<shared_ptr<Perk>> perk_bag ;
+        std::vector<shared_ptr<Monster_card>> Monster_cards_bag ;
         std::vector<Item> item_bag ;
-        std::vector<Monster_card> Monster_cards_bag ;
 } ;
 
 #endif //Game_HPP

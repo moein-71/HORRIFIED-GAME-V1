@@ -10,6 +10,8 @@
 #include <random>
 #include <stdexcept>
 #include <format>
+#include <array>
+#include <set>
 
 class CharacterState ;
 class Map ;
@@ -24,7 +26,8 @@ class Monster_card ;
 
 class Game {
 
-
+    friend class Form_of_The_bat ;
+    friend class Sunrise ;
 
     public :
 
@@ -35,10 +38,12 @@ class Game {
         shared_ptr<Perk> get_random_perk() ; 
         shared_ptr<Monster_card> get_random_monster_card() ;
         Villager get_villager(string name) ;
+        char throw_dice() ; 
 
     private :
     
         std::unique_ptr<CharacterState> turn ;
+        std::string last_hero_turn ; // Archaeologist , Mayor  // in constructor we find out how start first and ho start last and its use in monster card abilitys
         Map Game_map ;
         int Terror_level ;
         Archaeologist archaeologist ;

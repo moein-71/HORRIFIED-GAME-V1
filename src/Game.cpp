@@ -19,7 +19,7 @@ int Game::random_number() {
 
 Item Game::get_random_item() {
 
-    int number = (this->random_number() % this->item_bag.size())-1 ;
+    int number = (this->random_number() % this->item_bag.size()) ;
 
     Item random_item = item_bag[number] ;
     item_bag.erase(item_bag.begin() + number) ; // check it
@@ -29,7 +29,7 @@ Item Game::get_random_item() {
 }
 shared_ptr<Perk> Game::get_random_perk() {
 
-    int number = (this->random_number() % this->perk_bag.size())-1 ;
+    int number = (this->random_number() % this->perk_bag.size()) ;
 
     shared_ptr<Perk> random = perk_bag[number] ;
     perk_bag.erase(perk_bag.begin() + number) ;
@@ -44,7 +44,7 @@ shared_ptr<Perk> Game::get_random_perk() {
 
 shared_ptr<Monster_card> Game::get_random_monster_card() {
 
-    int number = (this->random_number() % this->Monster_cards_bag.size())-1 ;
+    int number = (this->random_number() % this->Monster_cards_bag.size()) ;
 
     shared_ptr<Monster_card> random = Monster_cards_bag[number] ;
     Monster_cards_bag.erase(Monster_cards_bag.begin() + number) ;
@@ -68,4 +68,11 @@ Villager Game::get_villager(string name) {
     }
 
     throw runtime_error("in Get_villager somthing goes wrong \n") ;
+}
+
+char Game::throw_dice() {
+
+    array<char , 6> dice {'K' , 'N' , 'N' , 'N' , 'N' , 'P'} ;
+
+    return dice[this->random_number() % 6] ;
 }

@@ -72,9 +72,20 @@ Villager Game::get_villager(string name) {
 
 char Game::throw_dice() {
 
-    array<char , 6> dice {'K' , 'N' , 'N' , 'N' , 'N' , 'P'} ;
+    array<char , 6> dice {'K' , 'Z' , 'Z' , 'Z' , 'Z' , 'P'} ;
 
     return dice[this->random_number() % 6] ;
+}
+
+std::string Game::find_place_with_more_item_map() {
+    return this->Game_map.find_place_with_more_item() ;
+}
+
+bool Game::remove_all_item_in_place(std::string place) {
+    if(this->Game_map.remove_all_item_in_place(place)) { ;
+        return true ;
+    }
+    return false ;
 }
 
 void Game::set_invisible_man_place(string place) {

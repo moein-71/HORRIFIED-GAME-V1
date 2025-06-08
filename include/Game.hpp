@@ -38,8 +38,10 @@ class Game {
         Item get_random_item() ; 
         shared_ptr<Perk> get_random_perk() ; 
         shared_ptr<Monster_card> get_random_monster_card() ;
-        Villager get_villager(string name) ;
+        Villager get_villager(std::string name) ;
         char throw_dice() ; 
+        std::string find_place_with_more_item_map() ;
+        bool remove_all_item_in_place(std::string place) ;
 
         void set_invisible_man_place(const std::string place) ;
         void set_dracula_place(const std::string place) ;

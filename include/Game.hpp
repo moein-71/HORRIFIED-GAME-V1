@@ -49,6 +49,7 @@ class Game {
         void set_mayor_place(const std::string & place) ;
         void set_archaeologist_place(const std::string & place) ;
         void set_frenzy_monster(const std::string & name) ;
+        void set_villager_in_Game_map(const std::string place , const std::string name) ;
         std::string get_invisible_man_place() ;
         std::string get_dracula_place() ;
         std::string get_last_hero_turn() ;

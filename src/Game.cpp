@@ -88,11 +88,11 @@ bool Game::remove_all_item_in_place(std::string place) {
     return false ;
 }
 
-void Game::set_invisible_man_place(string place) {
+void Game::set_invisible_man_place(const string place) {
     this->invisible_man.set_now_place(place) ;
 }
 
-void Game::set_dracula_place(string place) {
+void Game::set_dracula_place(const string place) {
     this->dracula.set_now_place(place) ;
 }
 
@@ -113,6 +113,24 @@ void Game::set_frenzy_monster( const string & name) {
     this->frenzy_monster = name ;
 }
 
+void Game::set_villager_in_Game_map(const std::string place , const std::string name) {
+
+    for(int counter{} ; Villager temp : this->villagers_bag) {
+        if(temp.get_name() == name) {
+            if(this->Game_map.set_villager(place , temp)) {
+                villagers_bag.erase(villagers_bag.begin() + counter) ;
+                return ;
+            }
+            else if(this->Game_map.set_villager_place(place , name)) {
+                return ;
+            }
+            else {
+                cout<< "\nsorry but this villager has been died\n" ;
+            }
+        }
+        ++counter ;
+    }
+}
 
 string Game::get_invisible_man_place() {
     return this->invisible_man.get_now_place() ;

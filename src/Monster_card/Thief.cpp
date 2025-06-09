@@ -7,16 +7,23 @@ using namespace std ;
 
  void Thief::ability(Game& gamestage) {
 
+    constexpr int add_item = 2 ;
+    constexpr int move = 1 ;
+    constexpr int dice_number = 3 ;
+    constexpr int strike_number = 2 ;
+
+    //Item
+    
+    for(int i{} ; i < add_item ; ++i) {
+        gamestage.set_item_to_map(gamestage.get_random_item()) ;
+    }
+
     //Event
 
     gamestage.set_invisible_man_place(gamestage.find_place_with_more_item_map()) ;
     gamestage.remove_all_item_in_place(gamestage.get_invisible_man_place()) ;
 
     //Strike
-
-    constexpr int move = 1 ;
-    constexpr int dice_number = 3 ;
-    constexpr int strike_number = 2 ;
 
     array<string , strike_number> monster_turn {gamestage.get_invisible_man_name() , gamestage.get_dracula_name()} ;
 
@@ -81,9 +88,10 @@ using namespace std ;
 }
 
 std::string Thief::info() const {
-
-    cout<< "Move the Invisible Man to the location with the highest number of items" 
-    << "\nremove all items from that location on the map and return them outside the game\n" ;
-    cout<< "Strike : 1 Move , 3 Dice\n" ;
-    cout<< "Turn : Invisible Man , Dracula \n" ;
+    cout<< "\nThief\n"
+    << "add 2 item"
+    << "Move the Invisible Man to the location with the highest number of items" 
+    << "\nremove all items from that location on the map and return them outside the game\n" 
+    << "Strike : 1 Move , 3 Dice\n" 
+    << "Turn : Invisible Man , Dracula\n" ;
 }

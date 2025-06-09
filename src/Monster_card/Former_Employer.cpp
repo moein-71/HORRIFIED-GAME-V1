@@ -7,15 +7,22 @@ using namespace std ;
 
 void Former_employer::ability(Game& gamestage) {
     
+    constexpr int add_item = 3 ;
+    constexpr int move = 1 ;
+    constexpr int dice_number = 2 ;
+    constexpr int strike_number = 2 ;
+
+    //Item
+    
+    for(int i{} ; i < add_item ; ++i) {
+        gamestage.set_item_to_map(gamestage.get_random_item()) ;
+    }
+
     //Event 
 
     gamestage.set_villager_in_Game_map("Laboratory" , "Dr.Cranly") ;
     
     //Strike
-
-    constexpr int move = 2 ;
-    constexpr int dice_number = 3 ;
-    constexpr int strike_number = 2 ;
 
     array<string , strike_number> monster_turn {gamestage.get_invisible_man_name() , gamestage.get_frenzy_monster()} ;
 
@@ -80,8 +87,10 @@ void Former_employer::ability(Game& gamestage) {
 }
 
 std::string Former_employer::info() const {
-    cout<< "Dr. Cranly goes to Laboratory\n" ;
-    cout<< "Strike : 2 Move , 3 Dice\n" ;
-    cout<< "Turn : Frenzied Monster \n" ;
+    cout<< "\nFormer_Employer\n"
+    << "add 3 item"
+    << "Dr. Cranly goes to Laboratory\n" 
+    << "Strike : 1 Move , 2 Dice\n" 
+    << "Turn : Invisible Man , Frenzied Monster\n" ;
 }
 

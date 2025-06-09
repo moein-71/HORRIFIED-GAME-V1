@@ -27,6 +27,11 @@ Item Game::get_random_item() {
 
     return random_item ;
 }
+
+void Game::set_item_to_map(Item new_item) {
+
+    this->Game_map.set_item(new_item) ;
+}
 shared_ptr<Perk> Game::get_random_perk() {
 
     int number = (this->random_number() % this->perk_bag.size()) ;

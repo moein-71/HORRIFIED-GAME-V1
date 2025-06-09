@@ -6,16 +6,23 @@
 using namespace std ;
 
 void The_delivery::ability(Game& gamestage) {
+
+    constexpr int add_item = 3 ;
+    constexpr int move = 1 ;
+    constexpr int dice_number = 3 ;
+    constexpr int strike_number = 1 ;
+
+    //Item
+    
+    for(int i{} ; i < add_item ; ++i) {
+        gamestage.set_item_to_map(gamestage.get_random_item()) ;
+    }
     
     //Event 
 
     gamestage.set_villager_in_Game_map("Docks" , "Wilbur & Chick") ;
     
     //Strike
-
-    constexpr int move = 1 ;
-    constexpr int dice_number = 3 ;
-    constexpr int strike_number = 1 ;
 
     array<string , strike_number> monster_turn {gamestage.get_frenzy_monster()} ;
 
@@ -80,7 +87,9 @@ void The_delivery::ability(Game& gamestage) {
 }
 
 std::string The_delivery::info() const {
-    cout<< "Wilbur & Click are goes to Docks\n" ;
-    cout<< "Strike : 1 Move , 3 Dice\n" ;
-    cout<< "Turn : Frenzied Monster \n" ;
+    cout<< "\nThe_Delivery\n"
+    << "add 3 item"
+    << "Wilbur & Click are goes to Docks\n" 
+    << "Strike : 1 Move , 3 Dice\n" 
+    << "Turn : Frenzied Monster\n" ;
 }

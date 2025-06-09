@@ -36,6 +36,7 @@ class Game {
         
         int random_number() ;
         Item get_random_item() ; 
+        void set_item_to_map(Item new_item) ;
         shared_ptr<Perk> get_random_perk() ; 
         shared_ptr<Monster_card> get_random_monster_card() ;
         Villager get_villager(std::string name) ;

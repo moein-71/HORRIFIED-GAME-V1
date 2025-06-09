@@ -6,6 +6,16 @@
 using namespace std ;
 
 void Egyptian_expert::ability(Game& gamestage) {
+
+    constexpr int add_item = 3 ;
+    constexpr int move = 2 ;
+    constexpr int dice_number = 2 ;
+    constexpr int strike_number = 2 ;
+
+    //Item
+    for(int i{} ; i < add_item ; ++i) {
+        gamestage.set_item_to_map(gamestage.get_random_item()) ;
+    }
     
     //Event 
 
@@ -13,10 +23,7 @@ void Egyptian_expert::ability(Game& gamestage) {
     
     //Strike
 
-    constexpr int move = 2 ;
-    constexpr int dice_number = 2 ;
-    constexpr int strike_number = 2 ;
-
+    
     array<string , strike_number> monster_turn {gamestage.get_dracula_name() , gamestage.get_frenzy_monster()} ;
 
     unique_ptr<Monster_action> action = make_unique<Move_monster>() ;
@@ -80,9 +87,11 @@ void Egyptian_expert::ability(Game& gamestage) {
 }
 
 std::string Egyptian_expert::info() const {
-    cout<< "Prof.Pearson goes to Cave\n" ;
-    cout<< "Strike : 2 Move , 2 Dice\n" ;
-    cout<< "Turn : Dracula , Frenzied Monster \n" ;
+    cout<< "\nEgyptian_Expert\n"
+    << "add 3 item"
+    << "Prof.Pearson goes to Cave\n" 
+    << "Strike : 2 Move , 2 Dice\n" 
+    << "Turn : Dracula , Frenzied Monster \n" ;
 }
 
 

@@ -7,15 +7,22 @@ using namespace std ;
 
 void Sunrise::ability(Game& gamestage) {
 
+    constexpr int add_item = 0 ;
+    constexpr int move = 1 ;
+    constexpr int dice_number = 2 ;
+    constexpr int strike_number = 2 ;
+
+    //Item
+    
+    for(int i{} ; i < add_item ; ++i) {
+        gamestage.set_item_to_map(gamestage.get_random_item()) ;
+    }
+
     //Event
 
     gamestage.set_dracula_place("Crypt") ; /////////////////// check place names
 
     //Strike
-
-    constexpr int move = 1 ;
-    constexpr int dice_number = 2 ;
-    constexpr int strike_number = 2 ;
 
     array<string , strike_number> monster_turn {gamestage.get_invisible_man_name() , gamestage.get_frenzy_monster()} ;
 
@@ -80,7 +87,9 @@ void Sunrise::ability(Game& gamestage) {
 }
 
 std::string Sunrise::info() const {
-    cout<< "Dracula moved to the Crypt\n" ;
-    cout<< "Strike : 1 Move , 2 Dice\n" ;
-    cout<< "Turn : Invisible Man , Frenzied Monster \n" ;
+    cout<< "\nSunrise\n"
+    << "add 0 item"
+    << "Dracula moved to the Crypt  \n" 
+    << "Strike : 1 Move , 2 Dice\n" 
+    << "Turn : Invisible Man , Frenzied Monster\n" ;
 }

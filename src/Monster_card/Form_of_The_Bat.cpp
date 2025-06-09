@@ -9,16 +9,23 @@ class Invisible_man {};
 
 void Form_of_The_bat::ability(Game& gamestage) {
 
+    constexpr int add_item = 2 ;
+    constexpr int move = 1 ;
+    constexpr int dice_number = 2 ;
+    constexpr int strike_number = 1 ;
+
+    //Item
+    
+    for(int i{} ; i < add_item ; ++i) {
+        gamestage.set_item_to_map(gamestage.get_random_item()) ;
+    }
+
     //Event 
 
     string dracula_new_place = gamestage.get_last_hero_turn() == "Mayor" ? gamestage.get_mayor_place() : gamestage.get_archaeologist_place() ;
     gamestage.set_dracula_place(dracula_new_place) ;
 
     //Strike
-
-    constexpr int move = 1 ;
-    constexpr int dice_number = 2 ;
-    constexpr int strike_number = 1 ;
 
     array<string , strike_number> monster_turn {gamestage.get_invisible_man_name()} ;
 
@@ -83,7 +90,9 @@ void Form_of_The_bat::ability(Game& gamestage) {
 }
 
 std::string Form_of_The_bat::info() const {
-    cout<< "Dracula moved to the last Hero who has played\n" ;
-    cout<< "Strike : 1 Move , 2 Dice\n" ;
-    cout<< "Turn : Invisible Man \n" ;
+    cout<< "\nForm_of_The_Bat\n"
+    << "add 2 item"
+    << "Dracula moved to the last Hero who has played\n" 
+    << "Strike : 1 Move , 2 Dice\n" 
+    << "Turn : Invisible Man\n" ;
 }

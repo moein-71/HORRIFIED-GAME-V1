@@ -7,15 +7,22 @@ using namespace std ;
 
 void Fortune_teller::ability(Game& gamestage) {
 
+    constexpr int add_item = 3 ;
+    constexpr int move = 1 ;
+    constexpr int dice_number = 2 ;
+    constexpr int strike_number = 1 ;
+
+    //Item
+    
+    for(int i{} ; i < add_item ; ++i) {
+        gamestage.set_item_to_map(gamestage.get_random_item()) ;
+    }
+
     //Event 
 
     gamestage.set_villager_in_Game_map("Camp" , "Maleva") ;
     
     //Strike
-
-    constexpr int move = 1 ;
-    constexpr int dice_number = 2 ;
-    constexpr int strike_number = 1 ;
 
     array<string , strike_number> monster_turn {gamestage.get_frenzy_monster()} ;
 
@@ -80,7 +87,9 @@ void Fortune_teller::ability(Game& gamestage) {
 }
 
 std::string Fortune_teller::info() const {
-    cout<< "Maleva goes to Camp\n" ;
-    cout<< "Strike : 1 Move , 2 Dice\n" ;
-    cout<< "Turn : Frenzied Monster \n" ;
+    cout<< "\nFortune_Teller\n"
+    << "add 3 item"
+    << "Maleva goes to Camp\n" 
+    << "Strike : 1 Move , 2 Dice\n" 
+    << "Turn : Frenzied Monster\n" ;
 }

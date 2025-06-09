@@ -7,15 +7,22 @@ using namespace std ;
 
 void The_ichthyologist::ability(Game& gamestage) {
 
+    constexpr int add_item = 3 ;
+    constexpr int move = 1 ;
+    constexpr int dice_number = 2 ;
+    constexpr int strike_number = 1 ;
+
+    //Item
+    
+    for(int i{} ; i < add_item ; ++i) {
+        gamestage.set_item_to_map(gamestage.get_random_item()) ;
+    }
+
     //Event 
 
     gamestage.set_villager_in_Game_map("Institute" , "Dr.Read") ;
     
     //Strike
-
-    constexpr int move = 1 ;
-    constexpr int dice_number = 2 ;
-    constexpr int strike_number = 1 ;
 
     array<string , strike_number> monster_turn {gamestage.get_frenzy_monster()} ;
 
@@ -80,7 +87,9 @@ void The_ichthyologist::ability(Game& gamestage) {
 }
 
 std::string The_ichthyologist::info() const {
-    cout<< "Dr.Read are goes to Institute\n" ;
-    cout<< "Strike : 1 Move , 2 Dice\n" ;
-    cout<< "Turn : Frenzied Monster \n" ;
+    cout<< "\nThe_Ichthyologist\n"
+    << "add 3 item"
+    << "Dr.Read are goes to Institute\n" 
+    << "Strike : 1 Move , 2 Dice\n" 
+    << "Turn : Frenzied Monster\n" ;
 }

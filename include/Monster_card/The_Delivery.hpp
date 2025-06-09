@@ -3,7 +3,7 @@
 
 #include "Monster_card.hpp"
 
-class The_Delivery : public Monster_card {
+class The_delivery : public Monster_card {
 
     public :
 

@@ -11,6 +11,7 @@ bool Kill::activate(Game & game , const std::string & monster) {
                 game.set_archaeologist_place("Hospital") ;
                 return true ;
             }
+            return true ;
         }
         else if(game.get_dracula_place() == game.get_mayor_place()) {
             if(!game.mayor.get_item()) {

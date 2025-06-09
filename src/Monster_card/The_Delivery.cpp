@@ -5,7 +5,7 @@
 
 using namespace std ;
 
-void The_Delivery::ability(Game& gamestage) {
+void The_delivery::ability(Game& gamestage) {
     
     //Event 
 
@@ -79,7 +79,7 @@ void The_Delivery::ability(Game& gamestage) {
     }
 }
 
-std::string The_Delivery::info() const {
+std::string The_delivery::info() const {
     cout<< "Wilbur & Click are goes to Docks\n" ;
     cout<< "Strike : 1 Move , 3 Dice\n" ;
     cout<< "Turn : Frenzied Monster \n" ;

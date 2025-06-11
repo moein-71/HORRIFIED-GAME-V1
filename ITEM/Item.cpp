@@ -13,6 +13,14 @@ Item::Item(string name, string spawn_place, string color, int strength){
 
 
 
+bool Item::operator==(const Item& other) const{
+    
+    return name == other.name && spawn_place == other.spawn_place &&
+           color == other.color && strength == other.strength;
+}
+
+
+
 void Item::set_name(string name){
     this -> name = name;
 }

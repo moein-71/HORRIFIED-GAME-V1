@@ -10,7 +10,14 @@
 class Perk{
 
     public:
+
         Perk() = default;
+        std::string get_name(){
+            return name;
+        }
+
+    private:
+        std::string name;
 };
 ////////////////////////////////////////////////(   TEMP_ CLASS   )////////////////////////////////////////////////////////////
 
@@ -33,6 +40,9 @@ class Hero{
         std::string get_player_name()const;
         std::string get_spawn_place()const;
         std::string get_now_place()const;
+        shared_ptr<Perk> get_perk();
+        vector <Item> get_item(std::string, int);
+        //vector <Item> get_item(std::string, int);
 
         void Describe_Hero_Special_Action();// this function describe the special action of all hero
         
@@ -41,14 +51,14 @@ class Hero{
         bool special_action_info;
         const int action;
         std::string name;
-        std:: string player_name;
+        std::string player_name;
         std::string spawn_place;
         std::string now_place;
 
 
-        unordered_map <std::shared_ptr<Perk>, int> perk;
-        unordered_map <Item, int> item;
-        unordered_map <std::string, Item> investigate_item;
+        std::unordered_map <std::shared_ptr<Perk>, int> perk;
+        std::unordered_map <Item, int> item;
+        std::unordered_map <std::string, Item> investigate_item;
 };
 
 #endif//HERO_H

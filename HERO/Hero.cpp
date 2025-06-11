@@ -1,5 +1,6 @@
 #include "Hero.hpp"
 #include <iostream>
+#include <sstream>
 
 using namespace std;
 
@@ -48,6 +49,82 @@ string Hero::get_spawn_place()const{
 }
 string Hero::get_now_place()const{
     return now_place;
+}
+shared_ptr<Perk> Hero::get_perk(){
+
+    int counter{1};
+    vector <shared_ptr<Perk>> vec;
+
+    for(auto print: perk){
+
+        cout << counter << '.' << (*print.first).get_name() << '   ';
+        vec.push_back(print.first);
+        counter++;
+    }
+
+    cout << counter << '.' << "exit";
+    cout << "Please enter the number of perk you want: ";
+    int choose;
+    string ch;cin >> ch;
+    istringstream iss(ch);
+
+    if(iss >> choose && choose >= 1 && choose <= counter){
+
+        if(choose == counter){
+
+            return nullptr;//if player want to exit in this time func retrunes nullptr
+        }
+
+        perk[vec[choose - 1]]--;
+        if(!perk[vec[choose - 1]]){
+
+            perk.erase(vec[choose - 1]);
+        }
+    }
+    else{
+
+        throw invalid_argument("please enter a right value");
+    }
+
+    return vec[choose - 1];
+}
+vector <Item> Hero::get_item(string color, int strength){
+    
+    int sum_strength{};
+    vector <Item> vec;
+
+    for(auto obj_item: item){
+
+        if(obj_item.first.get_color() == color){
+
+            sum_strength += obj_item.first.get_strength();
+
+            if(obj_item.second > 1){
+
+               if(sum_strength >= strength)break;              
+               sum_strength += obj_item.first.get_strength();
+               vec.push_back(obj_item.first);
+            }
+
+            vec.push_back(obj_item.first);
+        }
+
+        if(sum_strength >= strength)break;
+    }
+
+    if(sum_strength < strength)return {};
+
+    for(auto obj_item: vec){
+
+        item[obj_item]--;
+
+        if(!item[obj_item]){
+
+            item.erase(obj_item);
+        }
+    }
+
+    return vec;
 }
 
 

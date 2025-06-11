@@ -33,3 +33,12 @@ string Villager::get_safe_place()const{
 string Villager::get_now_place()const{
     return this -> now_place;
 }
+
+
+
+bool operator==(const Villager& lhs, const Villager& rhs){
+    
+    return lhs.get_name() == rhs.get_name() &&
+           lhs.get_now_place() == rhs.get_now_place() &&
+           lhs.get_safe_place() == rhs.get_safe_place();
+}

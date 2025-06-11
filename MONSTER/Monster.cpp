@@ -1,10 +1,17 @@
 #include "Monster.hpp"
 #include <iostream>
+#include <ctime>
 
 using namespace std;
 
 Monster::Monster(int frenzy, string name, vector<string>const spawn_place): frenzy(frenzy),
- name(name), spawn_place(spawn_place){}
+ name(name), spawn_place(spawn_place){
+
+    srand(std::time(0));
+    int random = rand()%4;
+
+    set_now_place(spawn_place[random]);
+ }
 
 
 

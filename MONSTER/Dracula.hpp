@@ -1,0 +1,22 @@
+#ifndef DRACULA_H
+#define DRACULA_H
+
+#include "Monster.hpp"
+#include <string>
+#include <unordered_map>
+
+class Dracula: public Monster{
+
+    public:
+
+        Dracula();
+
+        bool Destroy_Casket(std::string);//This function get place name and destroy the casket. if casket destroyed befor return false;
+        bool Check_Casket();//This function checks whether all coffins have been destroyed or not.
+
+    private:
+
+        std::unordered_map<std::string, bool> casket;
+};
+
+#endif//DRACULA_H

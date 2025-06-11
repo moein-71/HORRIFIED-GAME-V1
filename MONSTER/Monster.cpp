@@ -8,7 +8,7 @@ Monster::Monster(int frenzy, string name, vector<string>const spawn_place): fren
  name(name), spawn_place(spawn_place){
 
     srand(std::time(0));
-    int random = rand()%4;
+    int random = rand()%spawn_place.size();
 
     set_now_place(spawn_place[random]);
  }

@@ -56,3 +56,64 @@ void Map::set_villager_place(string place, string villager_name){
         }
     }
 }
+
+
+
+bool Map::Kill_Villager(string place){
+
+    if(villager_place[place].size() >= 1){
+
+        villager_place[place].erase(villager_place[place].begin());
+        if(!villager_place[place].size()){
+            villager_place.erase(place);
+        }
+        return true;
+    }
+    else{
+        return false;
+    }
+}
+Item Map::Pickeup_Item(string place, string item_name){
+
+    for(auto item: item_place[place]){
+        if(item.first.get_name() == item_name){
+
+            item_place[place][item.first]--;
+
+            if(!item_place[place][item.first]){
+                item_place[place].erase(item.first);
+            }           
+            return item.first;
+        }
+    }
+} 
+string Map::Find_Place_With_More_Item(){
+
+    int counter{};
+    int max{-1};
+    string res_place;
+    
+    for(auto place_name: item_place){
+
+        counter = 0;
+        for(auto item: place_name.second){
+            counter += item.second;
+        }
+        if(max < counter){
+
+            max = counter;
+            res_place = place_name.first;
+        }
+    }
+
+    return res_place;
+}
+vector<pair<Item, int>> Map::Remove_All_Item_In_Place(string place){
+
+    vector<pair<Item, int>> res;
+    for(auto item: item_place[place]){
+        res.push_back({item.first, item.second});
+    }
+    item_place.erase(place);
+    return res;
+}

@@ -1,0 +1,16 @@
+#ifndef LATE_INTO_THE_NIGHT_HPP
+#define LATE_INTO_THE_NIGHT_HPP
+
+#include "Perk_card.hpp"
+
+class Late_into_the_night : public Perk_card {
+
+    public :
+
+        void ability(Game& gamestage) override ;
+        std::string info() const override ;
+
+    private :
+};
+
+#endif //LATE_INTO_THE_NIGHT_HPP

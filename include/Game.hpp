@@ -43,14 +43,17 @@ class Game {
         char throw_dice() ; 
         std::string find_place_with_more_item_map() ;
         bool remove_all_item_in_place(std::string place) ;
+        void handle_next_turn() ;
+        void print_map() ;
 
-        void set_invisible_man_place(const std::string place) ;
-        void set_dracula_place(const std::string place) ;
+        bool set_invisible_man_place(const std::string place) ; //we need validation on place 
+        bool set_dracula_place(const std::string place) ; //we need validation on place
         void set_last_hero_turn(const std::string & new_turn) ;
-        void set_mayor_place(const std::string & place) ;
-        void set_archaeologist_place(const std::string & place) ;
-        void set_frenzy_monster(const std::string & name) ;
-        void set_villager_in_Game_map(const std::string place , const std::string name) ;
+        bool set_mayor_place(const std::string & place) ; //we need validation on place
+        bool set_archaeologist_place(const std::string & place) ; //we need validation on place
+        bool set_frenzy_monster(const std::string & name) ; //we need validation on place
+        bool set_villager_in_Game_map(const std::string place , const std::string name) ; //we need validation on place
+        void set_added_action(const int & added_action) ;
         std::string get_invisible_man_place() ;
         std::string get_dracula_place() ;
         std::string get_last_hero_turn() ;
@@ -59,16 +62,19 @@ class Game {
         std::string get_frenzy_monster() ;
         std::string get_dracula_name() ;
         std::string get_invisible_man_name() ;
+        int get_added_action() ;
 
     private :
     
         std::unique_ptr<CharacterState> turn ;
+        std::unique_ptr<CharacterState> next_turn ; // we should to create an cycle // pak kon bad anjam // 
         std::string last_hero_turn ; // Archaeologist , Mayor  // in constructor we find out how start first and ho start last and its use in monster card abilitys
         Map Game_map ;
         int Terror_level ;
         Archaeologist archaeologist ;
         Mayor mayor ;
         Dracula dracula ;  
+        int added_action ;
         Invisible_man invisible_man ; 
         std::string frenzy_monster ; // first dracula // name of the monsters save in it 
         std::vector<Villager> villagers_bag ;

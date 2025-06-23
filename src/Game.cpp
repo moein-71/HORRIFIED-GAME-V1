@@ -93,29 +93,29 @@ bool Game::remove_all_item_in_place(std::string place) {
     return false ;
 }
 
-void Game::set_invisible_man_place(const string place) {
-    this->invisible_man.set_now_place(place) ;
+bool Game::set_invisible_man_place(const string place) {
+    return this->invisible_man.set_now_place(place) ;
 }
 
-void Game::set_dracula_place(const string place) {
-    this->dracula.set_now_place(place) ;
+bool Game::set_dracula_place(const string place) {
+    return this->dracula.set_now_place(place) ;
 }
 
 void Game::set_last_hero_turn(const string & new_turn) {
     this->last_hero_turn = new_turn ;
 }
 
-void Game::set_mayor_place(const string & place) {
-    this->mayor.set_now_place(place) ;
+bool Game::set_mayor_place(const string & place) {
+    return this->mayor.set_now_place(place) ;
 }
 
-void Game::set_archaeologist_place(const string & place) {
-    this->archaeologist.set_now_place(place) ;
+bool Game::set_archaeologist_place(const string & place) {
+    return this->archaeologist.set_now_place(place) ;
 
 }
 
-void Game::set_frenzy_monster( const string & name) {
-    this->frenzy_monster = name ;
+bool Game::set_frenzy_monster( const string & name) {
+    return this->frenzy_monster = name ;
 }
 
 void Game::set_villager_in_Game_map(const std::string place , const std::string name) {
@@ -135,6 +135,18 @@ void Game::set_villager_in_Game_map(const std::string place , const std::string 
         }
         ++counter ;
     }
+}
+
+void Game::set_added_action(const int & added_action) {
+    this -> added_action = added_action ;
+}
+
+void Game::handle_next_turn() {
+    this -> next_turn.handle_turn() ;
+}
+
+void Game::print_map() {
+    this -> Game_map.print() ;
 }
 
 string Game::get_invisible_man_place() {
@@ -169,5 +181,9 @@ string Game::get_dracula_name() {
 string Game::get_invisible_man_name() {
     return this->invisible_man.get_name() ;
 }
+int Game::get_added_action() {
+    return this -> added_action ;
+}
+
 
 

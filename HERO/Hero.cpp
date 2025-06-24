@@ -4,19 +4,16 @@
 
 using namespace std;
 
-Hero::Hero(string name, string spawn_and_now_place, bool special_action_info, int action): action(action){
+Hero::Hero(string name, string spawn_and_now_place, bool special_action_info, int action): action(action), special_action_info(1){
 
     set_name(name);
     set_spawn_place(spawn_and_now_place);
     set_now_place(spawn_and_now_place);
-    set_special_action_info(special_action_info);
+    set_investigate_item();
 }
 
 
 
-void Hero::set_special_action_info(bool special_action_info){
-    this -> special_action_info = special_action_info;
-}
 void Hero::set_name(string name){
     this -> name = name;
 }
@@ -28,6 +25,22 @@ void Hero::set_spawn_place(string spawn_place){
 }
 void Hero::set_now_place(string now_place){
     this -> now_place = now_place;
+}
+void Hero::set_item(Item item_info){
+    if(item.count(item_info)){
+        item[item_info]++;
+        return;
+    }
+    item[item_info] = 1;
+}
+void Hero::set_investigate_item(){
+
+    Item temp(0);
+    investigate_item["Inn"] = temp;
+    investigate_item["Barn"] = temp;
+    investigate_item["Institute"] = temp;
+    investigate_item["Laboratory"] = temp;
+    investigate_item["Mansion"] = temp;
 }
 
 
@@ -126,6 +139,9 @@ vector <Item> Hero::get_item(string color, int strength){
 
     return vec;
 }
+unordered_map <std::string, Item> Hero::get_investigate_item()const{
+    return investigate_item;
+}
 
 
 
@@ -139,4 +155,13 @@ Mayor:
 She Has no special action.
 
 )";
+}
+bool Hero::edit_investigate_item(Item item_info){
+
+    if(investigate_item.count(item_info.get_spawn_place())){
+
+        return false;
+    }
+    investigate_item[item_info.get_spawn_place()] = item_info;
+    return true;
 }

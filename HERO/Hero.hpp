@@ -28,11 +28,12 @@ class Hero{
         Hero() = default;
         Hero(std::string, std:: string, bool, int);
 
-        void set_special_action_info(bool);
         void set_name(std::string);
         void set_player_name(std::string);
         void set_spawn_place(std::string);
         void set_now_place(std::string);
+        void set_item(Item);
+        void set_investigate_item();
 
         bool get_special_action_info()const;
         int get_action()const;
@@ -42,13 +43,14 @@ class Hero{
         std::string get_now_place()const;
         shared_ptr<Perk> get_perk();
         vector <Item> get_item(std::string, int);
-        //vector <Item> get_item(std::string, int);
+        std::unordered_map <std::string, Item> get_investigate_item()const;
 
         void Describe_Hero_Special_Action();// this function describe the special action of all hero
+        bool edit_investigate_item(Item);//if item has found this func return false 
         
     private:
-\
-        bool special_action_info;
+
+        const bool special_action_info;
         const int action;
         std::string name;
         std::string player_name;
@@ -58,7 +60,7 @@ class Hero{
 
         std::unordered_map <std::shared_ptr<Perk>, int> perk;
         std::unordered_map <Item, int> item;
-        std::unordered_map <std::string, Item> investigate_item;
+        std::unordered_map <std::string, Item>static investigate_item;
 };
 
 #endif//HERO_H

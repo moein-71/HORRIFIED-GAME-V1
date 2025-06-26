@@ -1,7 +1,7 @@
 #ifndef POWER_HPP
 #define POWER_HPP
 
-#include "Monster_Action.hpp"
+#include "Monster_action.hpp"
 
 class Power : public Monster_action {
 

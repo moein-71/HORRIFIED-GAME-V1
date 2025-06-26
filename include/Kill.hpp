@@ -1,7 +1,7 @@
 #ifndef KILL_HPP
 #define KILL_HPP
 
-#include "Monster_Action.hpp"
+#include "Monster_action.hpp"
 
 class Kill : public Monster_action {
 

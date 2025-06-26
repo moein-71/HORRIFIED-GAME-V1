@@ -40,13 +40,18 @@ class Game {
         shared_ptr<Perk> get_random_perk() ; 
         shared_ptr<Monster_card> get_random_monster_card() ;
         Villager get_villager(std::string name) ;
+        
         char throw_dice() ; 
+
         std::string find_place_with_more_item_map() ;
         bool remove_all_item_in_place(std::string place) ;
-        void handle_next_turn() ;
+
         void print_map() ;
+
         std::string find_far_destination_monster_map(int move , std::string place , std::string archaeologist_place , std::string mayor_place) ;
         std::string find_far_destination_hero_map(int move , std::string place , std::string dracula_place , std::string Invisible_man_place) ;
+
+        void handle_turn() ;
 
         bool set_invisible_man_place(const std::string place) ; //we need validation on place 
         bool set_dracula_place(const std::string place) ; //we need validation on place

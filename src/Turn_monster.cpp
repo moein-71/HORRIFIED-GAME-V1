@@ -1,14 +1,4 @@
 #include "Turn_monster.hpp"
-#include "Egyptian_Expert.hpp"
-#include "Former_Employer.hpp"
-#include "Form_of_The_Bat.hpp"
-#include "Fortune_Teller.hpp"
-#include "Hurried_Assistant.hpp"
-#include "Sunrise.hpp"
-#include "The_Delivery.hpp"
-#include "The_Ichthyologist.hpp"
-#include "The_Innocent.hpp"
-#include "Thief.hpp"
 
 using namespace std ;
 

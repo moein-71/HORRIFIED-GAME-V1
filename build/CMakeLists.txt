@@ -6,4 +6,4 @@ project(fact)
 
 add_executable(app ../src/main.cpp)
 
-include_directories(../include ../include/Monster_card)
+include_directories(../include ../include/Monster_card ../include/Perk_card)

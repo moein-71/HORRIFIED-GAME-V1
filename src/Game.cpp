@@ -93,6 +93,24 @@ bool Game::remove_all_item_in_place(std::string place) {
     return false ;
 }
 
+void Game::handle_next_turn() {
+    this -> next_turn.handle_turn() ;
+}
+
+void Game::print_map() {
+    this -> Game_map.print() ;
+}
+
+string Game::find_far_destination_monster_map(int move , std::string place , std::string archaeologist_place , std::string mayor_place) {
+    return this -> Game_map.find_far_destination_monster(move , place , this -> archaeologist , this -> mayor) ;
+}
+
+std::string Game::find_far_destination_hero_map(int move , std::string place , std::string dracula_place , std::string Invisible_man_place) {
+    return this -> Game_map.find_far_destination_hero(move , place , this -> dracula , this -> invisible_man) ;
+
+}
+
+
 bool Game::set_invisible_man_place(const string place) {
     return this->invisible_man.set_now_place(place) ;
 }
@@ -139,14 +157,6 @@ void Game::set_villager_in_Game_map(const std::string place , const std::string 
 
 void Game::set_added_action(const int & added_action) {
     this -> added_action = added_action ;
-}
-
-void Game::handle_next_turn() {
-    this -> next_turn.handle_turn() ;
-}
-
-void Game::print_map() {
-    this -> Game_map.print() ;
 }
 
 string Game::get_invisible_man_place() {

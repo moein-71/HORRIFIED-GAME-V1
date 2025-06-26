@@ -45,6 +45,8 @@ class Game {
         bool remove_all_item_in_place(std::string place) ;
         void handle_next_turn() ;
         void print_map() ;
+        std::string find_far_destination_monster_map(int move , std::string place , std::string archaeologist_place , std::string mayor_place) ;
+        std::string find_far_destination_hero_map(int move , std::string place , std::string dracula_place , std::string Invisible_man_place) ;
 
         bool set_invisible_man_place(const std::string place) ; //we need validation on place 
         bool set_dracula_place(const std::string place) ; //we need validation on place

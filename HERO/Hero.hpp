@@ -45,8 +45,11 @@ class Hero{
         vector <Item> get_item(std::string, int);
         std::unordered_map <std::string, Item> get_investigate_item()const;
 
-        void Describe_Hero_Special_Action();// this function describe the special action of all hero
+        void Describe_Hero_Special_Action();//this function describe the special action of all hero
         bool edit_investigate_item(Item);//if item has found this func return false 
+        void When_Monster_Killed_A_Hero();
+        Item Back_To_Life_By_Use_An_Item();
+        void Go_To_Hospital();
         
     private:
 

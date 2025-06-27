@@ -1,6 +1,7 @@
 #include "Hero.hpp"
 #include <iostream>
 #include <sstream>
+#include <random>
 
 using namespace std;
 
@@ -164,4 +165,55 @@ bool Hero::edit_investigate_item(Item item_info){
     }
     investigate_item[item_info.get_spawn_place()] = item_info;
     return true;
+}
+void Hero::When_Monster_Killed_A_Hero(){
+
+    if(item.empty())
+       Go_To_Hospital();
+       
+    int choose;
+    string exeption_choose;
+
+    while(1){
+
+        cout << "Please enter number 1 if you want go to hospital, or number 2 for use an item and bach to life.\n";
+        getline(cin, exeption_choose);
+        istringstream iss(exeption_choose);
+
+        if(iss >> choose){
+
+            if(choose == 1)
+                Go_To_Hospital();
+            
+            else if(choose == 2)
+                Back_To_Life_By_Use_An_Item();
+
+            else{
+                cerr << "Please enter number 1 or 2.\n";
+            }
+        }
+        else{
+            cerr << "Please enter the right value.\n";
+        }
+    }
+}
+Item Hero::Back_To_Life_By_Use_An_Item(){
+
+    random_device rd;
+    mt19937 gen(rd());
+    uniform_int_distribution<> dist(0, item.size() - 1);
+
+    int rand_index = dist(gen);
+    auto it = item.begin();
+    advance(it, rand_index);
+
+    item[it->first]--;
+
+    if(!item[it->first])
+        item.erase(it->first);
+    
+    return it -> first;
+}
+void Hero::Go_To_Hospital(){
+    set_now_place("Hospital");
 }

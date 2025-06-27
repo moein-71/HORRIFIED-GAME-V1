@@ -10,8 +10,13 @@ class Game_turn {
 
         virtual ~Game_turn() = default ;
         virtual bool phase(Game& gamestage) = 0 ;
+        
+        void set_turn(string turn) ;
+        string get_turn() ;
 
     private :
+
+        std::string turn ;
 };
 
 #endif //GAME_TURN_HPP

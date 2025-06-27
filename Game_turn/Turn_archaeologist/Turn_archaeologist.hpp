@@ -13,6 +13,7 @@ class Turn_archaeologist : public Game_turn {
 
     public :
 
+        Turn_archaeologist() ;
         bool phase(Game& gamestage) override ;
 
     private :

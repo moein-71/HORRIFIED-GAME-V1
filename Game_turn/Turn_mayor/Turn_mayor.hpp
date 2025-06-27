@@ -13,6 +13,7 @@ class Turn_mayor : public Game_turn {
 
     public :
 
+        Turn_mayor() ;
         bool phase(Game& gamestage) override ;
 
     private :

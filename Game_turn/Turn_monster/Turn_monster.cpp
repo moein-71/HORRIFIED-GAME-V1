@@ -8,5 +8,5 @@ bool Turn_monster::phase(Game& gamestage) {
 
     monster_phase->info() ;
 
-    monster_phase->ability() ;
+    monster_phase->ability(gamestage) ;
 }

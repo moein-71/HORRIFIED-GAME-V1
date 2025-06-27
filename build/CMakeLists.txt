@@ -6,4 +6,6 @@ project(fact)
 
 add_executable(app ../src/main.cpp)
 
-include_directories(../include ../include/Monster_card ../include/Perk_card)
+include_directories(../include ../Game ../Game_turn ../Game_turn/Turn_archaeologist ../Game_turn/Turn_mayor ../Game_turn/Turn_monster 
+../Monster_action ../Monster_action/Kill ../Monster_action/Move_monster ../Monster_action/Power ../Monster_card ../Monster_card/card 
+../Perk_card ../Perk_card/card )

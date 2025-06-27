@@ -25,7 +25,7 @@ class Map{
         Item Pickeup_Item(std::string, std::string);
         std::string Find_Place_With_More_Item();
         std::vector<pair<Item, int>> Remove_All_Item_In_Place(std::string);
-        //std::string Find_Destination(int, std::string, Archaologist, Mayor);
+        std::string Find_Near_Destination(int, std::string, Archaologist, Mayor);
 
     private:
 

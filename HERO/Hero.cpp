@@ -2,6 +2,7 @@
 #include <iostream>
 #include <sstream>
 #include <random>
+#include <variant>
 
 using namespace std;
 
@@ -166,10 +167,12 @@ bool Hero::edit_investigate_item(Item item_info){
     investigate_item[item_info.get_spawn_place()] = item_info;
     return true;
 }
-void Hero::When_Monster_Killed_A_Hero(){
+variant<int, Item> Hero::When_Monster_Killed_A_Hero(){
 
-    if(item.empty())
+    if(item.empty()){
        Go_To_Hospital();
+       return 1;
+    }
        
     int choose;
     string exeption_choose;
@@ -182,11 +185,15 @@ void Hero::When_Monster_Killed_A_Hero(){
 
         if(iss >> choose){
 
-            if(choose == 1)
+            if(choose == 1){
                 Go_To_Hospital();
+                return 1;
+            }
             
-            else if(choose == 2)
-                Back_To_Life_By_Use_An_Item();
+            else if(choose == 2){
+                auto it = Back_To_Life_By_Use_An_Item();
+                return it;
+            }
 
             else{
                 cerr << "Please enter number 1 or 2.\n";

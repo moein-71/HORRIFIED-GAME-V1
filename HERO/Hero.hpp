@@ -5,6 +5,7 @@
 #include <string>
 #include <unordered_map>
 #include <memory>
+#include <variant>
 
 ////////////////////////////////////////////////(   TEMP_ CLASS   )////////////////////////////////////////////////////////////
 class Perk{
@@ -47,7 +48,7 @@ class Hero{
 
         void Describe_Hero_Special_Action();//this function describe the special action of all hero
         bool edit_investigate_item(Item);//if item has found this func return false 
-        void When_Monster_Killed_A_Hero();
+        std::variant<int, Item> When_Monster_Killed_A_Hero();
         Item Back_To_Life_By_Use_An_Item();
         void Go_To_Hospital();
         

@@ -6,7 +6,7 @@ void Break_of_dawn::ability(Game& gamestage) {
 
     const int add_item = 2 ; 
 
-    gamestage.handle_next_turn() ;
+    gamestage.handle_turn() ; // check this //
 
     for(int i{} ; i < add_item ; ++i) {
         gamestage.set_item_to_map(gamestage.get_random_item()) ;

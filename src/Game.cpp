@@ -1,9 +1,51 @@
 #include "Game.hpp"
 
+#include "Perk_card.hpp"
+#include "Break_of_Dawn.hpp"
+#include "Hurry.hpp"
+#include "Late_into_the_Night.hpp"
+#include "Overstock.hpp"
+#include "Repel.hpp"
+#include "Visit_from_the_Detective.hpp"
+
+#include "Egyptian_Expert.hpp"
+#include "Former_Employer.hpp"
+#include "Form_of_The_Bat.hpp"
+#include "Fortune_Teller.hpp"
+#include "Hurried_Assistant.hpp"
+#include "Sunrise.hpp"
+#include "The_Delivery.hpp"
+#include "The_Ichthyologist.hpp"
+#include "The_Innocent.hpp"
+#include "Thief.hpp"
+
 using namespace std ;
 
+// std::vector<Villager> villagers_bag ;
+// std::vector<Item> item_bag ;
+
 Game::Game() {////////////////////////////////////////////////// will be completed
-    
+
+    this->set_frenzy_monster(this->get_dracula_name()) ;
+
+    perk_bag.emplace_back(make_shared<Break_of_dawn>) ;
+    perk_bag.emplace_back(make_shared<Hurry>) ;
+    perk_bag.emplace_back(make_shared<Late_into_the_night>) ;
+    perk_bag.emplace_back(make_shared<Overstock>) ;
+    perk_bag.emplace_back(make_shared<Repel>) ;
+    perk_bag.emplace_back(make_shared<Visit_from_the_detective>) ;
+
+    Monster_cards_bag.emplace_back(make_shared<Egyptian_expert>) ;
+    Monster_cards_bag.emplace_back(make_shared<Form_of_The_bat>) ;
+    Monster_cards_bag.emplace_back(make_shared<Former_employer>) ;
+    Monster_cards_bag.emplace_back(make_shared<Fortune_teller>) ;
+    Monster_cards_bag.emplace_back(make_shared<Hurried_assistant>) ;
+    Monster_cards_bag.emplace_back(make_shared<Sunrise>) ;
+    Monster_cards_bag.emplace_back(make_shared<The_delivery>) ;
+    Monster_cards_bag.emplace_back(make_shared<The_ichthyologist>) ;
+    Monster_cards_bag.emplace_back(make_shared<The_innocent>) ;
+    Monster_cards_bag.emplace_back(make_shared<Thief>) ;
+
 }
 
 int Game::random_number() {

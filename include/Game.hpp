@@ -20,7 +20,7 @@ class Mayor ;
 class Dracula ;
 class Invisible_man ;
 class Villager ;
-class Perk ;
+class Perk_card ;
 class Item ;
 class Monster_card ;
 
@@ -37,7 +37,7 @@ class Game {
         int random_number() ;
         Item get_random_item() ; 
         void set_item_to_map(Item new_item) ;
-        shared_ptr<Perk> get_random_perk() ; 
+        shared_ptr<Perk_card> get_random_perk() ; 
         shared_ptr<Monster_card> get_random_monster_card() ;
         Villager get_villager(std::string name) ;
         
@@ -81,11 +81,11 @@ class Game {
         Archaeologist archaeologist ;
         Mayor mayor ;
         Dracula dracula ;  
-        int added_action ;
-        Invisible_man invisible_man ; 
+        Invisible_man invisible_man ;
         std::string frenzy_monster ; // first dracula // name of the monsters save in it 
+        int added_action ;
         std::vector<Villager> villagers_bag ;
-        std::vector<shared_ptr<Perk>> perk_bag ;
+        std::vector<shared_ptr<Perk_card>> perk_bag ;
         std::vector<shared_ptr<Monster_card>> Monster_cards_bag ;
         std::vector<Item> item_bag ;
 } ;

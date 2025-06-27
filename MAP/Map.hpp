@@ -27,6 +27,15 @@ class Map{
         std::vector<pair<Item, int>> Remove_All_Item_In_Place(std::string);
         std::string Find_Near_Destination(int, std::string, Archaologist, Mayor);
         std::string Move_Monster_Away_From_Hero(std::string, Hero*, Hero*);
+        std::string Move_Hero_Away_From_Monsters(
+            const std::string& hero_location,
+            const std::string& monster1_location,
+            const std::string& monster2_location,
+            const std::string& other_hero_location,
+            const int max_steps = 2
+        );
+
+        int bfs_distance(const std::string& start, const std::string& end);
 
     private:
 

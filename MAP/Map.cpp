@@ -9,6 +9,7 @@
 #include <optional>
 #include <algorithm>
 #include <climits>
+#include <limits>
 
 using namespace std;
 
@@ -321,4 +322,179 @@ string Map::Move_Monster_Away_From_Hero(string current_location, Hero* target_he
     }
     return best_location;
 }
+int Map::bfs_distance(const string& start, const string& goal){
 
+    if (start == goal) return 0;
+
+    unordered_set<string> visited;
+    queue<pair<string, int>> q;
+    q.push({start, 0});
+    visited.insert(start);
+
+    while(!q.empty()){
+
+        auto [node, dist] = q.front(); q.pop();
+
+        for(const auto& nbr : connection[node]){
+
+            if (visited.count(nbr)) continue;
+            if (nbr == goal) return dist + 1;
+            visited.insert(nbr);
+            q.push({nbr, dist + 1});
+        }
+    }
+    return numeric_limits<int>::max();
+}
+string Map::Move_Hero_Away_From_Monsters(
+    
+    const string& current_hero_location,
+    const string& first_monster_location,
+    const string& second_monster_location,
+    const string& other_hero_location,
+    const int max_steps = 2)
+{
+    
+    auto bfs_distance = [&](const string& start) -> unordered_map<string, int> {
+        unordered_map<string, int> dist;
+        queue<string> q;
+        q.push(start);
+        dist[start] = 0;
+
+        while(!q.empty()){
+            string node = q.front(); q.pop();
+            int d = dist[node];
+            for(const auto& neighbor : connection[node]){
+                if(dist.find(neighbor) == dist.end()){
+                    dist[neighbor] = d + 1;
+                    q.push(neighbor);
+                }
+            }
+        }
+        return dist;
+    };
+
+    auto dist_first_monster = bfs_distance(first_monster_location);
+    auto dist_second_monster = bfs_distance(second_monster_location);
+
+    unordered_map<string, int> villager_distance;
+    {
+        vector<string> villager_places;
+        for(const auto& [place, villagers] : villager_place) {
+            if(!villagers.empty())
+                villager_places.push_back(place);
+        }
+
+        if(villager_places.empty()){
+            for(const auto& [place, _] : connection) {
+                villager_distance[place] = INT_MAX;
+            }
+        } 
+        else {
+        
+            queue<string> q;
+            unordered_set<string> visited;
+            for(const auto& vp : villager_places) {
+                villager_distance[vp] = 0;
+                q.push(vp);
+                visited.insert(vp);
+            }
+            while(!q.empty()) {
+                string node = q.front(); q.pop();
+                int d = villager_distance[node];
+                for(const auto& neighbor : connection[node]) {
+                    if(!visited.count(neighbor)) {
+                        villager_distance[neighbor] = d + 1;
+                        visited.insert(neighbor);
+                        q.push(neighbor);
+                    }
+                }
+            }
+        }
+    }
+
+    auto dist_other_hero = bfs_distance(other_hero_location);
+
+    queue<pair<string,int>> q;
+    unordered_map<string,string> parent;
+    unordered_set<string> visited;
+    q.push({current_hero_location, 0});
+    visited.insert(current_hero_location);
+
+    struct Candidate {
+        string place;
+        int dist_first_monster;
+        int dist_second_monster;
+        int villager_dist;
+        int dist_other_hero;
+    };
+    vector<Candidate> candidates;
+
+    while(!q.empty()){
+        auto [node, step] = q.front(); q.pop();
+
+        int d1 = dist_first_monster.count(node) ? dist_first_monster[node] : INT_MAX;
+        int d2 = dist_second_monster.count(node) ? dist_second_monster[node] : INT_MAX;
+
+        int current_d1 = dist_first_monster.count(current_hero_location) ? dist_first_monster[current_hero_location] : INT_MAX;
+        int current_d2 = dist_second_monster.count(current_hero_location) ? dist_second_monster[current_hero_location] : INT_MAX;
+
+        bool is_further_or_equal = (d1 >= current_d1) && (d2 >= current_d2);
+
+        if(is_further_or_equal){
+            
+            int v_dist = villager_distance.count(node) ? villager_distance[node] : INT_MAX;
+            int d_other_hero = dist_other_hero.count(node) ? dist_other_hero[node] : INT_MAX;
+
+            candidates.push_back({node, d1, d2, v_dist, d_other_hero});
+        }
+        if(step == max_steps) continue;
+
+        for(const auto& neighbor : connection[node]){
+            if(!visited.count(neighbor)){
+
+                visited.insert(neighbor);
+                parent[neighbor] = node;
+                q.push({neighbor, step + 1});
+            }
+        }
+    }
+
+    if(candidates.empty()){
+
+        if(max_steps == 2) {
+            return Move_Hero_Away_From_Monsters(current_hero_location, first_monster_location, second_monster_location, other_hero_location, 1);
+        }
+        return current_hero_location;
+    }
+    sort(candidates.begin(), candidates.end(), [](const Candidate& a, const Candidate& b){
+
+        int min_dist_a = min(a.dist_first_monster, a.dist_second_monster);
+        int min_dist_b = min(b.dist_first_monster, b.dist_second_monster);
+
+        if(min_dist_a != min_dist_b) return min_dist_a > min_dist_b;
+
+        if(a.villager_dist != b.villager_dist) return a.villager_dist < b.villager_dist;
+
+        return a.dist_other_hero > b.dist_other_hero;
+    });
+
+    string best_place = candidates[0].place;
+
+    vector<string> path;
+    string current = best_place;
+
+    while(current != current_hero_location) {
+        path.push_back(current);
+        current = parent[current];
+    }
+    reverse(path.begin(), path.end());
+
+    if((int)path.size() <= max_steps && !path.empty())
+        return path.back();
+
+    else if(path.empty())
+        return current_hero_location;
+
+    else
+        return path[max_steps - 1];
+}

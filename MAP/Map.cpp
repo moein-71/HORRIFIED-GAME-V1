@@ -8,6 +8,7 @@
 #include <vector>
 #include <optional>
 #include <algorithm>
+#include <climits>
 
 using namespace std;
 
@@ -219,3 +220,105 @@ string Map::Find_Near_Destination(int max_steps, string current_location, Archao
         return path[max_steps - 1];
     }
 }
+string Map::Move_Monster_Away_From_Hero(string current_location, Hero* target_hero, Hero* other_hero) {
+
+    const int max_steps = 2;  
+    unordered_map<string, string> parent;
+    unordered_map<string, int> distance;
+    queue<string> q;
+    unordered_set<string> visited;
+
+    q.push(target_hero->get_now_place());
+    distance[target_hero->get_now_place()] = 0;
+    visited.insert(target_hero->get_now_place());
+
+    while(!q.empty()){
+
+        string node = q.front(); q.pop();
+        int d = distance[node];
+
+        for(const string& neighbor : connection[node]){
+            if(!visited.count(neighbor)){
+
+                visited.insert(neighbor);
+                parent[neighbor] = node;
+                distance[neighbor] = d + 1;
+                q.push(neighbor);
+            }
+        }
+    }
+
+    if (!distance.count(current_location))
+        return current_location;
+
+    queue<pair<string, int>> q2;
+    unordered_set<string> visited2;
+
+    q2.push({current_location, 0});
+    visited2.insert(current_location);
+
+    vector<string> candidates;
+    int best_distance = distance[current_location]; 
+
+    while(!q2.empty()){
+
+        auto [node, steps] = q2.front(); q2.pop();
+
+        if(distance.count(node) && distance[node] > best_distance){
+            candidates.push_back(node);
+            continue;
+        }
+
+        if(steps == max_steps)
+            continue; 
+
+        for (const string& neighbor : connection[node]) {
+            if (!visited2.count(neighbor)) {
+                visited2.insert(neighbor);
+                q2.push({neighbor, steps + 1});
+            }
+        }
+    }
+
+    if (candidates.empty()) 
+        return current_location;
+
+    auto is_close_to_villager = [&](const string& loc) -> bool {
+        if (villager_place.count(loc) && !villager_place[loc].empty())
+            return true;
+            
+        for (const string& neighbor : connection[loc]) {
+            if (villager_place.count(neighbor) && !villager_place[neighbor].empty())
+                return true;
+        }
+        return false;
+    };
+
+    auto hero_distance = [&](const string& loc, const string& hero_loc) -> int {
+        if (distance.count(loc) && distance.count(hero_loc))
+            return abs(distance[loc] - distance[hero_loc]);
+        return INT_MAX;
+    };
+
+    string best_location = candidates[0];
+    bool best_close_to_villager = is_close_to_villager(best_location);
+
+    for(const string& cand : candidates){
+        bool close_to_villager = is_close_to_villager(cand);
+
+        if (!close_to_villager && best_close_to_villager) {
+            best_location = cand;
+            best_close_to_villager = false;
+        }
+        else if(close_to_villager == best_close_to_villager){
+
+            int dist_best = hero_distance(best_location, other_hero->get_now_place());
+            int dist_cand = hero_distance(cand, other_hero->get_now_place());
+            if(dist_cand > dist_best){
+                best_location = cand;
+            }
+        }
+    }
+    return best_location;
+}
+

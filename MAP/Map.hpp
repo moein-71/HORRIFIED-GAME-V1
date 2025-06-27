@@ -26,6 +26,7 @@ class Map{
         std::string Find_Place_With_More_Item();
         std::vector<pair<Item, int>> Remove_All_Item_In_Place(std::string);
         std::string Find_Near_Destination(int, std::string, Archaologist, Mayor);
+        std::string Move_Monster_Away_From_Hero(std::string, Hero*, Hero*);
 
     private:
 

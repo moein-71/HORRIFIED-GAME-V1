@@ -44,6 +44,7 @@ class Hero{
         std::string get_now_place()const;
         shared_ptr<Perk> get_perk();
         vector <Item> get_item(std::string, int);
+        void remove_item_from_bag(std::unordered_map <Item, int>&, Item);
         std::unordered_map <std::string, Item> get_investigate_item()const;
 
         void Describe_Hero_Special_Action();//this function describe the special action of all hero

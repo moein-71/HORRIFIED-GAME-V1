@@ -3,6 +3,7 @@
 #include <sstream>
 #include <random>
 #include <variant>
+#include <iomanip>
 
 using namespace std;
 
@@ -104,42 +105,79 @@ shared_ptr<Perk> Hero::get_perk(){
     return vec[choose - 1];
 }
 vector <Item> Hero::get_item(string color, int strength){
-    
+
+    if(item.empty()){
+        cout << "Your item bag is empty.\n";
+        return {};
+    }
+
+    unordered_map<Item, int> second_item;
+    for(auto item_info: item){
+        if(item_info.first.get_color() == color){
+            second_item[item_info.first] = item_info.second;
+        }
+    }
+
+    if(second_item.empty()){
+        cout << "Your item bag whith " << color << " is empty.\n";
+        return {};
+    }
+
+    for(auto item_name: second_item){
+        cout << "Item name:" << item_name.first.get_name() << setw(5)
+        << "Item number:" << item_name.second << '\n';
+    }
+    cout << "\n__________________________________________________________________________\n";
+
+    bool Hozoor = 0;
     int sum_strength{};
-    vector <Item> vec;
+    string choose_item;
+    vector <Item> choose;
+    unordered_map <Item, int> copy_item = second_item;
+    while(1 && !copy_item.empty()){
 
-    for(auto obj_item: item){
+        Hozoor = 0;
 
-        if(obj_item.first.get_color() == color){
+        cout << "Please enter name of item that you want or write exit.\n";
+        getline(cin, choose_item);
 
-            sum_strength += obj_item.first.get_strength();
+        if(choose_item == "exit"){
+            return {};
+        }
 
-            if(obj_item.second > 1){
-
-               if(sum_strength >= strength)break;              
-               sum_strength += obj_item.first.get_strength();
-               vec.push_back(obj_item.first);
+        for(auto item_info: copy_item){
+            if(item_info.first.get_name() == choose_item){
+                
+                Hozoor = 1;
+                sum_strength += item_info.first.get_strength();
+                choose.push_back(item_info.first);
+                remove_item_from_bag(copy_item, item_info.first);
             }
-
-            vec.push_back(obj_item.first);
         }
-
-        if(sum_strength >= strength)break;
-    }
-
-    if(sum_strength < strength)return {};
-
-    for(auto obj_item: vec){
-
-        item[obj_item]--;
-
-        if(!item[obj_item]){
-
-            item.erase(obj_item);
+        if(!Hozoor){
+            cout << "There is no such item.\n";
+            continue;
+        }
+        if(sum_strength >= strength){
+            break;
         }
     }
+    if(sum_strength < strength){
+        cout << "You can't run this action.\n";
+        return {};
+    }
+    else{
+        for(auto item_info: choose){
+            remove_item_from_bag(item, item_info);
+        }
+        return choose;
+    }
+}
+void Hero::remove_item_from_bag(unordered_map <Item, int>& bag_item, Item item){
 
-    return vec;
+    if(!(--bag_item[item])){
+        bag_item.erase(item);
+    }
 }
 unordered_map <std::string, Item> Hero::get_investigate_item()const{
     return investigate_item;
@@ -224,3 +262,61 @@ Item Hero::Back_To_Life_By_Use_An_Item(){
 void Hero::Go_To_Hospital(){
     set_now_place("Hospital");
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// vector <Item> Hero::get_item(string color, int strength){
+    
+//     int sum_strength{};
+//     vector <Item> vec;
+
+//     for(auto obj_item: item){
+
+//         if(obj_item.first.get_color() == color){
+
+//             sum_strength += obj_item.first.get_strength();
+
+//             if(obj_item.second > 1){
+
+//                if(sum_strength >= strength)break;              
+//                sum_strength += obj_item.first.get_strength();
+//                vec.push_back(obj_item.first);
+//             }
+
+//             vec.push_back(obj_item.first);
+//         }
+
+//         if(sum_strength >= strength)break;
+//     }
+
+//     if(sum_strength < strength)return {};
+
+//     for(auto obj_item: vec){
+
+//         item[obj_item]--;
+
+//         if(!item[obj_item]){
+
+//             item.erase(obj_item);
+//         }
+//     }
+
+//     return vec;
+// }

@@ -51,17 +51,20 @@ void Map::set_item(Item inf_item){
 void Map::set_villager(string place, Villager villager){
     villager_place[place].push_back(villager);
 }
-bool Map::set_villager_place(string place, string villager_name){
+bool Map::set_villager_place(string now_place, string new_place, string villager_name){
     
-    for(auto &villager: villager_place[place]){
+    auto& villager_now_place = villager_place[now_place];
+    
+    for(int i{}; i < villager_now_place.size(); ++i){
+        if(villager_now_place[i].get_name() == villager_name){
 
-        if(villager.get_name() == villager_name){
-
-            villager.set_now_place(place);
-            return true ;
+            villager_now_place[i].set_now_place(new_place);
+            set_villager(new_place, villager_now_place[i]);
+            villager_now_place.erase(villager_now_place.begin() + i);
+            return true;
         }
     }
-    return false ;
+    return false;
 }
 
 
@@ -347,7 +350,7 @@ int Map::bfs_distance(const string& start, const string& goal){
     return numeric_limits<int>::max();
 }
 string Map::Move_Hero_Away_From_Monsters(
-    
+
     const string& current_hero_location,
     const string& first_monster_location,
     const string& second_monster_location,

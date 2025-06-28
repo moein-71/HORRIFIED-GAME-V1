@@ -81,19 +81,19 @@ class Game {
 
     private :
     
+        int Terror_level ;
+        int added_action ;
         std::shared_ptr<Game_turn> turn ;
         std::shared_ptr<Game_turn> player_1 ;
         std::shared_ptr<Game_turn> player_2 ;
         std::shared_ptr<Game_turn> monster ;
         std::string last_hero_turn ; // Archaeologist , Mayor  // in constructor we find out how start first and ho start last and its use in monster card abilitys
         Map Game_map ;
-        int Terror_level ;
         Archaologist archaeologist ;
         Mayor mayor ;
         Dracula dracula ;  
         Invisible_man invisible_man ;
         std::string frenzy_monster ; // first dracula // name of the monsters save in it 
-        int added_action ;
         std::vector<Villager> villagers_bag ;
         std::vector<shared_ptr<Perk_card>> perk_bag ;
         std::vector<shared_ptr<Monster_card>> Monster_cards_bag ;

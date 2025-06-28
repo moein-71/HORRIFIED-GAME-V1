@@ -37,7 +37,7 @@ void Hero::set_item(Item item_info){
 }
 void Hero::set_investigate_item(){
 
-    Item temp(0);
+    Item temp("" , "" , "" , 0);
     investigate_item["Inn"] = temp;
     investigate_item["Barn"] = temp;
     investigate_item["Institute"] = temp;

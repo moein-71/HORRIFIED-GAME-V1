@@ -43,9 +43,14 @@ using namespace std ;
 
 Game::Game(shared_ptr<Game_turn> player_1 , shared_ptr<Game_turn> player_2) {////////////////////////////////////////////////// will be completed
 
+    this -> Terror_level = 6 ;
+    this -> added_action = 0 ;
+
     this -> player_1 = player_1 ;
     this -> player_2 = player_2 ;
     this -> monster = make_shared<Turn_monster>() ;
+
+    this -> frenzy_monster = this -> dracula.get_name() ;
 
     this->set_frenzy_monster(this->get_dracula_name()) ;
 
@@ -66,6 +71,57 @@ Game::Game(shared_ptr<Game_turn> player_1 , shared_ptr<Game_turn> player_2) {///
     Monster_cards_bag.emplace_back(make_shared<The_ichthyologist>()) ;
     Monster_cards_bag.emplace_back(make_shared<The_innocent>()) ;
     Monster_cards_bag.emplace_back(make_shared<Thief>()) ;
+
+    // string name, string safe_place, string now_place
+
+    villagers_bag.emplace_back(Villager("Dr.Cranley" , "Precinct" , "")) ;
+    villagers_bag.emplace_back(Villager("Dr.Reed" , "Camp" , "")) ;
+    villagers_bag.emplace_back(Villager("Prof.Pearson" , "Museum" , "")) ;
+    villagers_bag.emplace_back(Villager("Maleva" , "Shop" , "")) ;
+    villagers_bag.emplace_back(Villager("Fritz" , "Institute" , "")) ;
+    villagers_bag.emplace_back(Villager("Wilbur & Chick" , "Dungeon" , "")) ;
+    villagers_bag.emplace_back(Villager("Maria" , "Camp" , "")) ;
+
+    // string name, string spawn_place, string color, int strength
+
+    item_bag.emplace_back(Item("Flower" , "Docks" , "Yellow" , 2)) ;
+    item_bag.emplace_back(Item("Tarot Deck" , "Camp" , "Yellow" , 1)) ;
+    item_bag.emplace_back(Item("Garlic" , "Inn" , "Yellow" , 2)) ;
+    item_bag.emplace_back(Item("Mirrored Box" , "Mansion" , "Yellow" , 3)) ;
+    item_bag.emplace_back(Item("Stake" , "Abbey" , "Yellow" , 3)) ;
+    item_bag.emplace_back(Item("Scroll of Thoth" , "Museum" , "Yellow" , 4)) ;
+    item_bag.emplace_back(Item("Violin" , "Camp" , "Yellow" , 3)) ;
+    item_bag.emplace_back(Item("Tablet" , "Museum" , "Yellow" , 3)) ;
+    item_bag.emplace_back(Item("Wolfsbane" , "Camp" , "Yellow" , 4)) ;
+    item_bag.emplace_back(Item("Charm" , "Camp" , "Yellow" , 4)) ;
+    item_bag.emplace_back(Item("Dart" , "Inn" , "Red" , 1)) ;
+    item_bag.emplace_back(Item("Firep Poker" , "Mansion" , "Red" , 1)) ;
+    item_bag.emplace_back(Item("Rpier" , "Theatre" , "Red" , 1)) ;
+    item_bag.emplace_back(Item("" , "" , "Red" , 1)) ;
+    item_bag.emplace_back(Item("" , "" , "Red" , 1)) ;
+    item_bag.emplace_back(Item("" , "" , "Red" , 1)) ;
+    item_bag.emplace_back(Item("" , "" , "Red" , 1)) ;
+    item_bag.emplace_back(Item("" , "" , "Red" , 1)) ;
+    item_bag.emplace_back(Item("" , "" , "Red" , 1)) ;
+    item_bag.emplace_back(Item("" , "" , "Red" , 1)) ;
+    item_bag.emplace_back(Item("" , "" , "Red" , 1)) ;
+    item_bag.emplace_back(Item("" , "" , "Red" , 1)) ;
+    item_bag.emplace_back(Item("" , "" , "" , 1)) ;
+    item_bag.emplace_back(Item("" , "" , "" , 1)) ;
+    item_bag.emplace_back(Item("" , "" , "" , 1)) ;
+    item_bag.emplace_back(Item("" , "" , "" , 1)) ;
+    item_bag.emplace_back(Item("" , "" , "" , 1)) ;
+    item_bag.emplace_back(Item("" , "" , "" , 1)) ;
+    item_bag.emplace_back(Item("" , "" , "" , 1)) ;
+    item_bag.emplace_back(Item("" , "" , "" , 1)) ;
+    item_bag.emplace_back(Item("" , "" , "" , 1)) ;
+    item_bag.emplace_back(Item("" , "" , "" , 1)) ;
+    item_bag.emplace_back(Item("" , "" , "" , 1)) ;
+    item_bag.emplace_back(Item("" , "" , "" , 1)) ;
+    item_bag.emplace_back(Item("" , "" , "" , 1)) ;
+    item_bag.emplace_back(Item("" , "" , "" , 1)) ;
+
+
 
 }
 

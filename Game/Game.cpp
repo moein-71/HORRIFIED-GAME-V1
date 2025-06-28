@@ -1,5 +1,22 @@
 #include "Game.hpp"
 
+#include "Archaologist.hpp"
+#include "Mayor.hpp"
+
+#include "Item.hpp"
+
+#include "Map.hpp"
+
+#include "Dracula.hpp"
+#include "Invisible_man.hpp"
+
+#include "Villager.hpp"
+
+#include "../Game_turn/Game_turn.hpp"
+#include "../Game_turn/Turn_monster/Turn_monster.hpp"
+#include "../Game_turn/Turn_archaeologist/Turn_archaeologist.hpp"
+#include "../Game_turn/Turn_mayor/Turn_mayor.hpp"
+
 #include "Perk_card.hpp"
 #include "Break_of_Dawn.hpp"
 #include "Hurry.hpp"
@@ -24,27 +41,31 @@ using namespace std ;
 // std::vector<Villager> villagers_bag ;
 // std::vector<Item> item_bag ;
 
-Game::Game() {////////////////////////////////////////////////// will be completed
+Game::Game(shared_ptr<Game_turn> player_1 , shared_ptr<Game_turn> player_2) {////////////////////////////////////////////////// will be completed
+
+    this -> player_1 = player_1 ;
+    this -> player_2 = player_2 ;
+    this -> monster = make_shared<Turn_monster>() ;
 
     this->set_frenzy_monster(this->get_dracula_name()) ;
 
-    perk_bag.emplace_back(make_shared<Break_of_dawn>) ;
-    perk_bag.emplace_back(make_shared<Hurry>) ;
-    perk_bag.emplace_back(make_shared<Late_into_the_night>) ;
-    perk_bag.emplace_back(make_shared<Overstock>) ;
-    perk_bag.emplace_back(make_shared<Repel>) ;
-    perk_bag.emplace_back(make_shared<Visit_from_the_detective>) ;
+    perk_bag.emplace_back(make_shared<Break_of_dawn>()) ;
+    perk_bag.emplace_back(make_shared<Hurry>()) ;
+    perk_bag.emplace_back(make_shared<Late_into_the_night>()) ;
+    perk_bag.emplace_back(make_shared<Overstock>()) ;
+    perk_bag.emplace_back(make_shared<Repel>()) ;
+    perk_bag.emplace_back(make_shared<Visit_from_the_detective>()) ;
 
-    Monster_cards_bag.emplace_back(make_shared<Egyptian_expert>) ;
-    Monster_cards_bag.emplace_back(make_shared<Form_of_The_bat>) ;
-    Monster_cards_bag.emplace_back(make_shared<Former_employer>) ;
-    Monster_cards_bag.emplace_back(make_shared<Fortune_teller>) ;
-    Monster_cards_bag.emplace_back(make_shared<Hurried_assistant>) ;
-    Monster_cards_bag.emplace_back(make_shared<Sunrise>) ;
-    Monster_cards_bag.emplace_back(make_shared<The_delivery>) ;
-    Monster_cards_bag.emplace_back(make_shared<The_ichthyologist>) ;
-    Monster_cards_bag.emplace_back(make_shared<The_innocent>) ;
-    Monster_cards_bag.emplace_back(make_shared<Thief>) ;
+    Monster_cards_bag.emplace_back(make_shared<Egyptian_expert>()) ;
+    Monster_cards_bag.emplace_back(make_shared<Form_of_The_bat>()) ;
+    Monster_cards_bag.emplace_back(make_shared<Former_employer>()) ;
+    Monster_cards_bag.emplace_back(make_shared<Fortune_teller>()) ;
+    Monster_cards_bag.emplace_back(make_shared<Hurried_assistant>()) ;
+    Monster_cards_bag.emplace_back(make_shared<Sunrise>()) ;
+    Monster_cards_bag.emplace_back(make_shared<The_delivery>()) ;
+    Monster_cards_bag.emplace_back(make_shared<The_ichthyologist>()) ;
+    Monster_cards_bag.emplace_back(make_shared<The_innocent>()) ;
+    Monster_cards_bag.emplace_back(make_shared<Thief>()) ;
 
 }
 
@@ -70,15 +91,21 @@ Item Game::get_random_item() {
     return random_item ;
 }
 
+void Game::set_item_bag(Item new_item) {
+
+    item_bag.push_back(new_item) ;
+}
+
+
 void Game::set_item_to_map(Item new_item) {
 
     this->Game_map.set_item(new_item) ;
 }
-shared_ptr<Perk> Game::get_random_perk() {
+shared_ptr<Perk_card> Game::get_random_perk() {
 
     int number = (this->random_number() % this->perk_bag.size()) ;
 
-    shared_ptr<Perk> random = perk_bag[number] ;
+    shared_ptr<Perk_card> random = perk_bag[number] ;
     perk_bag.erase(perk_bag.begin() + number) ;
     perk_bag.shrink_to_fit() ;
 
@@ -125,18 +152,26 @@ char Game::throw_dice() {
 }
 
 std::string Game::find_place_with_more_item_map() {
-    return this->Game_map.find_place_with_more_item() ;
+    return this->Game_map.Find_Place_With_More_Item() ;
 }
 
 bool Game::remove_all_item_in_place(std::string place) {
-    if(this->Game_map.remove_all_item_in_place(place)) { ;
+
+    vector<pair<Item, int>> remove_item = this->Game_map.Remove_All_Item_In_Place(place) ;
+
+    if(!remove_item.empty()) { ;
+        for(auto add : remove_item) {
+            for(int i{} ; i < add.second ; ++i) {
+                this -> set_item_bag(add.first) ;
+            }
+        }
         return true ;
     }
     return false ;
 }
 
-void Game::handle_next_turn() {
-    this -> next_turn.handle_turn() ;
+void Game::handle_turn() {
+    this -> turn->handle_turn(*this) ;
 }
 
 void Game::print_map() {
@@ -144,58 +179,57 @@ void Game::print_map() {
 }
 
 string Game::find_far_destination_monster_map(int move , std::string place , std::string archaeologist_place , std::string mayor_place) {
-    return this -> Game_map.find_far_destination_monster(move , place , this -> archaeologist , this -> mayor) ;
+    return this -> Game_map.Move_Monster_Away_From_Hero(move , place , this -> archaeologist , this -> mayor) ;
 }
 
 std::string Game::find_far_destination_hero_map(int move , std::string place , std::string dracula_place , std::string Invisible_man_place) {
-    return this -> Game_map.find_far_destination_hero(move , place , this -> dracula , this -> invisible_man) ;
+    return this -> Game_map.Move_Hero_Away_From_Monsters(move , place , this -> dracula , this -> invisible_man) ;
 
 }
 
 
-bool Game::set_invisible_man_place(const string place) {
-    return this->invisible_man.set_now_place(place) ;
+void Game::set_invisible_man_place(const string place) {
+    this->invisible_man.set_now_place(place) ;
 }
 
-bool Game::set_dracula_place(const string place) {
-    return this->dracula.set_now_place(place) ;
+void Game::set_dracula_place(const string place) {
+    this->dracula.set_now_place(place) ;
 }
 
 void Game::set_last_hero_turn(const string & new_turn) {
     this->last_hero_turn = new_turn ;
 }
 
-bool Game::set_mayor_place(const string & place) {
-    return this->mayor.set_now_place(place) ;
+void Game::set_mayor_place(const string & place) {
+    this->mayor.set_now_place(place) ;
 }
 
-bool Game::set_archaeologist_place(const string & place) {
-    return this->archaeologist.set_now_place(place) ;
+void Game::set_archaeologist_place(const string & place) {
+    this->archaeologist.set_now_place(place) ;
 
 }
 
-bool Game::set_frenzy_monster( const string & name) {
-    return this->frenzy_monster = name ;
+void Game::set_frenzy_monster( const string & name) {
+    this->frenzy_monster = name ;
 }
 
 void Game::set_villager_in_Game_map(const std::string place , const std::string name) {
 
-    for(int counter{} ; Villager temp : this->villagers_bag) {
+    for(int counter{} ; const Villager & temp : this->villagers_bag) {
         if(temp.get_name() == name) {
-            if(this->Game_map.set_villager(place , temp)) {
-                villagers_bag.erase(villagers_bag.begin() + counter) ;
-                return ;
-            }
-            else if(this->Game_map.set_villager_place(place , name)) {
-                return ;
-            }
-            else {
-                cout<< "\nsorry but this villager has been died\n" ;
-            }
+            this -> Game_map.set_villager(place , temp) ;
+            this -> villagers_bag.erase(villagers_bag.begin() + counter) ;
+            return ;
         }
         ++counter ;
     }
-}
+    if(this->Game_map.set_villager_place(place , name)) {
+        return ;
+    }
+    else {
+        cout<< "\nsorry but this villager has been died\n" ;
+    }
+}        
 
 void Game::set_added_action(const int & added_action) {
     this -> added_action = added_action ;

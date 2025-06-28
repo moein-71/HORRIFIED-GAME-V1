@@ -12,10 +12,14 @@
 #include <format>
 #include <array>
 #include <set>
+#include <unordered_map>
 
-class CharacterState ;
+class Game_turn ;
+class Turn_monster ;
+class Turn_archaeologist ;
+class Turn_mayor ;
 class Map ;
-class Archaeologist ;
+class Archaologist ;
 class Mayor ;
 class Dracula ;
 class Invisible_man ;
@@ -29,13 +33,17 @@ class Game {
     friend class Move_monster ;
     friend class Kill ;
     friend class Power ;
+    friend class Turn_monster ;
+    friend class Turn_archaeologist ;
+    friend class Turn_mayor ;
 
     public :
 
-        Game() ;
+        Game(shared_ptr<Game_turn> player_1 , shared_ptr<Game_turn> player_2) ;
         
         int random_number() ;
         Item get_random_item() ; 
+        void set_item_bag(Item new_item) ;
         void set_item_to_map(Item new_item) ;
         shared_ptr<Perk_card> get_random_perk() ; 
         shared_ptr<Monster_card> get_random_monster_card() ;
@@ -53,13 +61,13 @@ class Game {
 
         void handle_turn() ;
 
-        bool set_invisible_man_place(const std::string place) ; //we need validation on place 
-        bool set_dracula_place(const std::string place) ; //we need validation on place
+        void set_invisible_man_place(const std::string place) ; //we need validation on place 
+        void set_dracula_place(const std::string place) ; //we need validation on place
         void set_last_hero_turn(const std::string & new_turn) ;
-        bool set_mayor_place(const std::string & place) ; //we need validation on place
-        bool set_archaeologist_place(const std::string & place) ; //we need validation on place
-        bool set_frenzy_monster(const std::string & name) ; //we need validation on place
-        bool set_villager_in_Game_map(const std::string place , const std::string name) ; //we need validation on place
+        void set_mayor_place(const std::string & place) ; //we need validation on place
+        void set_archaeologist_place(const std::string & place) ; //we need validation on place
+        void set_frenzy_monster(const std::string & name) ; //we need validation on place
+        void set_villager_in_Game_map(const std::string place , const std::string name) ; //we need validation on place
         void set_added_action(const int & added_action) ;
         std::string get_invisible_man_place() ;
         std::string get_dracula_place() ;
@@ -73,12 +81,14 @@ class Game {
 
     private :
     
-        std::unique_ptr<CharacterState> turn ;
-        std::unique_ptr<CharacterState> next_turn ; // we should to create an cycle // pak kon bad anjam // 
+        std::shared_ptr<Game_turn> turn ;
+        std::shared_ptr<Game_turn> player_1 ;
+        std::shared_ptr<Game_turn> player_2 ;
+        std::shared_ptr<Game_turn> monster ;
         std::string last_hero_turn ; // Archaeologist , Mayor  // in constructor we find out how start first and ho start last and its use in monster card abilitys
         Map Game_map ;
         int Terror_level ;
-        Archaeologist archaeologist ;
+        Archaologist archaeologist ;
         Mayor mayor ;
         Dracula dracula ;  
         Invisible_man invisible_man ;

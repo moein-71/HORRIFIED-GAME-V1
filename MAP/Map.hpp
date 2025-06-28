@@ -19,7 +19,7 @@ class Map{
         void set_connection();
         void set_item(Item);
         void set_villager(std::string, Villager);//This function add Villager
-        void set_villager_place(std::string, std::string);//This function edit villager_place
+        bool set_villager_place(std::string, std::string, std::string);//This function edit villager_place
 
         bool Kill_Villager(std::string); 
         Item Pickeup_Item(std::string, std::string);
@@ -34,7 +34,6 @@ class Map{
             const std::string& other_hero_location,
             const int max_steps = 2
         );
-
         int bfs_distance(const std::string& start, const std::string& end);
 
     private:

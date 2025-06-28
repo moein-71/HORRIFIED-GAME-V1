@@ -10,6 +10,13 @@ Item::Item(string name, string spawn_place, string color, int strength){
     set_color(color);
     set_strength(strength);
 }
+Item::Item(int num){
+    
+    set_name("0");
+    set_spawn_place("0");
+    set_color("0");
+    set_strength(0);
+}
 
 
 

@@ -15,6 +15,12 @@ Dracula::Dracula(): Monster(1, "Dracula", {"Cave", "Dungeon", "Crypt", "Graveyar
 
 
 
+unordered_map<string, bool> Dracula::get_casket()const{
+    return casket;
+}
+
+
+
 bool Dracula::Destroy_Casket(string place){
 
     if(casket.count(place)){
@@ -25,12 +31,17 @@ bool Dracula::Destroy_Casket(string place){
             return true;
         }
 
-        else return false;
+        else{
+            
+            cout << "This casket destroyed befor.\n";
+            return false;          
+        }
     }
 
     else{
 
-        throw invalid_argument("In this place there is no any casket.");
+        cout << "You entered wrong name.\n";
+        return false;
     }
 }
 bool Dracula::Check_Casket(){

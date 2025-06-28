@@ -9,7 +9,8 @@ class Item{
     public:
     
         Item() = default;
-        Item(std::string, std::string, std::string, int);  
+        explicit Item(int);//this constructor males temp_obj_Item  
+        Item(std::string, std::string, std::string, int);
 
         std::string get_name()const;
         std::string get_spawn_place()const;

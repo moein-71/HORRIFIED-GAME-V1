@@ -19,15 +19,15 @@ class Map{
         void set_connection();
         void set_item(Item);
         void set_villager(std::string, Villager);//This function add Villager
-        void set_villager_place(std::string, std::string);//This function edit villager_place
+        bool set_villager_place(std::string, std::string);//This function edit villager_place
 
         bool Kill_Villager(std::string); 
         Item Pickeup_Item(std::string, std::string);
         std::string Find_Place_With_More_Item();
         std::vector<pair<Item, int>> Remove_All_Item_In_Place(std::string);
         std::string Find_Near_Destination(int, std::string, Archaologist, Mayor);
-        std::string Move_Monster_Away_From_Hero(std::string, Hero*, Hero*);
-        std::string Move_Hero_Away_From_Monsters(
+        std::string Move_Monster_Away_From_Hero(std::string, Hero*, Hero*); // where is move 
+        std::string Move_Hero_Away_From_Monsters( // where is move 
             const std::string& hero_location,
             const std::string& monster1_location,
             const std::string& monster2_location,

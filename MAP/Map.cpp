@@ -51,16 +51,17 @@ void Map::set_item(Item inf_item){
 void Map::set_villager(string place, Villager villager){
     villager_place[place].push_back(villager);
 }
-void Map::set_villager_place(string place, string villager_name){
+bool Map::set_villager_place(string place, string villager_name){
     
     for(auto &villager: villager_place[place]){
 
         if(villager.get_name() == villager_name){
 
             villager.set_now_place(place);
-            break;
+            return true ;
         }
     }
+    return false ;
 }
 
 

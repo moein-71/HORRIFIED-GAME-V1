@@ -2,7 +2,6 @@
 #define GAME_TURN_HPP
 
 #include "Game.hpp"
-// #include ".hpp" // hero action
 
 class Game_turn {
 
@@ -10,13 +9,10 @@ class Game_turn {
 
         virtual ~Game_turn() = default ;
         virtual bool phase(Game& gamestage) = 0 ;
-        
-        void set_turn(string turn) ;
-        string get_turn() ;
+        virtual void handle_turn(Game& gamestage) = 0 ;
 
     private :
 
-        std::string turn ;
 };
 
 #endif //GAME_TURN_HPP

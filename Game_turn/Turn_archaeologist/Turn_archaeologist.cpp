@@ -1,11 +1,13 @@
 #include "Turn_archaeologist.hpp"
+#include "Turn_monster.hpp"
 
 using namespace std ;
 
-Turn_archaeologist::Turn_archaeologist() {
-    set_turn("Archaeologist") ;
-}
-
 bool Turn_archaeologist::phase(Game& gamestage) {
     
+}
+
+void Turn_archaeologist::handle_turn(Game& gamestage) {
+
+    gamestage.turn = gamestage.monster ;
 }

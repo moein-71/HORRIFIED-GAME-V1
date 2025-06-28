@@ -13,8 +13,8 @@ class Turn_archaeologist : public Game_turn {
 
     public :
 
-        Turn_archaeologist() ;
         bool phase(Game& gamestage) override ;
+        void handle_turn(Game& gamestage) override ;
 
     private :
 };

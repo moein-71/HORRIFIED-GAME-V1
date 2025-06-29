@@ -2,6 +2,10 @@
 
 using namespace std ;
 
+Visit_from_the_detective::Visit_from_the_detective() {
+    this -> set_perk_name("Visit_from_the_detective") ;
+}
+
 void Visit_from_the_detective::ability(Game& gamestage) {
     
     string place ;
@@ -12,12 +16,13 @@ void Visit_from_the_detective::ability(Game& gamestage) {
     if(place == "exit") {
         return ;
     }
-    while(!gamestage.set_invisible_man_place(place)) { // this func should check the place if its currect return true //
+    while(!gamestage.Check_Place_Exist_in_map(place)) { // this func should check the place if its currect return true //
         cin>> place ;
         if(place == "exit") {
-        return ;
+            return ;
+        }
     }
-    }
+    gamestage.set_invisible_man_place(place) ;
 }
 
 std::string Visit_from_the_detective::info() const {

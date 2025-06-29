@@ -7,6 +7,7 @@ class Overstock : public Perk_card {
 
     public :
 
+        Overstock() ;
         void ability(Game& gamestage) override ;
         std::string info() const override ;
 

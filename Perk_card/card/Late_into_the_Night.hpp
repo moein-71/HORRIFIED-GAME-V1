@@ -7,6 +7,7 @@ class Late_into_the_night : public Perk_card {
 
     public :
 
+        Late_into_the_night() ;
         void ability(Game& gamestage) override ;
         std::string info() const override ;
 

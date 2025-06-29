@@ -2,6 +2,10 @@
 
 using namespace std ;
 
+Late_into_the_night::Late_into_the_night() {
+    this -> set_perk_name("Late_into_the_night") ;
+}
+
 void Late_into_the_night::ability(Game& gamestage) {
 
     const int added_action = 2 ;

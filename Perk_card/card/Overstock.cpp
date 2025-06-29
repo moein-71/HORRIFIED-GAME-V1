@@ -2,6 +2,9 @@
 
 using namespace std ;
 
+Overstock::Overstock() {
+    this -> set_perk_name("Overstock") ;
+}
 
 void Overstock::ability(Game& gamestage)  {
 

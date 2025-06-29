@@ -7,6 +7,7 @@ class Repel : public Perk_card {
 
     public :
 
+        Repel() ;       
         void ability(Game& gamestage) override ;
         std::string info() const override ;
 

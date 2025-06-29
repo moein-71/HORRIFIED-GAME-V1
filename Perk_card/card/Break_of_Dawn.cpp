@@ -2,6 +2,10 @@
 
 using namespace std ;
 
+Break_of_dawn::Break_of_dawn() {
+    this -> set_perk_name("Break_of_dawn") ;
+}
+
 void Break_of_dawn::ability(Game& gamestage) {
 
     const int add_item = 2 ; 

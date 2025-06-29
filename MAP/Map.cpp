@@ -20,6 +20,27 @@ Map::Map(){
 vector<Villager> Map::get_villager(string place){
     return villager_place[place];
 }
+std::string Map::get_villager_place(std::string name) {
+    for(auto vec_villager : villager_place) {
+        for(auto villager : vec_villager.second) {
+            if(villager.get_name() == name) {
+                return vec_villager.first ;
+            }
+        }
+    }
+    cout<< "this villager not exist\n" ;
+    return "" ;
+}
+
+std::string Map::get_villager_safe_place(std::string place , std::string name) {
+    for(auto villager : villager_place[place]) {
+        if(villager.get_name() == name) {
+            return villager.get_safe_place() ;
+        }
+    }
+    return "" ;
+}
+
 vector<string> Map::get_connection(std::string place){
     return connection[place] ;
 }
@@ -97,6 +118,14 @@ bool Map::Check_Count_Neighbor_Connection(std::string now_place , std::string ne
     }
     return false ;
 }
+
+bool Map::Check_Place_Exist(std::string place) {
+    if(connection.count(place)) {
+        return true ;
+    }
+    return false ;
+}
+
 
 bool Map::Kill_Villager(string place){
 
@@ -379,12 +408,11 @@ int Map::bfs_distance(const string& start, const string& goal){
     return numeric_limits<int>::max();
 }
 string Map::Move_Hero_Away_From_Monsters(
-
     const string& current_hero_location,
     const string& first_monster_location,
     const string& second_monster_location,
     const string& other_hero_location,
-    const int max_steps = 2)
+    int max_steps = 2)
 {
     
     auto bfs_distance = [&](const string& start) -> unordered_map<string, int> {

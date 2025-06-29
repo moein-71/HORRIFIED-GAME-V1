@@ -3,6 +3,9 @@
 
 #include <string>
 #include <vector>
+#include "Game.hpp"
+
+#include "Villager.hpp"
 
 class Monster{
 

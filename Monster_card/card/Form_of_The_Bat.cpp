@@ -1,4 +1,4 @@
-#include "../include/Monster_card/Form_of_The_Bat.hpp" 
+#include "Form_of_The_Bat.hpp" 
 #include "Move_monster.hpp"
 #include "Kill.hpp"
 #include "Power.hpp"
@@ -22,7 +22,7 @@ void Form_of_The_bat::ability(Game& gamestage) {
 
     //Event 
 
-    string dracula_new_place = gamestage.get_last_hero_turn() == "Mayor" ? gamestage.get_mayor_place() : gamestage.get_archaeologist_place() ;
+    string dracula_new_place = gamestage.get_last_hero_turn() == "Mayor" ? gamestage.get_mayor_place() : gamestage.get_archaologist_place() ;
     gamestage.set_dracula_place(dracula_new_place) ;
 
     //Strike

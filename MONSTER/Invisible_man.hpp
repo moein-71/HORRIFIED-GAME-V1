@@ -13,6 +13,7 @@ class Invisible_man: public Monster{
 
         Invisible_man();
 
+        std::unordered_map <std::string, bool> get_investigate()const;
         void reset_near_villager(std:: vector<Villager>);
         bool set_investigate_found(std::string);
         bool can_kill_villager(Villager);

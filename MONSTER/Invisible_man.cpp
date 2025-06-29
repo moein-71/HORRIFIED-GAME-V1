@@ -17,6 +17,9 @@ Invisible_man::Invisible_man(): Monster(1, "Invisible_man", {"Inn", "Bern", "Ins
 
 
 
+unordered_map <string, bool> Invisible_man::get_investigate()const{
+    return investigate;
+}
 bool Invisible_man::set_investigate_found(string place){
 
     if(investigate.count(place)){

@@ -16,7 +16,7 @@
 
 class Game_turn ;
 class Turn_monster ;
-class Turn_archaeologist ;
+class Turn_archaologist ;
 class Turn_mayor ;
 class Map ;
 class Archaologist ;
@@ -46,7 +46,7 @@ class Game {
     friend class Defeat ;
     friend class Advance ;
     friend class Turn_monster ;
-    friend class Turn_archaeologist ;
+    friend class Turn_archaologist ;
     friend class Turn_mayor ;
 
     public :
@@ -68,7 +68,7 @@ class Game {
 
         void print_map() ;
 
-        std::string find_far_destination_monster_map(int move , std::string place , std::string archaeologist_place , std::string mayor_place) ;
+        std::string find_far_destination_monster_map(int move , std::string place , std::string archaologist_place , std::string mayor_place) ;
         std::string find_far_destination_hero_map(int move , std::string place , std::string dracula_place , std::string Invisible_man_place) ;
 
         void handle_turn() ;
@@ -77,7 +77,7 @@ class Game {
         void set_dracula_place(const std::string place) ; //we need validation on place
         void set_last_hero_turn(const std::string & new_turn) ;
         void set_mayor_place(const std::string & place) ; //we need validation on place
-        void set_archaeologist_place(const std::string & place) ; //we need validation on place
+        void set_archaologist_place(const std::string & place) ; //we need validation on place
         void set_frenzy_monster(const std::string & name) ; //we need validation on place
         void set_villager_in_Game_map(const std::string place , const std::string name) ; //we need validation on place
         void set_added_action(const int & added_action) ;
@@ -85,11 +85,13 @@ class Game {
         std::string get_dracula_place() ;
         std::string get_last_hero_turn() ;
         std::string get_mayor_place() ;
-        std::string get_archaeologist_place() ;
+        std::string get_archaologist_place() ;
         std::string get_frenzy_monster() ;
         std::string get_dracula_name() ;
         std::string get_invisible_man_name() ;
         int get_added_action() ;
+
+        bool Check_Place_Exist_in_map(std::string place) ;
 
     private :
     
@@ -99,7 +101,7 @@ class Game {
         std::shared_ptr<Game_turn> player_1 ;
         std::shared_ptr<Game_turn> player_2 ;
         std::shared_ptr<Game_turn> monster ;
-        std::string last_hero_turn ; // Archaeologist , Mayor  // in constructor we find out how start first and ho start last and its use in monster card abilitys
+        std::string last_hero_turn ; // archaologist , Mayor  // in constructor we find out how start first and ho start last and its use in monster card abilitys
         Map Game_map ;
         Archaologist archaologist ;
         Mayor mayor ;

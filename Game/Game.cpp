@@ -55,22 +55,45 @@ Game::Game(shared_ptr<Game_turn> player_1 , shared_ptr<Game_turn> player_2) {///
     this->set_frenzy_monster(this->get_dracula_name()) ;
 
     perk_bag.emplace_back(make_shared<Break_of_dawn>()) ;
+    perk_bag.emplace_back(make_shared<Break_of_dawn>()) ;
+    perk_bag.emplace_back(make_shared<Break_of_dawn>()) ;
+    perk_bag.emplace_back(make_shared<Hurry>()) ;
+    perk_bag.emplace_back(make_shared<Hurry>()) ;
     perk_bag.emplace_back(make_shared<Hurry>()) ;
     perk_bag.emplace_back(make_shared<Late_into_the_night>()) ;
+    perk_bag.emplace_back(make_shared<Late_into_the_night>()) ;
+    perk_bag.emplace_back(make_shared<Late_into_the_night>()) ;
+    perk_bag.emplace_back(make_shared<Late_into_the_night>()) ;
+    perk_bag.emplace_back(make_shared<Overstock>()) ;
+    perk_bag.emplace_back(make_shared<Overstock>()) ;
+    perk_bag.emplace_back(make_shared<Overstock>()) ;
     perk_bag.emplace_back(make_shared<Overstock>()) ;
     perk_bag.emplace_back(make_shared<Repel>()) ;
+    perk_bag.emplace_back(make_shared<Repel>()) ;
+    perk_bag.emplace_back(make_shared<Repel>()) ;
+    perk_bag.emplace_back(make_shared<Visit_from_the_detective>()) ;
+    perk_bag.emplace_back(make_shared<Visit_from_the_detective>()) ;
     perk_bag.emplace_back(make_shared<Visit_from_the_detective>()) ;
 
     Monster_cards_bag.emplace_back(make_shared<Egyptian_expert>()) ;
+    Monster_cards_bag.emplace_back(make_shared<Form_of_The_bat>()) ;
+    Monster_cards_bag.emplace_back(make_shared<Form_of_The_bat>()) ;
     Monster_cards_bag.emplace_back(make_shared<Form_of_The_bat>()) ;
     Monster_cards_bag.emplace_back(make_shared<Former_employer>()) ;
     Monster_cards_bag.emplace_back(make_shared<Fortune_teller>()) ;
     Monster_cards_bag.emplace_back(make_shared<Hurried_assistant>()) ;
     Monster_cards_bag.emplace_back(make_shared<Sunrise>()) ;
+    Monster_cards_bag.emplace_back(make_shared<Sunrise>()) ;
+    Monster_cards_bag.emplace_back(make_shared<Sunrise>()) ;
     Monster_cards_bag.emplace_back(make_shared<The_delivery>()) ;
     Monster_cards_bag.emplace_back(make_shared<The_ichthyologist>()) ;
     Monster_cards_bag.emplace_back(make_shared<The_innocent>()) ;
     Monster_cards_bag.emplace_back(make_shared<Thief>()) ;
+    Monster_cards_bag.emplace_back(make_shared<Thief>()) ;
+    Monster_cards_bag.emplace_back(make_shared<Thief>()) ;
+    Monster_cards_bag.emplace_back(make_shared<Thief>()) ;
+    Monster_cards_bag.emplace_back(make_shared<Thief>()) ;
+
 
     // string name, string safe_place, string now_place
 
@@ -94,32 +117,66 @@ Game::Game(shared_ptr<Game_turn> player_1 , shared_ptr<Game_turn> player_2) {///
     item_bag.emplace_back(Item("Tablet" , "Museum" , "Yellow" , 3)) ;
     item_bag.emplace_back(Item("Wolfsbane" , "Camp" , "Yellow" , 4)) ;
     item_bag.emplace_back(Item("Charm" , "Camp" , "Yellow" , 4)) ;
-    item_bag.emplace_back(Item("Dart" , "Inn" , "Red" , 1)) ;
-    item_bag.emplace_back(Item("Firep Poker" , "Mansion" , "Red" , 1)) ;
-    item_bag.emplace_back(Item("Rpier" , "Theatre" , "Red" , 1)) ;
-    item_bag.emplace_back(Item("" , "" , "Red" , 1)) ;
-    item_bag.emplace_back(Item("" , "" , "Red" , 1)) ;
-    item_bag.emplace_back(Item("" , "" , "Red" , 1)) ;
-    item_bag.emplace_back(Item("" , "" , "Red" , 1)) ;
-    item_bag.emplace_back(Item("" , "" , "Red" , 1)) ;
-    item_bag.emplace_back(Item("" , "" , "Red" , 1)) ;
-    item_bag.emplace_back(Item("" , "" , "Red" , 1)) ;
-    item_bag.emplace_back(Item("" , "" , "Red" , 1)) ;
-    item_bag.emplace_back(Item("" , "" , "Red" , 1)) ;
-    item_bag.emplace_back(Item("" , "" , "" , 1)) ;
-    item_bag.emplace_back(Item("" , "" , "" , 1)) ;
-    item_bag.emplace_back(Item("" , "" , "" , 1)) ;
-    item_bag.emplace_back(Item("" , "" , "" , 1)) ;
-    item_bag.emplace_back(Item("" , "" , "" , 1)) ;
-    item_bag.emplace_back(Item("" , "" , "" , 1)) ;
-    item_bag.emplace_back(Item("" , "" , "" , 1)) ;
-    item_bag.emplace_back(Item("" , "" , "" , 1)) ;
-    item_bag.emplace_back(Item("" , "" , "" , 1)) ;
-    item_bag.emplace_back(Item("" , "" , "" , 1)) ;
-    item_bag.emplace_back(Item("" , "" , "" , 1)) ;
-    item_bag.emplace_back(Item("" , "" , "" , 1)) ;
-    item_bag.emplace_back(Item("" , "" , "" , 1)) ;
-    item_bag.emplace_back(Item("" , "" , "" , 1)) ;
+    item_bag.emplace_back(Item("Dart" , "Inn" , "Red" , 2)) ;
+    item_bag.emplace_back(Item("Fire Poker" , "Mansion" , "Red" , 3)) ;
+    item_bag.emplace_back(Item("Rapier" , "Theatre" , "Red" , 5)) ;
+    item_bag.emplace_back(Item("Shovel" , "Graveyard" , "Red" , 2)) ;
+    item_bag.emplace_back(Item("Torch" , "Barn" , "Red" , 5)) ;
+    item_bag.emplace_back(Item("Pitchfork" , "Barn" , "Red" , 4)) ;
+    item_bag.emplace_back(Item("Rifle" , "Barn" , "Red" , 6)) ;
+    item_bag.emplace_back(Item("Silver Cane" , "Shop" , "Red" , 6)) ;
+    item_bag.emplace_back(Item("Knife" , "Docks" , "Red" , 3)) ;
+    item_bag.emplace_back(Item("Pistol" , "Precinct" , "Red" , 6)) ;
+    item_bag.emplace_back(Item("Bear Trap" , "Shop" , "Red" , 4)) ;
+    item_bag.emplace_back(Item("Speargun" , "Institute" , "Red" , 4)) ;
+    item_bag.emplace_back(Item("Anatomy Text" , "Institute" , "Blue" , 1)) ;
+    item_bag.emplace_back(Item("Centrifuge" , "Laboratory" , "Blue" , 1)) ;
+    item_bag.emplace_back(Item("Kite" , "Tower" , "Blue" , 1)) ;
+    item_bag.emplace_back(Item("Research" , "Tower" , "Blue" , 2)) ;
+    item_bag.emplace_back(Item("Telescope" , "Mansion" , "Blue" , 2)) ;
+    item_bag.emplace_back(Item("Searchlight" , " Precinct" , "Blue" , 2)) ;
+    item_bag.emplace_back(Item("Experiment" , "Laboratory" , "Blue" , 2)) ;
+    item_bag.emplace_back(Item("Analysis" , "Institute" , "Blue" , 2)) ;
+    item_bag.emplace_back(Item("Rotenone" , "Institute" , "Blue" , 3)) ;
+    item_bag.emplace_back(Item("Cosmic Ray Diffuser" , "Tower" , "Blue" , 3)) ;
+    item_bag.emplace_back(Item("Monocane  Mixture" , "Inn" , "Blue" , 3)) ;
+    item_bag.emplace_back(Item("Nebularium" , "Tower" , "Blue" , 3)) ;
+    item_bag.emplace_back(Item("Fossil" , "Camp" , "Blue" , 3)) ;
+    item_bag.emplace_back(Item("Flower" , "Docks" , "Yellow" , 2)) ;
+    item_bag.emplace_back(Item("Tarot Deck" , "Camp" , "Yellow" , 1)) ;
+    item_bag.emplace_back(Item("Garlic" , "Inn" , "Yellow" , 2)) ;
+    item_bag.emplace_back(Item("Mirrored Box" , "Mansion" , "Yellow" , 3)) ;
+    item_bag.emplace_back(Item("Stake" , "Abbey" , "Yellow" , 3)) ;
+    item_bag.emplace_back(Item("Scroll of Thoth" , "Museum" , "Yellow" , 4)) ;
+    item_bag.emplace_back(Item("Violin" , "Camp" , "Yellow" , 3)) ;
+    item_bag.emplace_back(Item("Tablet" , "Museum" , "Yellow" , 3)) ;
+    item_bag.emplace_back(Item("Wolfsbane" , "Camp" , "Yellow" , 4)) ;
+    item_bag.emplace_back(Item("Charm" , "Camp" , "Yellow" , 4)) ;
+    item_bag.emplace_back(Item("Dart" , "Inn" , "Red" , 2)) ;
+    item_bag.emplace_back(Item("Fire Poker" , "Mansion" , "Red" , 3)) ;
+    item_bag.emplace_back(Item("Rapier" , "Theatre" , "Red" , 5)) ;
+    item_bag.emplace_back(Item("Shovel" , "Graveyard" , "Red" , 2)) ;
+    item_bag.emplace_back(Item("Torch" , "Barn" , "Red" , 5)) ;
+    item_bag.emplace_back(Item("Pitchfork" , "Barn" , "Red" , 4)) ;
+    item_bag.emplace_back(Item("Rifle" , "Barn" , "Red" , 6)) ;
+    item_bag.emplace_back(Item("Silver Cane" , "Shop" , "Red" , 6)) ;
+    item_bag.emplace_back(Item("Knife" , "Docks" , "Red" , 3)) ;
+    item_bag.emplace_back(Item("Pistol" , "Precinct" , "Red" , 6)) ;
+    item_bag.emplace_back(Item("Bear Trap" , "Shop" , "Red" , 4)) ;
+    item_bag.emplace_back(Item("Speargun" , "Institute" , "Red" , 4)) ;
+    item_bag.emplace_back(Item("Anatomy Text" , "Institute" , "Blue" , 1)) ;
+    item_bag.emplace_back(Item("Centrifuge" , "Laboratory" , "Blue" , 1)) ;
+    item_bag.emplace_back(Item("Kite" , "Tower" , "Blue" , 1)) ;
+    item_bag.emplace_back(Item("Research" , "Tower" , "Blue" , 2)) ;
+    item_bag.emplace_back(Item("Telescope" , "Mansion" , "Blue" , 2)) ;
+    item_bag.emplace_back(Item("Searchlight" , " Precinct" , "Blue" , 2)) ;
+    item_bag.emplace_back(Item("Experiment" , "Laboratory" , "Blue" , 2)) ;
+    item_bag.emplace_back(Item("Analysis" , "Institute" , "Blue" , 2)) ;
+    item_bag.emplace_back(Item("Rotenone" , "Institute" , "Blue" , 3)) ;
+    item_bag.emplace_back(Item("Cosmic Ray Diffuser" , "Tower" , "Blue" , 3)) ;
+    item_bag.emplace_back(Item("Monocane  Mixture" , "Inn" , "Blue" , 3)) ;
+    item_bag.emplace_back(Item("Nebularium" , "Tower" , "Blue" , 3)) ;
+    item_bag.emplace_back(Item("Fossil" , "Camp" , "Blue" , 3)) ;
 
 
 
@@ -231,15 +288,15 @@ void Game::handle_turn() {
 }
 
 void Game::print_map() {
-    this -> Game_map.print() ;
+    // this -> Game_map.print() ;
 }
 
 string Game::find_far_destination_monster_map(int move , std::string place , std::string archaeologist_place , std::string mayor_place) {
-    return this -> Game_map.Move_Monster_Away_From_Hero(move , place , this -> archaeologist , this -> mayor) ;
+    return this -> Game_map.Move_Monster_Away_From_Hero(place , &(this -> archaologist) , &(this -> mayor)) ; //
 }
 
 std::string Game::find_far_destination_hero_map(int move , std::string place , std::string dracula_place , std::string Invisible_man_place) {
-    return this -> Game_map.Move_Hero_Away_From_Monsters(move , place , this -> dracula , this -> invisible_man) ;
+    return this -> Game_map.Move_Hero_Away_From_Monsters(place , this -> dracula.get_now_place() , this -> invisible_man.get_now_place() , this -> get_mayor_place()) ; //
 
 }
 
@@ -260,8 +317,8 @@ void Game::set_mayor_place(const string & place) {
     this->mayor.set_now_place(place) ;
 }
 
-void Game::set_archaeologist_place(const string & place) {
-    this->archaeologist.set_now_place(place) ;
+void Game::set_archaologist_place(const string & place) {
+    this->archaologist.set_now_place(place) ;
 
 }
 
@@ -279,7 +336,7 @@ void Game::set_villager_in_Game_map(const std::string place , const std::string 
         }
         ++counter ;
     }
-    if(this->Game_map.set_villager_place(place , name)) {
+    if(this->Game_map.set_villager_place(this -> Game_map.get_villager_place(name) , place , name)) {
         return ;
     }
     else {
@@ -308,8 +365,8 @@ string Game::get_mayor_place() {
     return mayor.get_now_place() ;
 }
 
-string Game::get_archaeologist_place() {
-    return archaeologist.get_now_place() ;
+string Game::get_archaologist_place() {
+    return archaologist.get_now_place() ;
 }
 
 string Game::get_frenzy_monster() {
@@ -324,7 +381,13 @@ string Game::get_invisible_man_name() {
     return this->invisible_man.get_name() ;
 }
 int Game::get_added_action() {
-    return this -> added_action ;
+    added_action = this -> added_action ;
+    this -> added_action = 0 ;
+    return added_action ;
+}
+
+bool Game::Check_Place_Exist_in_map(string place) {
+    return this -> Game_map.Check_Place_Exist(place) ;
 }
 
 

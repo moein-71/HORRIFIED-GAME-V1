@@ -33,7 +33,7 @@ void Move_Hero::Activate(Game& game, Hero* hero){
 
                 Hozoor = 1;
 
-                vector<Villager> villager = game.Game_map.get_villager[choose_place_name];
+                vector<Villager> villager = game.Game_map.get_villager(choose_place_name);
 
                 if(villager.empty()){
 
@@ -42,7 +42,7 @@ void Move_Hero::Activate(Game& game, Hero* hero){
                 }
                 
                 for(int i{}; i < villager.size(); ++i){
-                    cout << "Villager name: " << villager[i].get_name << '\n';
+                    cout << "Villager name: " << villager[i].get_name() << '\n';
                 }
                 cout << "___________________________________________________________________\n";
 

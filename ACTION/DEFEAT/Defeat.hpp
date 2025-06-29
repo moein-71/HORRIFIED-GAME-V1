@@ -9,7 +9,7 @@ class Defeat: public Hero_Action{
 
     public:
 
-        bool Activate(Game&, Hero*);
+        void Activate(Game&, Hero*);
         std::string info()const;
 };
 

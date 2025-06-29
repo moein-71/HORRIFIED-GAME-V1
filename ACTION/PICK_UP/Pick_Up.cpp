@@ -5,8 +5,8 @@ using namespace std;
 
 void Pick_Up::Activate(Game& game, Hero* hero){
 
-    string now_place = game.*hero ->get_now_place();
-    auto unordered_item = game.Game_map.get_item_place(now_place);
+    string now_place = hero -> get_now_place();
+    auto unordered_item = game.Game_map.get_item_of_place(now_place);
 
     for(auto pair_item: unordered_item){
         cout << "Item name: " << pair_item.first.get_name()
@@ -38,7 +38,7 @@ void Pick_Up::Activate(Game& game, Hero* hero){
 
                 for(int i{game.Game_map.get_item_number(now_place, choose_name)}; i > 0; --i){
 
-                    game.*hero ->set_item(game.Game_map.Pickeup_Item(now_place, choose_name));
+                    hero ->set_item(game.Game_map.Pickeup_Item(now_place, choose_name));
                 }
             }
             else{

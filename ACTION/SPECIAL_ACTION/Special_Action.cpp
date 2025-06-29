@@ -11,12 +11,9 @@ void Special_Action::Activate(Game& game, Hero* hero){
 
         cout << "Place name:" << name_neighbor_place << '\n';
 
-        for(auto unordered_item_info: game.Game_map.get_item_place(name_neighbor_place)){
-            for(auto item_info: unordered_item_info){
-
+        for(auto item_info: game.Game_map.get_item_of_place(name_neighbor_place)){
                 cout << "Item name:" << item_info.first.get_name() << setw(10) 
                 << "Number item:" << item_info.second << '\n';
-            }
         }
         cout << "____________________________________________________________________\n";
     }
@@ -32,9 +29,9 @@ void Special_Action::Activate(Game& game, Hero* hero){
         if(choose == "exit")
             break;
 
-        if(game.Game_map.Check_Count_Neighbor_Connection(choose)){
+        if(game.Game_map.Check_Count_Neighbor_Connection(game.archaologist.get_now_place() , choose)){
 
-            auto it = game.Game_map.get_item_place(game.archaologist.get_now_place(), choose);
+            auto it = game.Game_map.get_item_of_place(game.archaologist.get_now_place());
             game.Game_map.Remove_All_Item_In_Place(choose);
 
             for(auto pair_it: it){

@@ -6,7 +6,7 @@ using namespace std;
 void Guide::Activate(Game& game, Hero* hero){
 
     bool Hozoor = 0;
-    string now_place = game.*hero ->get_now_place();
+    string now_place = hero ->get_now_place();
     auto neighbor = game.Game_map.get_connection(now_place);
 
     auto vector_villager_info = game.Game_map.get_villager(now_place);

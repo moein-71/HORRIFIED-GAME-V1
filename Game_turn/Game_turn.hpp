@@ -2,6 +2,14 @@
 #define GAME_TURN_HPP
 
 #include "Game.hpp"
+#include "Hero_Action.hpp"
+#include "Advance.hpp"
+#include "Defeat.hpp"
+#include "Guide.hpp"
+#include "Move_Hero.hpp"
+#include "Pick_Up.hpp"
+#include "Special_Action.hpp"
+
 
 class Game_turn {
 

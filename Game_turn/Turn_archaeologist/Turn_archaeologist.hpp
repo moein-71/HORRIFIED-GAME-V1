@@ -9,7 +9,7 @@
 #include "Repel.hpp"
 #include "Visit_from_the_Detective.hpp"
 
-class Turn_archaeologist : public Game_turn {
+class Turn_archaologist : public Game_turn {
 
     public :
 

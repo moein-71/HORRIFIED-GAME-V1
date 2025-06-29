@@ -4,6 +4,7 @@
 #include <random>
 #include <variant>
 #include <iomanip>
+#include "Perk_card.hpp"
 
 using namespace std;
 
@@ -46,6 +47,16 @@ void Hero::set_investigate_item(){
     investigate_item["Mansion"] = temp;
 }
 
+void Hero::set_perk(shared_ptr<Perk_card> new_perk) {
+    if(perk.count(new_perk)) {
+        perk[new_perk]++ ;
+        return ;
+    }
+    else {
+        perk[new_perk] = 1 ;
+    }
+}
+
 
 
 bool Hero::get_special_action_info()const{
@@ -66,44 +77,53 @@ string Hero::get_spawn_place()const{
 string Hero::get_now_place()const{
     return now_place;
 }
-// shared_ptr<Perk_card> Hero::get_perk(){
+shared_ptr<Perk_card> Hero::get_perk(){
 
-//     int counter{1};
-//     vector <shared_ptr<Perk_card>> vec;
+    int counter{1};
+    vector <shared_ptr<Perk_card>> vec;
 
-//     for(auto print: perk){
+    for(auto print: perk){
 
-//         cout << counter << '.' << (*print.first).get_name() << '   ';
-//         vec.push_back(print.first);
-//         counter++;
-//     }
+        cout << counter << '.' << (*print.first).get_perk_name() << '   ';
+        vec.push_back(print.first);
+        counter++;
+    }
 
-//     cout << counter << '.' << "exit";
-//     cout << "Please enter the number of perk you want: ";
-//     int choose;
-//     string ch;cin >> ch;
-//     istringstream iss(ch);
+    cout << counter << '.' << "exit";
+    cout << "Please enter the number of perk you want: ";
+    int choose;
+    string ch;cin >> ch;
+    istringstream iss(ch);
 
-//     if(iss >> choose && choose >= 1 && choose <= counter){
+    if(iss >> choose && choose >= 1 && choose <= counter){
 
-//         if(choose == counter){
+        if(choose == counter){
 
-//             return nullptr;//if player want to exit in this time func retrunes nullptr
-//         }
+            return nullptr;//if player want to exit in this time func retrunes nullptr
+        }
 
-//         perk[vec[choose - 1]]--;
-//         if(!perk[vec[choose - 1]]){
+        cout<< "INFO :\n" << vec[choose - 1]->info() << '\n' ;
+        cout<< "\nIf you want to back type : N , otherwise only type a letter\n" ;
+        string y_or_n ; 
+        cin>> y_or_n ;
+        if(y_or_n == "N") {
+            return ;
+        }
 
-//             perk.erase(vec[choose - 1]);
-//         }
-//     }
-//     else{
 
-//         throw invalid_argument("please enter a right value");
-//     }
+        perk[vec[choose - 1]]--;
+        if(!perk[vec[choose - 1]]){
 
-//     return vec[choose - 1];
-// }
+            perk.erase(vec[choose - 1]);
+        }
+    }
+    else{
+
+        throw invalid_argument("please enter a right value");
+    }
+
+    return vec[choose - 1];
+}
 vector<Item> Hero::get_item(string color, int strength){
 
     if(item.empty()){

@@ -6,7 +6,8 @@
 #include <unordered_map>
 #include <memory>
 #include <variant>
-#include "Perk_card.hpp"
+
+class Perk_card ;
 
 class Hero{
 
@@ -21,6 +22,7 @@ class Hero{
         void set_now_place(std::string);
         void set_item(Item);
         void set_investigate_item();
+        void set_perk(shared_ptr<Perk_card>) ;
 
         bool get_special_action_info()const;
         int get_action()const;

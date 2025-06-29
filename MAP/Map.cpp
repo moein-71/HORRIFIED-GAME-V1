@@ -20,7 +20,20 @@ Map::Map(){
 vector<Villager> Map::get_villager(string place){
     return villager_place[place];
 }
-
+vector<string> Map::get_connection(std::string place){
+    return connection[place] ;
+}
+std::unordered_map<Item, int> Map::get_item_of_place(std::string place){
+    return item_place[place] ;
+}
+int Map::get_item_number(std::string place , std::string item_name) {
+    for(const auto& pair : item_place[place]) {
+        if(pair.first.get_name() == item_name) {
+            return pair.second ;
+        }
+    }
+    return 0 ;
+}
 
 
 void Map::set_connection(){
@@ -67,7 +80,23 @@ bool Map::set_villager_place(string now_place, string new_place, string villager
     return false;
 }
 
+bool Map::Check_Count_Item_Place(std::string place ,std::string item_name) {
+    for(auto pair : item_place[place]) {
+        if(pair.first.get_name() == item_name) {
+            return true ;
+        }
+    }
+    return false ;
+}
 
+bool Map::Check_Count_Neighbor_Connection(std::string now_place , std::string neighbor) {
+    for(string place : connection[now_place]) {
+        if(place == neighbor) {
+            return true ;
+        }
+    }
+    return false ;
+}
 
 bool Map::Kill_Villager(string place){
 
@@ -85,7 +114,7 @@ bool Map::Kill_Villager(string place){
 }
 Item Map::Pickeup_Item(string place, string item_name){
 
-    for(auto item: item_place[place]){
+    for(const auto& item: item_place[place]){
         if(item.first.get_name() == item_name){
 
             item_place[place][item.first]--;
@@ -106,7 +135,7 @@ string Map::Find_Place_With_More_Item(){
     for(auto place_name: item_place){
 
         counter = 0;
-        for(auto item: place_name.second){
+        for(const auto& item: place_name.second){
             counter += item.second;
         }
         if(max < counter){
@@ -121,7 +150,7 @@ string Map::Find_Place_With_More_Item(){
 vector<pair<Item, int>> Map::Remove_All_Item_In_Place(string place){
 
     vector<pair<Item, int>> res;
-    for(auto item: item_place[place]){
+    for(const auto& item: item_place[place]){
         res.push_back({item.first, item.second});
     }
     item_place.erase(place);

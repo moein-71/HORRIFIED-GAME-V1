@@ -26,13 +26,25 @@ class Invisible_man ;
 class Villager ;
 class Perk_card ;
 class Item ;
-class Monster_card ;
+class Monster_card ; 
+class Special_Action ;
+class Pick_Up ;
+class Move_Hero ;
+class Guide ;
+class Defeat ;
+class Advance ;
 
 class Game {
 
     friend class Move_monster ;
     friend class Kill ;
     friend class Power ;
+    friend class Special_Action ;
+    friend class Pick_Up ;
+    friend class Move_Hero ;
+    friend class Guide ;
+    friend class Defeat ;
+    friend class Advance ;
     friend class Turn_monster ;
     friend class Turn_archaeologist ;
     friend class Turn_mayor ;
@@ -89,7 +101,7 @@ class Game {
         std::shared_ptr<Game_turn> monster ;
         std::string last_hero_turn ; // Archaeologist , Mayor  // in constructor we find out how start first and ho start last and its use in monster card abilitys
         Map Game_map ;
-        Archaologist archaeologist ;
+        Archaologist archaologist ;
         Mayor mayor ;
         Dracula dracula ;  
         Invisible_man invisible_man ;

@@ -6,21 +6,7 @@
 #include <unordered_map>
 #include <memory>
 #include <variant>
-
-////////////////////////////////////////////////(   TEMP_ CLASS   )////////////////////////////////////////////////////////////
-class Perk{
-
-    public:
-
-        Perk() = default;
-        std::string get_name(){
-            return name;
-        }
-
-    private:
-        std::string name;
-};
-////////////////////////////////////////////////(   TEMP_ CLASS   )////////////////////////////////////////////////////////////
+#include "Perk_card.hpp"
 
 class Hero{
 
@@ -42,7 +28,7 @@ class Hero{
         std::string get_player_name()const;
         std::string get_spawn_place()const;
         std::string get_now_place()const;
-        shared_ptr<Perk> get_perk();
+        shared_ptr<Perk_card> get_perk();
         vector <Item> get_item(std::string, int);
         void remove_item_from_bag(std::unordered_map <Item, int>&, Item);
         std::unordered_map <std::string, Item> get_investigate_item()const;
@@ -63,7 +49,7 @@ class Hero{
         std::string now_place;
 
 
-        std::unordered_map <std::shared_ptr<Perk>, int> perk;
+        std::unordered_map <std::shared_ptr<Perk_card>, int> perk;
         std::unordered_map <Item, int> item;
         std::unordered_map <std::string, Item>static investigate_item;
 };

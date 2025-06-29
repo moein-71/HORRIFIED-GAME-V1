@@ -14,8 +14,10 @@ class Invisible_man: public Monster{
         Invisible_man();
 
         void reset_near_villager(std:: vector<Villager>);
-        bool set_investigate_found(std::string);
         bool can_kill_villager(Villager);
+        bool set_investigate_found(std::string);
+        bool check_investigate() ;
+       
 
     private:
 

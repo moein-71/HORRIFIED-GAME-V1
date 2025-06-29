@@ -44,6 +44,9 @@ bool Dracula::Destroy_Casket(string place){
         return false;
     }
 }
+ bool Dracula::Check_Casket_Destroyed_In_Place(std::string place) {
+    return !casket[place] ;
+}
 bool Dracula::Check_Casket(){
     return  !casket["Cave"] && !casket["Dungeon"] && !casket["Crypt"] && !casket["Graveyard"];
 }

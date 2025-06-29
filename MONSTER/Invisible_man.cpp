@@ -63,3 +63,6 @@ void Invisible_man::reset_near_villager(vector<Villager> villager){
 bool Invisible_man::can_kill_villager(Villager villager){
     return near_villager.count(villager) && near_villager[villager];
 }
+bool Invisible_man::check_investigate() {
+    return !investigate["Inn"] && !investigate["Bern"] && !investigate["Institute"] && !investigate["Laboratory"] && !investigate["Mansion"] ;
+}

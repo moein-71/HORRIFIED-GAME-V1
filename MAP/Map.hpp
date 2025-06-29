@@ -14,13 +14,18 @@ class Map{
     public:
 
         Map();
-        vector<Villager> get_villager(std::string);
+        std::vector<Villager> get_villager(std::string);
+        std::vector<string> get_connection(std::string) ;
+        std::unordered_map<Item, int> get_item_of_place(std::string);
+        int get_item_number(std::string , std::string) ;
 
         void set_connection();
         void set_item(Item);
         void set_villager(std::string, Villager);//This function add Villager
         bool set_villager_place(std::string, std::string, std::string);//This function edit villager_place
 
+        bool Check_Count_Item_Place(std::string ,std::string) ;
+        bool Check_Count_Neighbor_Connection(std::string , std::string) ;
         bool Kill_Villager(std::string); 
         Item Pickeup_Item(std::string, std::string);
         std::string Find_Place_With_More_Item();

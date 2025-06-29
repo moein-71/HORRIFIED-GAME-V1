@@ -64,7 +64,7 @@ bool Turn_mayor::phase(Game& gamestage) {
                 cout<< "Mayor dont have Special_Action" ;
                 break;
             case 7:
-                
+                gamestage.archaologist.get_perk()->ability(gamestage) ;
                 break;
             default:
                 cout<< "\nChooss right number\n" ;

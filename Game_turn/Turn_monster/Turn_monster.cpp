@@ -23,15 +23,15 @@ bool Turn_monster::phase(Game& gamestage) {
     monster_phase->info() ;
 
     monster_phase->ability(gamestage) ;
-
-    which_turn == 1 ? 2 : 1 ;
 }
 
 void Turn_monster::handle_turn(Game& gamestage) {
     if(which_turn == 1) {
         gamestage.turn = gamestage.player_2 ;
+        which_turn = 2 ;
     }
     else if(which_turn == 2) {
         gamestage.turn = gamestage.player_1 ;
+        which_turn = 1 ;
     }
 }

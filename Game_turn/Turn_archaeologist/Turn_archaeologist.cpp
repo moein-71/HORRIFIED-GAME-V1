@@ -69,7 +69,7 @@ bool Turn_archaologist::phase(Game& gamestage) {
                 cout<< "Special_Action not done\n" ;
                 break;
             case 7:
-                
+                gamestage.archaologist.get_perk()->ability(gamestage) ;
                 break;
             default:
                 cout<< "\nChooss right number\n" ;

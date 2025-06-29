@@ -10,7 +10,7 @@ class Special_Action: public Hero_Action{
 
     public:
 
-        void Activate(Game&, Hero*)override ;
+        bool Activate(Game&, Hero*)override ;
         std::string info()const override;
 };
 

@@ -3,7 +3,7 @@
 
 using namespace std;
 
-void Pick_Up::Activate(Game& game, Hero* hero){
+bool Pick_Up::Activate(Game& game, Hero* hero){
 
     string now_place = hero -> get_now_place();
     auto unordered_item = game.Game_map.get_item_of_place(now_place);
@@ -19,13 +19,18 @@ void Pick_Up::Activate(Game& game, Hero* hero){
 
     cout << "You can stop pick_up item by write exit\n";
 
+    int counter = 0 ;
     while(1){
-
+        counter++ ; 
         cout << "Please enter name of item that you want or write exit to stop pick_up item.\n";
         getline(cin, choose_name);
 
-        if(choose_name == "exit")
-            break;
+        if(choose_name == "exit") {
+            if(counter == 1) {
+                return false ;
+            }
+            return true ;
+        }
 
         cout << "Please enter number of item that you want.\n";
         getline(cin, exeption_choose_number);

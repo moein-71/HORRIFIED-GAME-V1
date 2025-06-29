@@ -11,13 +11,16 @@ bool Defeat::Activate(Game& game, Hero* hero) {
             if(!defeat_item.empty()) {
                 game.set_dracula_place("DEAD") ;
                 cout<< "Dracula died\n" ;
+                return true ;
             }
             else {
                 cout<< "You cant defeat dracula\n" ;
+                return false ;
             }
         }
         else {
             cout<< "All of the Caskets are not destroyed\n" ;
+            return false ;
         }
     }
     else if(hero->get_now_place() == game.get_invisible_man_place()) {
@@ -27,17 +30,21 @@ bool Defeat::Activate(Game& game, Hero* hero) {
             if(!defeat_item.empty()) {
                 game.set_invisible_man_place("DEAD") ;
                 cout<< "Invisible_man died\n" ;
+                return true ;
             }
             else {
                 cout<< "You cant defeat invisible_man\n" ;
+                return false ;
             }
         }
         else {
             cout<< "All of the investigates are not found\n" ;
+            return false ;
         }
     }
     else {
         cout<< "You are not in the monster place\n" ;
+        return false ;
     }
 }
 

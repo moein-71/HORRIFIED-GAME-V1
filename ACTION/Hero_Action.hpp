@@ -30,7 +30,7 @@ class Hero_Action{
 
         virtual ~Hero_Action() = default;
 
-        virtual void Activate(Game&, Hero*) = 0;
+        virtual bool Activate(Game&, Hero*) = 0;
         virtual std::string info()const = 0;
 };
 

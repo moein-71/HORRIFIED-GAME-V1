@@ -10,11 +10,11 @@ class Guide: public Hero_Action{
 
     public:
 
-        void Activate(Game&, Hero*);
+        bool Activate(Game&, Hero*);
         std::string info()const;
 
-        std::string send_villager_another_place(std::string, std::string, std::string, std::vector<std::string>, Game&);
-        std::string take_villager_another_place(std::string, std::string, std::string, std::vector<std::string>, Game&);
+        std::string send_villager_another_place(std::string, std::string, std::string, std::vector<std::string>, Game& , Hero*);
+        std::string take_villager_another_place(std::string, std::string, std::string, std::vector<std::string>, Game& , Hero*);
 };
 
 #endif//GUIDE_H

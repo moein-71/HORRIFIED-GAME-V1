@@ -3,7 +3,7 @@
 
 using namespace std;
 
-void Guide::Activate(Game& game, Hero* hero){
+bool Guide::Activate(Game& game, Hero* hero){
 
     bool Hozoor = 0;
     string now_place = hero ->get_now_place();
@@ -35,41 +35,58 @@ void Guide::Activate(Game& game, Hero* hero){
     }
     if(!Hozoor){
         cerr << "Unfortunately, there are no villagers in your neighborhood and you cannot use this action.\n";
-        return;
+        return false ;
     }
 
     string choose;
     string report;
     string villager_name;
     string choose_place_name;
-    while(1){
+    int counter = 0 ;
 
+    while(1){
+        counter++ ;
         cout << "If you want to send the villager from your current location to somewhere, enter the letter A\n"
         << "if you want to bring the villager from a neighbor to your current location, enter the letter B.\n"
         << "or write exit to stop this action.\n";
         getline(cin, choose);
 
-        if(choose == "exit")
+        if(choose == "exit") {
+            if(counter == 1) {
+                return false ;
+            }
             break;
-        
+        }
         else if(choose == "A"){
 
             while(1){
                 cout << "Please write the name of the place you want to send the villager to or write exit.\n";
                 getline(cin, choose_place_name);
 
-                if(choose_place_name == "exit")
+                if(choose_place_name == "exit") {
+                    if(counter == 1) {
+                        return false ;
+                    }
                     break;
-                
+                }
 
                 cout << "Please enter villager's name or write exit.\n";
                 getline(cin, villager_name);
 
                 if(villager_name == "exit")
+                    if(counter == 1) {
+                        return false ;
+                    }                
                     break;
 
-                report = send_villager_another_place(now_place, choose_place_name, villager_name, neighbor, game);
+                report = send_villager_another_place(now_place, choose_place_name, villager_name, neighbor, game , hero);
                 cout << report << '\n';
+                if(report == "Successful") {
+                    return true ;
+                }
+                else {
+                    return false ;
+                }
             }
         } 
         else if(choose == "B"){
@@ -79,16 +96,28 @@ void Guide::Activate(Game& game, Hero* hero){
                 getline(cin, choose_place_name);
 
                 if(choose_place_name == "exit")
+                    if(counter == 1) {
+                        return false ;
+                    }
                     break;
 
                 cout << "Please enter villager's name or write exit.\n";
                 getline(cin, villager_name);
 
                 if(villager_name == "exit")
+                    if(counter == 1) {
+                        return false ;
+                    }
                     break;
 
-                report = take_villager_another_place(now_place, choose_place_name, villager_name, neighbor, game);
+                report = take_villager_another_place(now_place, choose_place_name, villager_name, neighbor, game , hero);
                 cout << report << '\n';
+                if(report == "Successful") {
+                    return true ;
+                }
+                else {
+                    return false ;
+                }
             }
         }
         else{
@@ -96,7 +125,7 @@ void Guide::Activate(Game& game, Hero* hero){
         }
     }
 }
-string Guide::send_villager_another_place(string now_place, string choose_place_name, string villager_name, vector<string> neighbor, Game& game){
+string Guide::send_villager_another_place(string now_place, string choose_place_name, string villager_name, vector<string> neighbor, Game& game , Hero* hero){
 
     bool Hozoor = 0;
     auto villager_info = game.Game_map.get_villager(now_place);
@@ -120,9 +149,12 @@ string Guide::send_villager_another_place(string now_place, string choose_place_
     return "The place name you entered does not exist at neighbor of the current location.(field)";
 
     game.Game_map.set_villager_place(now_place, choose_place_name, villager_name);
-
+    if(choose_place_name == game.Game_map.get_villager_safe_place(choose_place_name , villager_name)) {
+        hero->set_perk(game.get_random_perk()) ;
+    }
+    return "Successful" ;
 }
-string Guide::take_villager_another_place(string now_place, string choose_place_name, string villager_name, vector<string> neighbor, Game& game){
+string Guide::take_villager_another_place(string now_place, string choose_place_name, string villager_name, vector<string> neighbor, Game& game , Hero* hero){
 
     bool Hozoor = 0;
     for(auto place_name: neighbor){
@@ -145,4 +177,8 @@ string Guide::take_villager_another_place(string now_place, string choose_place_
         return "The villager name you entered does not exist at the current location.(field)";
 
     game.Game_map.set_villager_place(choose_place_name, now_place, villager_name);
+    if(choose_place_name == game.Game_map.get_villager_safe_place(choose_place_name , villager_name)) {
+        hero->set_perk(game.get_random_perk()) ;
+    }
+    return "Successful" ;
 }

@@ -6,9 +6,9 @@ bool Kill::activate(Game & game , const std::string & monster) {
 
 
     if(monster == game.dracula.get_name()) {
-        if(game.get_dracula_place() == game.get_archaeologist_place()) {
-            if(!game.archaeologist.get_item()) {
-                game.set_archaeologist_place("Hospital") ;
+        if(game.get_dracula_place() == game.get_archaologist_place()) {
+            if(!game.archaologist.get_item()) {
+                game.set_archaologist_place("Hospital") ;
                 return true ;
             }
             return true ;

@@ -5,7 +5,7 @@ using namespace std ;
 bool Power::activate(Game & game , const std::string & monster) {
 
     if(monster == game.dracula.get_name()) {
-            game.get_last_hero_turn() == game.mayor.get_name() ? game.set_mayor_place(game.get_dracula_place()) : game.set_archaeologist_place(game.get_dracula_place()) ;
+            game.get_last_hero_turn() == game.mayor.get_name() ? game.set_mayor_place(game.get_dracula_place()) : game.set_archaologist_place(game.get_dracula_place()) ;
             return true ;
     }
     else if(monster == game.invisible_man.get_name()) {

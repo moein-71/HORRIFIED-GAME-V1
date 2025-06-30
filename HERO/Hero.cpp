@@ -277,8 +277,10 @@ void Hero::Print_Hero_Info(){
     int table_width = name_width + color_width + loc_width + count_width + 3;
 
     cout << "╔" << repeat("═", table_width) << "╗\n";
-    cout << "║ Hero: " << left << setw(table_width - 7) << name << "║\n";
+    cout << "║ Hero: " << left << setw(table_width - 7)
+            << (name + " (" + now_place + ")") << "║\n";
     cout << "║ Player: " << left << setw(table_width - 9) << player_name << "║\n";
+
     cout << "╠" << repeat("═", name_width) << "╦"
             << repeat("═", color_width) << "╦"
             << repeat("═", loc_width) << "╦"
@@ -295,13 +297,14 @@ void Hero::Print_Hero_Info(){
             << repeat("═", loc_width) << "╬"
             << repeat("═", count_width) << "╣\n";
 
-    for(const auto& [item_obj, count]: item){
+    for(const auto& [item_obj, count] : item){
+
         string item_name = item_obj.get_name();
         if(item_name.length() > size_t(name_width - 2))
             item_name = item_name.substr(0, name_width - 5) + "...";
 
         string spawn = item_obj.get_spawn_place();
-        if(spawn.length() > size_t(loc_width - 2))
+        if (spawn.length() > size_t(loc_width - 2))
             spawn = spawn.substr(0, loc_width - 5) + "...";
 
         cout << "║ " << left << setw(name_width - 1) << item_name
@@ -310,6 +313,7 @@ void Hero::Print_Hero_Info(){
                 << "║ " << left << setw(count_width - 1) << count
                 << "║\n";
     }
+
     cout << "╚" << repeat("═", name_width) << "╩"
             << repeat("═", color_width) << "╩"
             << repeat("═", loc_width) << "╩"

@@ -41,6 +41,8 @@ class Hero{
         std::variant<int, Item> When_Monster_Killed_A_Hero();
         Item Back_To_Life_By_Use_An_Item();
         void Go_To_Hospital();
+        void Print_Hero_Info();
+        std::string repeat(const std::string& s, int n) ;
         
     private:
 

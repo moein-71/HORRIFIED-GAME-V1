@@ -2,6 +2,7 @@
 #define PROGRAM_HPP
 
 #include "../Game/Game.hpp"
+#include <sstream>
 
 class Program {
     

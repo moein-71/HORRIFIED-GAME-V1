@@ -10,6 +10,7 @@
 #include <algorithm>
 #include <climits>
 #include <limits>
+#include <iomanip>
 
 using namespace std;
 
@@ -575,4 +576,180 @@ string Map::Move_Hero_Away_From_Monsters(
 
     else
         return path[max_steps - 1];
+}
+
+
+
+////////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////(           PRINT             )///////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////
+string trim(const string& str, size_t width){
+
+    if(str.length() <= width) return str;
+    if(width <= 3) return str.substr(0, width);
+    return str.substr(0, width - 3) + "...";
+}
+string Map::repeat(const string& s, int n){
+
+    string result;
+    for(int i = 0; i < n; ++i){
+        result += s;
+    }
+    return result;
+}
+void Map::Print_Map_And_All_Info
+(
+    string archaologist_place, 
+    string mayor_place, 
+    string dracula_place, 
+    string invisible_mam_place,
+    unordered_map<string, bool> casket,
+    unordered_map<string, bool> investigate
+){
+cout << R"(
+╔══════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+║                                     The Cursed Land (Horrified)                                                  ║
+╠══════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+║  Cave ___Camp           Precinct        Inn                  Bank                Dungeon                         ║
+║           |                 |            |                     |                    |                            ║
+║           |                 |            |                     |                    |                            ║
+║           |_________________|____________|__________________Theatre ______________Tower_____Docks                ║
+║                  |                                            |                                                  ║
+║                  |                                            |                                                  ║
+║      Abbey_____Mansion______________________________________Shop________________Laboratory                       ║
+║        |                               |             |                              |                            ║
+║        |                               |             |                              |                            ║
+║        |                               |             |                              |                            ║
+║     Crypt                           Museum         Church                        Institute                       ║
+║                                                     |                                                            ║
+║                                                     |                                                            ║
+║                                        Hospital_____|                                                            ║
+║                                                     |                                                            ║
+║                                                Graveyard                                                         ║
+╚══════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+)";
+
+    const int table_width = 45;
+
+    cout << "╔" << repeat("═", table_width) << "╗    ╔" << repeat("═", table_width) << "╗\n";
+    cout << "║ " << setw(table_width - 2) << left << "Dracula Casket"
+         << " ║    ║ " << setw(table_width - 2) << left << "Invisible Man Investigate Item" << " ║\n";
+    cout << "╠" << repeat("═", table_width) << "╣    ╠" << repeat("═", table_width) << "╣\n";
+
+    auto casket_ptr = casket.begin();
+    auto investigate_ptr = investigate.begin();
+    size_t max_rows = max(casket.size(), investigate.size());
+
+    for(size_t i = 0; i < max_rows; ++i){
+        string casket_line = " ";
+        string investigate_line = " ";
+
+        if(casket_ptr != casket.end()){
+            string name = casket_ptr->first;
+            string status = casket_ptr->second ? "Intact" : "Broken";
+            casket_line = name + string(24 - name.size(), ' ') + ": " + status;
+            ++casket_ptr;
+        }
+
+        if(investigate_ptr != investigate.end()){
+            string name = investigate_ptr->first;
+            string status = investigate_ptr->second ? "Found" : "Missing";
+            investigate_line = name + string(24 - name.size(), ' ') + ": " + status;
+            ++investigate_ptr;
+        }
+
+        cout << "║ " << setw(table_width - 2) << left << casket_line << " ║    ║ "
+             << setw(table_width - 2) << left << investigate_line << " ║\n";
+    }
+    cout << "╚" << repeat("═", table_width) << "╝    ╚" << repeat("═", table_width) << "╝\n";
+
+    Print_Character_Info(archaologist_place, mayor_place, dracula_place, invisible_mam_place);
+}
+void Map::Print_Character_Info
+(
+    string archaologist_place, 
+    string mayor_place, 
+    string dracula_place, 
+    string invisible_mam_place
+){
+
+    const int left_width = 45;
+    const int right_width = 55;
+    const int space = 4;
+
+    cout << "╔" << repeat("═", left_width) << "╗"
+              << string(space, ' ')
+              << "╔" << repeat("═", right_width) << "╗\n";
+
+    cout << "║ " << left << setw(20) << "Villager"
+              << " : " << setw(left_width - 24) << "Location"
+              << "║" << string(space, ' ')
+              << "║ " << left << setw(25) << "Item"
+              << " : " << setw(right_width - 33) << "Location"
+              << "(x) ║\n";
+
+    cout << "╠" << repeat("═", left_width) << "╣"
+              << string(space, ' ')
+              << "╠" << repeat("═", right_width) << "╣\n";
+
+    vector<pair<string, string>> villager_entries;
+    for(const auto& [place, villagers]: villager_place){
+        for(const auto& v: villagers){
+            villager_entries.emplace_back(v.get_name(), place);
+        }
+    }
+
+    vector<tuple<string, string, int>> item_entries;
+    for(const auto& [place, items]: item_place){
+        for(const auto& [item, count]: items){
+            item_entries.emplace_back(item.get_name(), place, count);
+        }
+    }
+
+    size_t maxLines = max(villager_entries.size(), item_entries.size());
+
+    for(size_t i = 0; i < maxLines; ++i){
+        if(i < villager_entries.size()){
+            auto& [name, place] = villager_entries[i];
+            cout << "║ " << left << setw(20) << name
+                      << " : " << setw(left_width - 24) << place
+                      << "║";
+        } 
+        else{
+            cout << "║" << string(left_width, ' ') << "║";
+        }
+
+        cout << string(space, ' ');
+
+        if(i < item_entries.size()){
+
+            auto& [investigate_name, investigate_place, investigate_count] = item_entries[i];
+            cout << "║ " << left << setw(25) << investigate_name
+                      << " : " << setw(right_width - 33) << investigate_place
+                      << "(" << investigate_count << ") ║";
+        } 
+        
+        else{
+            cout << "║" << string(right_width, ' ') << "║";
+        }
+        cout << '\n';
+    }
+
+    cout << "╚" << repeat("═", left_width) << "╝"
+              << string(space, ' ')
+              << "╚" << repeat("═", right_width) << "╝\n";
+
+cout << R"(
+                        ╔══════════════════════════════════════════════════╗
+                        ║             Character Locations                  ║
+                        ║══════════════════════════════════════════════════║
+                        ║ Archaeologist  : )" << setw(20) << left << archaologist_place << R"(            ║
+
+                        ║ Mayor          : )" << setw(20) << left << mayor_place << R"(            ║
+
+                        ║ Dracula        : )" << setw(20) << left << dracula_place << R"(            ║
+
+                        ║ Invisible_Man  : )" << setw(20) << left << invisible_mam_place << R"(            ║
+                        ╚══════════════════════════════════════════════════╝
+)" << '\n';
 }

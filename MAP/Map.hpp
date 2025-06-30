@@ -54,7 +54,12 @@ class Map{
             int max_steps = 2
         );
         int bfs_distance(const std::string& start, const std::string& end);
-
+        void Print_Map_And_All_Info(std::string, std::string, std::string, std::string,
+                                    std::unordered_map<std::string, bool>,
+                                    std::unordered_map<std::string, bool>
+                                );//This function outputs city routes. 
+        void Print_Character_Info(std::string, std::string, std::string, std::string);//This function outputs the positions of the characters and items in the game.
+        std::string repeat(const std::string& s, int n) ;
     private:
 
         std::unordered_map<std::string, std::vector<std::string>> connection;

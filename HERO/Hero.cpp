@@ -279,3 +279,56 @@ Item Hero::Back_To_Life_By_Use_An_Item(){
 void Hero::Go_To_Hospital(){
     set_now_place("Hospital");
 }
+string Hero::repeat(const string& s, int n) {
+    string result;
+    for (int i = 0; i < n; ++i)
+        result += s;
+    return result;
+}
+void Hero::Print_Hero_Info(){
+
+    int name_width = 20;
+    int color_width = 10;
+    int loc_width = 18;
+    int count_width = 7;
+    int table_width = name_width + color_width + loc_width + count_width + 3;
+
+    cout << "╔" << repeat("═", table_width) << "╗\n";
+    cout << "║ Hero: " << left << setw(table_width - 7) << name << "║\n";
+    cout << "║ Player: " << left << setw(table_width - 9) << player_name << "║\n";
+    cout << "╠" << repeat("═", name_width) << "╦"
+            << repeat("═", color_width) << "╦"
+            << repeat("═", loc_width) << "╦"
+            << repeat("═", count_width) << "╣\n";
+
+    cout << "║ " << left << setw(name_width - 1) << "Item Name"
+            << "║ " << left << setw(color_width - 1) << "Color"
+            << "║ " << left << setw(loc_width - 1) << "Location"
+            << "║ " << left << setw(count_width - 1) << "Count"
+            << "║\n";
+
+    cout << "╠" << repeat("═", name_width) << "╬"
+            << repeat("═", color_width) << "╬"
+            << repeat("═", loc_width) << "╬"
+            << repeat("═", count_width) << "╣\n";
+
+    for(const auto& [item_obj, count]: item){
+        string item_name = item_obj.get_name();
+        if(item_name.length() > size_t(name_width - 2))
+            item_name = item_name.substr(0, name_width - 5) + "...";
+
+        string spawn = item_obj.get_spawn_place();
+        if(spawn.length() > size_t(loc_width - 2))
+            spawn = spawn.substr(0, loc_width - 5) + "...";
+
+        cout << "║ " << left << setw(name_width - 1) << item_name
+                << "║ " << left << setw(color_width - 1) << item_obj.get_color()
+                << "║ " << left << setw(loc_width - 1) << spawn
+                << "║ " << left << setw(count_width - 1) << count
+                << "║\n";
+    }
+    cout << "╚" << repeat("═", name_width) << "╩"
+            << repeat("═", color_width) << "╩"
+            << repeat("═", loc_width) << "╩"
+            << repeat("═", count_width) << "╝\n";
+}

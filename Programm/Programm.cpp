@@ -50,11 +50,14 @@ void Program::Start() {
     int garlic_player_2 ;
     cin>> player_2 ;
 
-    cout<< "\n\n" ;
-    printLineDelay(player_1) ;
-    printLineDelay(" how many days ago you eat garlic ? ") ;
-    cin>> garlic_player_1 ;
+    string number ;
+    stringstream ss;
 
+
+    while(cin>>number) {
+        printLineDelay(player_1) ;
+        printLineDelay(" how many days ago you eat garlic ? ") ; /// we have somthing to do 
+    }
     cout<< "\n\n" ;
     printLineDelay(player_2) ;
     printLineDelay(" how many days ago you eat garlic ? ") ;

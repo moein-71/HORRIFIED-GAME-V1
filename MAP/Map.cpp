@@ -503,6 +503,211 @@ string Map::Move_Hero_Away_From_Monsters(
     else
         return path[max_steps - 1];
 }
+void Map::Move_Villager_To_Safe_House(){
+
+    vector<tuple<string, string, string>> move_requests;
+
+    for(auto& [place, villager_list] : villager_place){
+        for(auto& villager : villager_list){
+
+            string now = villager.get_now_place();
+            string safe = villager.get_safe_place();
+
+            if(now == safe)continue;
+
+            unordered_map<string, string> parent;
+            unordered_set<string> visited;
+            queue<string> q;
+
+            q.push(now);
+            visited.insert(now);
+            parent[now] = "";
+
+            bool found = false;
+            while(!q.empty()){
+
+                string current = q.front(); q.pop();
+
+                if(current == safe){
+                    found = true;
+                    break;
+                }
+                if(!connection.count(current))continue;
+                for(const string& neighbor : connection.at(current)){
+                    if(!visited.count(neighbor)){
+
+                        visited.insert(neighbor);
+                        parent[neighbor] = current;
+                        q.push(neighbor);
+                    }
+                }
+            }
+
+            if (!found) continue;
+
+            vector<string> path;
+            string current = safe;
+            while(!current.empty()){
+
+                path.push_back(current);
+                current = parent[current];
+            }
+            reverse(path.begin(), path.end());
+
+            if(path.size() >= 2){
+
+                string next_step = path[1]; 
+                move_requests.emplace_back(now, next_step, villager.get_name());
+            }
+        }
+    }
+
+    for(const auto& [now_place, new_place, name] : move_requests){
+        set_villager_place(now_place, new_place, name);
+    }
+}
+string Map::Move_Character_Near_Dracula(string dracula_place, Hero* archaologist, Hero* mayor){
+
+    if (archaologist->get_now_place() == dracula_place || mayor->get_now_place() == dracula_place)
+        return "Don't move";
+
+    if (villager_place.count(dracula_place) && !villager_place[dracula_place].empty())
+        return "Don't move";
+
+    unordered_map<string, int> distance;
+    unordered_map<string, string> parent;
+    queue<string> q;
+
+    q.push(dracula_place);
+    distance[dracula_place] = 0;
+    parent[dracula_place] = "";
+
+    while(!q.empty()){
+
+        string current = q.front(); q.pop();
+        for(const string& neighbor : connection[current]){
+            if(!distance.count(neighbor)){
+
+                distance[neighbor] = distance[current] + 1;
+                parent[neighbor] = current;
+                q.push(neighbor);
+            }
+        }
+    }
+
+    string closest_name = "";
+    string closest_now = "";
+    int min_dist = INT_MAX;
+    bool is_villager = false;
+
+    for(Hero* hero : {archaologist, mayor}){
+
+        string place = hero->get_now_place();
+        if(distance.count(place) && distance[place] < min_dist){
+
+            min_dist = distance[place];
+            closest_name = hero->get_name();
+            closest_now = place;
+            is_villager = false;
+        }
+    }
+
+    for(const auto& [place, villager_list] : villager_place){
+        for(const auto& villager : villager_list){
+
+            string now = villager.get_now_place();
+            if(distance.count(now) && distance[now] < min_dist){
+
+                min_dist = distance[now];
+                closest_name = villager.get_name();
+                closest_now = now;
+                is_villager = true;
+            }
+        }
+    }
+
+    if(min_dist == INT_MAX)return "Don't move";
+
+    vector<string> path;
+    string current = closest_now;
+
+    while(!current.empty()){
+
+        path.push_back(current);
+        current = parent[current];
+    }
+    reverse(path.begin(), path.end());
+
+    if(path.size() <= 1)return "Don't move";
+
+    string next_place = path[1];
+
+    if(is_villager){
+
+        set_villager_place(closest_now, next_place, closest_name);
+    } 
+    else{
+
+        if(archaologist->get_name() == closest_name){
+            archaologist->set_now_place(next_place);
+        } 
+        else{
+            mayor->set_now_place(next_place);
+        }
+    }
+
+    return closest_name;
+}
+string Map::Find_Near_Place_To_Villager(string invisible_man_place){
+
+    unordered_map<string, string> parent;
+    unordered_set<string> visited;
+    queue<string> q;
+
+    q.push(invisible_man_place);
+    visited.insert(invisible_man_place);
+    parent[invisible_man_place] = "";
+
+    string target_place = "";
+    bool found = false;
+
+    while(!q.empty()){
+
+        string current = q.front(); q.pop();
+        if(villager_place.count(current) && !villager_place.at(current).empty()){
+            target_place = current;
+            found = true;
+            break;
+        }
+        for(const auto& neighbor : connection.at(current)){
+            if(!visited.count(neighbor)){
+
+                visited.insert(neighbor);
+                parent[neighbor] = current;
+                q.push(neighbor);
+            }
+        }
+    }
+
+    if(!found){
+        return invisible_man_place;
+    }
+
+    vector<string> path;
+    string current = target_place;
+
+    while(!current.empty()){
+
+        path.push_back(current);
+        current = parent[current];
+    }
+
+    reverse(path.begin(), path.end());
+
+    if(path.size() <= 1)return path[0];         
+    else if(path.size() == 2)return path[1];   
+    else return path[2];                          
+}
 
 
 
@@ -679,53 +884,4 @@ cout << R"(
                         ╚══════════════════════════════════════════════════╝
 )" << '\n';
 }
-string Map::Find_Near_Place_To_Villager(string invisible_man_place){
 
-    unordered_map<string, string> parent;
-    unordered_set<string> visited;
-    queue<string> q;
-
-    q.push(invisible_man_place);
-    visited.insert(invisible_man_place);
-    parent[invisible_man_place] = "";
-
-    string target_place = "";
-    bool found = false;
-
-    while(!q.empty()){
-
-        string current = q.front(); q.pop();
-        if(villager_place.count(current) && !villager_place.at(current).empty()){
-            target_place = current;
-            found = true;
-            break;
-        }
-        for(const auto& neighbor : connection.at(current)){
-            if(!visited.count(neighbor)){
-
-                visited.insert(neighbor);
-                parent[neighbor] = current;
-                q.push(neighbor);
-            }
-        }
-    }
-
-    if(!found){
-        return invisible_man_place;
-    }
-
-    vector<string> path;
-    string current = target_place;
-
-    while(!current.empty()){
-
-        path.push_back(current);
-        current = parent[current];
-    }
-
-    reverse(path.begin(), path.end());
-
-    if(path.size() <= 1)return path[0];         
-    else if(path.size() == 2)return path[1];   
-    else return path[2];                          
-}

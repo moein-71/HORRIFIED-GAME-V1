@@ -130,10 +130,10 @@ vector<pair<Item, int>> Map::Remove_All_Item_In_Place(string place){
 }
 string Map::Find_Near_Destination(int max_steps, string current_location, Archaologist archaologist, Mayor mayor){
 
-    unordered_map<std::string, std::string> parent;
-    unordered_map<std::string, int> distance;
-    queue<std::string> q;
-    unordered_set<std::string> visited;
+    unordered_map<string, string> parent;
+    unordered_map<string, int> distance;
+    queue<string> q;
+    unordered_set<string> visited;
 
     q.push(current_location);
     distance[current_location] = 0;
@@ -142,12 +142,12 @@ string Map::Find_Near_Destination(int max_steps, string current_location, Archao
     string archaologist_loc = archaologist.get_now_place();
     string mayor_loc = mayor.get_now_place();
 
-    vector<std::string> candidates;
+    vector<string> candidates;
     int min_dist = -1;
 
     while (!q.empty()){
 
-        std::string node = q.front(); q.pop();
+        string node = q.front(); q.pop();
         int d = distance[node];
 
         bool is_hero = (node == archaologist_loc || node == mayor_loc);
@@ -186,7 +186,7 @@ string Map::Find_Near_Destination(int max_steps, string current_location, Archao
     int best_villager_count = villager_place.count(best_target) ? villager_place[best_target].size() : 0;
     bool best_is_hero = (best_target == archaologist_loc || best_target == mayor_loc);
 
-    for(const std::string& loc : candidates){
+    for(const string& loc : candidates){
 
         bool is_hero = (loc == archaologist_loc || loc == mayor_loc);
         int villager_count = villager_place.count(loc) ? villager_place[loc].size() : 0;
@@ -206,7 +206,7 @@ string Map::Find_Near_Destination(int max_steps, string current_location, Archao
         }
     }
 
-    vector<std::string> path;
+    vector<string> path;
     string current = best_target;
 
     while(current != current_location){
@@ -678,4 +678,54 @@ cout << R"(
                         ║ Invisible_Man  : )" << setw(20) << left << invisible_mam_place << R"(            ║
                         ╚══════════════════════════════════════════════════╝
 )" << '\n';
+}
+string Map::Find_Near_Place_To_Villager(string invisible_man_place){
+
+    unordered_map<string, string> parent;
+    unordered_set<string> visited;
+    queue<string> q;
+
+    q.push(invisible_man_place);
+    visited.insert(invisible_man_place);
+    parent[invisible_man_place] = "";
+
+    string target_place = "";
+    bool found = false;
+
+    while(!q.empty()){
+
+        string current = q.front(); q.pop();
+        if(villager_place.count(current) && !villager_place.at(current).empty()){
+            target_place = current;
+            found = true;
+            break;
+        }
+        for(const auto& neighbor : connection.at(current)){
+            if(!visited.count(neighbor)){
+
+                visited.insert(neighbor);
+                parent[neighbor] = current;
+                q.push(neighbor);
+            }
+        }
+    }
+
+    if(!found){
+        return invisible_man_place;
+    }
+
+    vector<string> path;
+    string current = target_place;
+
+    while(!current.empty()){
+
+        path.push_back(current);
+        current = parent[current];
+    }
+
+    reverse(path.begin(), path.end());
+
+    if(path.size() <= 1)return path[0];         
+    else if(path.size() == 2)return path[1];   
+    else return path[2];                          
 }

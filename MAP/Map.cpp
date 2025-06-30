@@ -760,7 +760,7 @@ cout << R"(
 ╚══════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
 )";
 
-    const int table_width = 45;
+    const int table_width = 56;
 
     cout << "╔" << repeat("═", table_width) << "╗    ╔" << repeat("═", table_width) << "╗\n";
     cout << "║ " << setw(table_width - 2) << left << "Dracula Casket"
@@ -804,36 +804,37 @@ void Map::Print_Character_Info
     string invisible_mam_place
 ){
 
-    const int left_width = 45;
-    const int right_width = 55;
+    const int left_width = 56;
+    const int right_width = 66;
     const int space = 4;
 
     cout << "╔" << repeat("═", left_width) << "╗"
-              << string(space, ' ')
-              << "╔" << repeat("═", right_width) << "╗\n";
+         << string(space, ' ')
+         << "╔" << repeat("═", right_width) << "╗\n";
 
     cout << "║ " << left << setw(20) << "Villager"
-              << " : " << setw(left_width - 24) << "Location"
-              << "║" << string(space, ' ')
-              << "║ " << left << setw(25) << "Item"
-              << " : " << setw(right_width - 33) << "Location"
-              << "(x) ║\n";
+         << " : " << setw(17) << "Location"
+         << " | " << setw(12) << "Safe Place"
+         << "║" << string(space, ' ')
+         << "║ " << left << setw(25) << "Item"
+         << " : " << setw(25) << "Location"
+         << " (x, Color) ║\n";
 
     cout << "╠" << repeat("═", left_width) << "╣"
-              << string(space, ' ')
-              << "╠" << repeat("═", right_width) << "╣\n";
+         << string(space, ' ')
+         << "╠" << repeat("═", right_width) << "╣\n";
 
-    vector<pair<string, string>> villager_entries;
-    for(const auto& [place, villagers]: villager_place){
-        for(const auto& v: villagers){
-            villager_entries.emplace_back(v.get_name(), place);
+    vector<pair<string, pair<string, string>>> villager_entries;
+    for(const auto& [place, villagers] : villager_place){
+        for(const auto& v : villagers){
+            villager_entries.emplace_back(v.get_name(), make_pair(place, v.get_safe_place()));
         }
     }
 
-    vector<tuple<string, string, int>> item_entries;
-    for(const auto& [place, items]: item_place){
-        for(const auto& [item, count]: items){
-            item_entries.emplace_back(item.get_name(), place, count);
+    vector<tuple<string, string, int, string>> item_entries;
+    for(const auto& [place, items] : item_place){
+        for(const auto& [item, count] : items){
+            item_entries.emplace_back(item.get_name(), place, count, item.get_color());
         }
     }
 
@@ -841,10 +842,13 @@ void Map::Print_Character_Info
 
     for(size_t i = 0; i < maxLines; ++i){
         if(i < villager_entries.size()){
-            auto& [name, place] = villager_entries[i];
+
+            const auto& [name, places] = villager_entries[i];
+            const auto& [location, safe] = places;
             cout << "║ " << left << setw(20) << name
-                      << " : " << setw(left_width - 24) << place
-                      << "║";
+                 << " : " << setw(17) << location
+                 << " | " << setw(12) << safe
+                 << "║";
         } 
         else{
             cout << "║" << string(left_width, ' ') << "║";
@@ -854,21 +858,37 @@ void Map::Print_Character_Info
 
         if(i < item_entries.size()){
 
-            auto& [investigate_name, investigate_place, investigate_count] = item_entries[i];
-            cout << "║ " << left << setw(25) << investigate_name
-                      << " : " << setw(right_width - 33) << investigate_place
-                      << "(" << investigate_count << ") ║";
-        } 
-        
+            const auto& [item_name, item_loc, item_count, item_color] = item_entries[i];
+
+            string trimmed_color = item_color;
+            const int max_color_length = 8;
+
+            if(trimmed_color.length() > max_color_length){
+                trimmed_color = trimmed_color.substr(0, max_color_length - 2) + "..";
+            }
+
+            stringstream info_stream;
+            info_stream << "(" << item_count << ", " << trimmed_color << ")";
+            string info = info_stream.str();
+
+            if(info.length() > 13){
+                info = info.substr(0, 12) + ")";
+            }
+
+            cout << "║ " << left << setw(22) << item_name
+                << ": " << setw(22) << item_loc
+                << " " << setw(18) << info << "║";
+        }
         else{
             cout << "║" << string(right_width, ' ') << "║";
         }
+
         cout << '\n';
     }
 
     cout << "╚" << repeat("═", left_width) << "╝"
-              << string(space, ' ')
-              << "╚" << repeat("═", right_width) << "╝\n";
+         << string(space, ' ')
+         << "╚" << repeat("═", right_width) << "╝\n";
 
 cout << R"(
                         ╔══════════════════════════════════════════════════╗

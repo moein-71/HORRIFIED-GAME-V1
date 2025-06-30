@@ -9,7 +9,7 @@ bool Power::activate(Game & game , const std::string & monster) {
             return true ;
     }
     else if(monster == game.invisible_man.get_name()) {
-            game.invisible_man.set_now_place(game.Game_map.find_destination(2 , game.invisible_man.get_now_place() , "none" , "none")) ;
+        //     game.invisible_man.set_now_place(game.Game_map.Find_Near_Destination(2 , game.invisible_man.get_now_place() , "none" , "none")) ;
             return true ;
     }
 

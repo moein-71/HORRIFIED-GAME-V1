@@ -5,6 +5,7 @@
 #include <variant>
 #include <iomanip>
 #include "Perk_card.hpp"
+#include "../ITEM/Item.hpp"
 
 using namespace std;
 
@@ -13,7 +14,11 @@ Hero::Hero(string name, string spawn_and_now_place, bool special_action_info, in
     set_name(name);
     set_spawn_place(spawn_and_now_place);
     set_now_place(spawn_and_now_place);
-    set_investigate_item();
+    investigate_place.push_back("Inn")  ;
+    investigate_place.push_back("Barn")  ;
+    investigate_place.push_back("Institute")  ;
+    investigate_place.push_back("Laboratory")  ;
+    investigate_place.push_back("Mansion") ;
 }
 
 
@@ -36,15 +41,6 @@ void Hero::set_item(Item item_info){
         return;
     }
     item[item_info] = 1;
-}
-void Hero::set_investigate_item(){
-
-    Item temp("" , "" , "" , 0);
-    investigate_item["Inn"] = temp;
-    investigate_item["Barn"] = temp;
-    investigate_item["Institute"] = temp;
-    investigate_item["Laboratory"] = temp;
-    investigate_item["Mansion"] = temp;
 }
 
 void Hero::set_perk(shared_ptr<Perk_card> new_perk) {
@@ -77,7 +73,7 @@ string Hero::get_spawn_place()const{
 string Hero::get_now_place()const{
     return now_place;
 }
-shared_ptr<Perk_card> Hero::get_perk(){
+variant<std::shared_ptr<Perk_card> , bool> Hero::get_perk(){
 
     int counter{1};
     vector <shared_ptr<Perk_card>> vec;
@@ -107,7 +103,7 @@ shared_ptr<Perk_card> Hero::get_perk(){
         string y_or_n ; 
         cin>> y_or_n ;
         if(y_or_n == "N") {
-            return ;
+            return false ;
         }
 
 
@@ -171,7 +167,7 @@ vector<Item> Hero::get_item(string color, int strength){
                 Hozoor = 1;
                 sum_strength += item_info.first.get_strength();
                 choose.push_back(item_info.first);
-                remove_item_from_bag(copy_item, item_info.first);
+                remove_item_from_bag(item_info.first , &copy_item);
             }
         }
         if(!Hozoor){
@@ -188,22 +184,31 @@ vector<Item> Hero::get_item(string color, int strength){
     }
     else{
         for(auto item_info: choose){
-            remove_item_from_bag(item, item_info);
+            remove_item_from_bag(item_info);
         }
         return choose;
     }
 }
-void Hero::remove_item_from_bag(unordered_map <Item, int>& bag_item, Item item){
 
-    if(!(--bag_item[item])){
-        bag_item.erase(item);
+vector<Item> Hero::get_investigate_item() {
+    vector<Item> temp ;
+    for(auto pair : item) {
+        for(auto place : investigate_place) {
+            if(pair.first.get_spawn_place() == place) {
+                temp.push_back(pair.first) ;
+            }
+        }
+    }
+    return temp ;
+}
+
+void Hero::remove_item_from_bag(Item remove_item , std::unordered_map <Item, int>* item_bag ){
+
+    item_bag == nullptr ? item_bag = &(this -> item) : item_bag = item_bag ;
+    if(!(--(*item_bag)[remove_item])){
+        (*item_bag).erase(remove_item);
     }
 }
-unordered_map <std::string, Item> Hero::get_investigate_item()const{
-    return investigate_item;
-}
-
-
 
 void Hero::Describe_Hero_Special_Action(){
 
@@ -216,15 +221,7 @@ She Has no special action.
 
 )";
 }
-bool Hero::edit_investigate_item(Item item_info){
 
-    if(investigate_item.count(item_info.get_spawn_place())){
-
-        return false;
-    }
-    investigate_item[item_info.get_spawn_place()] = item_info;
-    return true;
-}
 variant<int, Item> Hero::When_Monster_Killed_A_Hero(){
 
     if(item.empty()){

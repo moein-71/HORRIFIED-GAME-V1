@@ -13,19 +13,21 @@
 #include <array>
 #include <set>
 #include <unordered_map>
+#include <thread>
+#include <chrono>
+#include "../MAP/Map.hpp"
+#include "Archaologist.hpp"
+#include "Mayor.hpp"
+#include "../MONSTER/Dracula.hpp"
+#include "Invisible_man.hpp"
 
 class Game_turn ;
 class Turn_monster ;
 class Turn_archaologist ;
 class Turn_mayor ;
 class Map ;
-class Archaologist ;
-class Mayor ;
-class Dracula ;
-class Invisible_man ;
 class Villager ;
 class Perk_card ;
-class Item ;
 class Monster_card ; 
 class Special_Action ;
 class Pick_Up ;
@@ -48,17 +50,20 @@ class Game {
     friend class Turn_monster ;
     friend class Turn_archaologist ;
     friend class Turn_mayor ;
+    friend class Game_turn ;
 
     public :
 
-        Game(shared_ptr<Game_turn> player_1 , shared_ptr<Game_turn> player_2) ;
+        Game() ;
         
+        void set_player_1(std::shared_ptr<Game_turn> player_1) ;
+        void set_player_2(std::shared_ptr<Game_turn> player_2) ;
         int random_number() ;
         Item get_random_item() ; 
         void set_item_bag(Item new_item) ;
         void set_item_to_map(Item new_item) ;
-        shared_ptr<Perk_card> get_random_perk() ; 
-        shared_ptr<Monster_card> get_random_monster_card() ;
+        std::shared_ptr<Perk_card> get_random_perk() ; 
+        std::shared_ptr<Monster_card> get_random_monster_card() ;
         Villager get_villager(std::string name) ;
         
         char throw_dice() ; 
@@ -109,9 +114,10 @@ class Game {
         Invisible_man invisible_man ;
         std::string frenzy_monster ; // first dracula // name of the monsters save in it 
         std::vector<Villager> villagers_bag ;
-        std::vector<shared_ptr<Perk_card>> perk_bag ;
-        std::vector<shared_ptr<Monster_card>> Monster_cards_bag ;
+        std::vector<std::shared_ptr<Perk_card>> perk_bag ;
+        std::vector<std::shared_ptr<Monster_card>> Monster_cards_bag ;
         std::vector<Item> item_bag ;
 } ;
 
 #endif //Game_HPP
+

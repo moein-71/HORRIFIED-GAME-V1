@@ -1,13 +1,13 @@
 #ifndef INVISIBLE_MAN_H
 #define INVISIBLE_MAN_H
 
-#include "Monster.hpp"
+#include "./Monster.hpp"
 #include "../VILLAGER/Villager.hpp"
 #include <unordered_map>
 #include <vector>
 #include <string>
 
-class Invisible_man: public Monster{
+class Invisible_man : public Monster {
 
     public:
 

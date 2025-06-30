@@ -1,5 +1,5 @@
-#ifndef ADVANCE_H
-#define ADVANCE_H
+#ifndef ADVANCE_HPP
+#define ADVANCE_HPP
 
 #include "../Hero_Action.hpp"
 #include <string>
@@ -13,4 +13,4 @@ class Advance: public Hero_Action{
         std::string info()const;
 };
 
-#endif//ADVANCE_H
+#endif//ADVANCE_HPP

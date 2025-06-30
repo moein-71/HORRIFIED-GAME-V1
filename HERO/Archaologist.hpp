@@ -7,7 +7,7 @@ class Archaologist: public Hero{
 
     public:
 
-        Archaologist(): Hero("Archaologist", "Docks", 1, 4){};
+        Archaologist() ;
 };
 
 #endif//ARCHAOLOGIST_H

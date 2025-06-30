@@ -1,6 +1,6 @@
 #include "Turn_monster.hpp"
-#include "Turn_archaeologist.hpp"
-#include "Turn_mayor.hpp"
+#include "../Turn_archaeologist/Turn_archaeologist.hpp"
+#include "../Turn_mayor/Turn_mayor.hpp"
 #include "Egyptian_Expert.hpp"
 #include "Former_Employer.hpp"
 #include "Form_of_The_Bat.hpp"

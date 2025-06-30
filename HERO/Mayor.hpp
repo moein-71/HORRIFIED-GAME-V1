@@ -7,7 +7,7 @@ class Mayor: public Hero{
 
     public:
 
-        Mayor(): Hero("Mayor", "Theater", 0, 5){};
+        Mayor();
 };
 
 #endif//MAYOR_H

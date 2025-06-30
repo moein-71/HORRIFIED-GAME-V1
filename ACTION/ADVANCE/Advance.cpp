@@ -10,13 +10,19 @@ bool Advance::Activate(Game& game, Hero* hero){
 
     if(now_place == "Precinct"){
 
-        unordered_map<string, Item> founded_items = hero -> get_investigate_item();
+        vector<Item> investigate_item = hero -> get_investigate_item() ;
 
-        for(auto item: founded_items){
-            if(game.invisible_man.set_investigate_found(item.second.get_spawn_place())) {
-                cout<< "Investigate item added\n" ; 
-                return true ;
+        bool found = false ;
+        for(auto item: investigate_item){
+            if(game.invisible_man.set_investigate_found(item.get_spawn_place())) {
+                cout<< item.get_name() << " added in invisible_man map in " << item.get_spawn_place() << '\n' ; 
+                hero -> remove_item_from_bag(item) ;
+                found = true ;
             }
+        }
+        
+        if(found) {
+            return true ;
         }
         cout<< "There is no new investigate item\n" ;
         return false ;
@@ -47,4 +53,8 @@ bool Advance::Activate(Game& game, Hero* hero){
         cerr << "You are in a location where you cannot use this action.\n";
         return false ;
     }
+}
+
+std::string Advance::info()const {
+
 }

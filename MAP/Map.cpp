@@ -127,7 +127,24 @@ bool Map::Check_Place_Exist(std::string place) {
 }
 
 
-bool Map::Kill_Villager(string place){
+bool Map::Kill_Villager(string place , string name){
+
+    if(name != "") {
+        if(villager_place[place].size() >= 1) {
+            for(int i{} ; auto kill_villager : villager_place[place]) {
+                if(kill_villager.get_name() == name) {
+                    villager_place[place].erase(villager_place[place].begin() + i);
+                    if(!villager_place[place].size()){
+                        villager_place.erase(place);
+                    }
+                    return true ;
+                }
+                i++ ;
+            }
+            
+        }
+        return false ;
+    }
 
     if(villager_place[place].size() >= 1){
 
@@ -412,7 +429,7 @@ string Map::Move_Hero_Away_From_Monsters(
     const string& first_monster_location,
     const string& second_monster_location,
     const string& other_hero_location,
-    int max_steps = 2)
+    int max_steps)
 {
     
     auto bfs_distance = [&](const string& start) -> unordered_map<string, int> {

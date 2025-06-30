@@ -78,3 +78,7 @@ bool Move_Hero::Activate(Game& game, Hero* hero){
     }
 
 }
+
+std::string Move_Hero::info()const {
+
+}

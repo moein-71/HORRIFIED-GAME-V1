@@ -1,7 +1,7 @@
 #include "Fortune_Teller.hpp"
-#include "Move_monster.hpp"
-#include "Kill.hpp"
-#include "Power.hpp"
+#include "../../Monster_action/Move_monster/Move_monster.hpp"
+#include "../../Monster_action/Kill/Kill.hpp"
+#include "../../Monster_action/Power/Power.hpp"
 
 using namespace std ;
 

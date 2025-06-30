@@ -1,5 +1,5 @@
 #include "Pick_Up.hpp"
-#include <bits/stdc++.h>
+#include <bits/stdc++.h>///////////////////////////////investigate 
 
 using namespace std;
 
@@ -54,4 +54,8 @@ bool Pick_Up::Activate(Game& game, Hero* hero){
             cerr << "Please enter the right name of item.\n";
         }
     }
+}
+
+std::string Pick_Up::info()const {
+
 }

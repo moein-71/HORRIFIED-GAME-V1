@@ -3,12 +3,12 @@
 
 #include "Game.hpp"
 #include "Hero_Action.hpp"
-#include "Advance.hpp"
-#include "Defeat.hpp"
-#include "Guide.hpp"
-#include "Move_Hero.hpp"
-#include "Pick_Up.hpp"
-#include "Special_Action.hpp"
+#include "../ACTION/ADVANCE/Advance.hpp"
+#include "../ACTION/DEFEAT/Defeat.hpp"
+#include "../ACTION/GUIDE/Guide.hpp"
+#include "../ACTION/MOVE_HERO/Move_Hero.hpp"
+#include "../ACTION/PICK_UP/Pick_Up.hpp"
+#include "../ACTION/SPECIAL_ACTION/Special_Action.hpp"
 
 
 class Game_turn {
@@ -23,4 +23,4 @@ class Game_turn {
 
 };
 
-#endif //GAME_TURN_HPP
+#endif //GAME_TURN__HPP

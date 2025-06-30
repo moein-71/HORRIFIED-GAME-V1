@@ -1,13 +1,24 @@
 #ifndef MAP_H
 #define  MAP_H
 
+
+#include <string>
+#include <unordered_map>
+#include <vector>
+
+#include "Item.hpp"
 #include "../VILLAGER/Villager.hpp"
 #include "../ITEM/Item.hpp"
 #include "../HERO/Mayor.hpp"
 #include "../HERO/Archaologist.hpp"
-#include <string>
-#include <unordered_map>
-#include <vector>
+
+class Mayor ;
+class Item ;
+class Hero ;
+class Archaologist ;
+class Villager ;
+
+
 
 class Map{
 
@@ -17,7 +28,7 @@ class Map{
         std::vector<Villager> get_villager(std::string);
         std::string get_villager_place(std::string) ;
         std::string get_villager_safe_place(std::string , std::string) ;
-        std::vector<string> get_connection(std::string) ;
+        std::vector<std::string> get_connection(std::string) ;
         std::unordered_map<Item, int> get_item_of_place(std::string);
         int get_item_number(std::string , std::string) ;
 
@@ -29,10 +40,10 @@ class Map{
         bool Check_Count_Item_Place(std::string ,std::string) ;
         bool Check_Count_Neighbor_Connection(std::string , std::string) ;
         bool Check_Place_Exist(std::string) ;
-        bool Kill_Villager(std::string); 
+        bool Kill_Villager(std::string , std::string = ""); 
         Item Pickeup_Item(std::string, std::string);
         std::string Find_Place_With_More_Item();
-        std::vector<pair<Item, int>> Remove_All_Item_In_Place(std::string);
+        std::vector<std::pair<Item, int>> Remove_All_Item_In_Place(std::string);
         std::string Find_Near_Destination(int, std::string, Archaologist, Mayor);
         std::string Move_Monster_Away_From_Hero(std::string, Hero*, Hero*); // where is move 
         std::string Move_Hero_Away_From_Monsters(

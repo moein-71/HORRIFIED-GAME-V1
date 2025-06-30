@@ -1,5 +1,5 @@
-#ifndef TURN_MONSTER_HPP
-#define TURN_MONSTER_HPP
+#ifndef TURN_MAYOR_HPP
+#define TURN_MAYOR_HPP
 
 #include "Game_turn.hpp"
 #include "Break_of_Dawn.hpp"
@@ -19,4 +19,4 @@ class Turn_mayor : public Game_turn {
     private :
 };
 
-#endif //TURN_MONSTER_HPP
+#endif //TURN_MAYOR_HPP

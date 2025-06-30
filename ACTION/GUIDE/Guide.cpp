@@ -182,3 +182,7 @@ string Guide::take_villager_another_place(string now_place, string choose_place_
     }
     return "Successful" ;
 }
+
+std::string Guide::info()const {
+
+}

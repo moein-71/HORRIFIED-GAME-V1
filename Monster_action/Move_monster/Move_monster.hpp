@@ -1,7 +1,7 @@
 #ifndef MOVE_MONSTER_HPP
 #define MOVE_MONSTER_HPP
 
-#include "Monster_action.hpp"
+#include "../Monster_action.hpp"
 
 class Move_monster : public Monster_action {
 

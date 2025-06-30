@@ -1,11 +1,8 @@
 #include "Form_of_The_Bat.hpp" 
-#include "Move_monster.hpp"
-#include "Kill.hpp"
-#include "Power.hpp"
-
+#include "../../Monster_action/Move_monster/Move_monster.hpp"
+#include "../../Monster_action/Kill/Kill.hpp"
+#include "../../Monster_action/Power/Power.hpp"
 using namespace std ;
-
-class Invisible_man {};
 
 void Form_of_The_bat::ability(Game& gamestage) {
 

@@ -5,11 +5,12 @@ using namespace std ;
 bool Move_monster::activate(Game & game , const string & monster) {
 
     if(monster == game.dracula.get_name()) {
-            game.dracula.set_now_place(game.Game_map.find_near_destination(1 , game.dracula.get_now_place() , game.mayor.get_now_place() , game.archaologist.get_now_place())) ;
+            game.dracula.set_now_place(game.Game_map.Find_Near_Destination(1 , game.dracula.get_now_place() , game.archaologist , game.mayor)) ;
             return true ;
     }
     else if(monster == game.invisible_man.get_name()) {
-            game.invisible_man.set_now_place(game.Game_map.find_near_destination(1 , game.invisible_man.get_now_place() , game.mayor.get_now_place() , game.archaologist.get_now_place())) ;
+            game.invisible_man.set_now_place(game.Game_map.Find_Near_Destination(1 , game.invisible_man.get_now_place() , game.archaologist , game.mayor)) ;
+            game.invisible_man.reset_near_villager(game.Game_map.get_villager(game.invisible_man.get_now_place())) ;
             return true ;
     }
 

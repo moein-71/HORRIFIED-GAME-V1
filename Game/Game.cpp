@@ -5,11 +5,6 @@
 
 #include "Item.hpp"
 
-#include "Map.hpp"
-
-#include "Dracula.hpp"
-#include "Invisible_man.hpp"
-
 #include "Villager.hpp"
 
 #include "../Game_turn/Game_turn.hpp"
@@ -38,16 +33,11 @@
 
 using namespace std ;
 
-// std::vector<Villager> villagers_bag ;
-// std::vector<Item> item_bag ;
-
-Game::Game(shared_ptr<Game_turn> player_1 , shared_ptr<Game_turn> player_2) {////////////////////////////////////////////////// will be completed
+Game::Game() {
 
     this -> Terror_level = 6 ;
     this -> added_action = 0 ;
 
-    this -> player_1 = player_1 ;
-    this -> player_2 = player_2 ;
     this -> monster = make_shared<Turn_monster>() ;
 
     this -> frenzy_monster = this -> dracula.get_name() ;
@@ -181,6 +171,15 @@ Game::Game(shared_ptr<Game_turn> player_1 , shared_ptr<Game_turn> player_2) {///
 
 
 }
+
+void Game::set_player_1(shared_ptr<Game_turn> player_1) {
+    this -> player_1 = player_1 ;
+}
+
+void Game::set_player_2(shared_ptr<Game_turn> player_2) {
+    this -> player_2 = player_2 ;
+}
+
 
 int Game::random_number() {
     

@@ -1,5 +1,5 @@
-#ifndef TURN_MONSTER_HPP
-#define TURN_MONSTER_HPP
+#ifndef TURN_ARCHAOLOGIST_HPP
+#define TURN_ARCHAOLOGIST_HPP
 
 #include "Game_turn.hpp"
 #include "Break_of_Dawn.hpp"
@@ -19,4 +19,4 @@ class Turn_archaologist : public Game_turn {
     private :
 };
 
-#endif //TURN_MONSTER_HPP
+#endif //TURN_ARCHAOLOGIST_HPP

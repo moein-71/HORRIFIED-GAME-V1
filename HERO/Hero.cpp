@@ -75,6 +75,10 @@ string Hero::get_now_place()const{
 }
 variant<std::shared_ptr<Perk_card> , bool> Hero::get_perk(){
 
+    if(perk.empty()) {
+        return false ;
+    }
+
     int counter{1};
     vector <shared_ptr<Perk_card>> vec;
 
@@ -85,8 +89,8 @@ variant<std::shared_ptr<Perk_card> , bool> Hero::get_perk(){
         counter++;
     }
 
-    cout << counter << '.' << "exit";
-    cout << "Please enter the number of perk you want: ";
+    cout << counter << '.' << "exit \n";
+    cout << "Whitch perk do you want : \n";
     int choose;
     string ch;cin >> ch;
     istringstream iss(ch);
@@ -103,7 +107,7 @@ variant<std::shared_ptr<Perk_card> , bool> Hero::get_perk(){
         string y_or_n ; 
         cin>> y_or_n ;
         if(y_or_n == "N") {
-            return false ;
+            return true ;
         }
 
 
@@ -311,22 +315,24 @@ void Hero::Print_Hero_Info(){
             << repeat("═", color_width) << "╬"
             << repeat("═", loc_width) << "╬"
             << repeat("═", count_width) << "╣\n";
+    if(!item.empty()){
+        for(const auto& [item_obj, count]: item){
+            string item_name = item_obj.get_name();
+            if(item_name.length() > size_t(name_width - 2))
+                item_name = item_name.substr(0, name_width - 5) + "...";
 
-    for(const auto& [item_obj, count]: item){
-        string item_name = item_obj.get_name();
-        if(item_name.length() > size_t(name_width - 2))
-            item_name = item_name.substr(0, name_width - 5) + "...";
+            string spawn = item_obj.get_spawn_place();
+            if(spawn.length() > size_t(loc_width - 2))
+                spawn = spawn.substr(0, loc_width - 5) + "...";
 
-        string spawn = item_obj.get_spawn_place();
-        if(spawn.length() > size_t(loc_width - 2))
-            spawn = spawn.substr(0, loc_width - 5) + "...";
-
-        cout << "║ " << left << setw(name_width - 1) << item_name
-                << "║ " << left << setw(color_width - 1) << item_obj.get_color()
-                << "║ " << left << setw(loc_width - 1) << spawn
-                << "║ " << left << setw(count_width - 1) << count
-                << "║\n";
-    }
+            cout << "║ " << left << setw(name_width - 1) << item_name
+                    << "║ " << left << setw(color_width - 1) << item_obj.get_color()
+                    << "║ " << left << setw(loc_width - 1) << spawn
+                    << "║ " << left << setw(count_width - 1) << count
+                    << "║\n";
+    
+            }
+        }
     cout << "╚" << repeat("═", name_width) << "╩"
             << repeat("═", color_width) << "╩"
             << repeat("═", loc_width) << "╩"

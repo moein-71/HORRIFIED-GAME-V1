@@ -1,13 +1,13 @@
 #ifndef TURN_ARCHAOLOGIST_HPP
 #define TURN_ARCHAOLOGIST_HPP
 
-#include "Game_turn.hpp"
-#include "Break_of_Dawn.hpp"
-#include "Hurry.hpp"
-#include "Late_into_the_Night.hpp"
-#include "Overstock.hpp"
-#include "Repel.hpp"
-#include "Visit_from_the_Detective.hpp"
+#include "../Game_turn.hpp"
+#include "../../Perk_card/card/Break_of_Dawn.hpp"
+#include "../../Perk_card/card/Hurry.hpp"
+#include "../../Perk_card/card/Late_into_the_Night.hpp"
+#include "../../Perk_card/card/Overstock.hpp"
+#include "../../Perk_card/card/Repel.hpp"
+#include "../../Perk_card/card/Visit_from_the_Detective.hpp"
 
 class Turn_archaologist : public Game_turn {
 

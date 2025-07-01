@@ -1,7 +1,7 @@
 #ifndef GAME_TURN_HPP
 #define GAME_TURN_HPP
 
-#include "Game.hpp"
+#include "../Game/Game.hpp"
 #include "Hero_Action.hpp"
 #include "../ACTION/ADVANCE/Advance.hpp"
 #include "../ACTION/DEFEAT/Defeat.hpp"

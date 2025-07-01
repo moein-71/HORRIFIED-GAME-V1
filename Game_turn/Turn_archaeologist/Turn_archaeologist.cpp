@@ -4,78 +4,100 @@
 using namespace std ;
 
 bool Turn_archaologist::phase(Game& gamestage) {
+    gamestage.archaologist.Print_Hero_Info() ;
+    
     gamestage.set_last_hero_turn(gamestage.archaologist.get_name()) ;
+
     gamestage.turn->handle_turn(gamestage) ;
-    shared_ptr<Hero_Action> action ;
+    shared_ptr<Hero_Action> action = nullptr ;
     
     int remain_actions = gamestage.archaologist.get_action() + gamestage.get_added_action() ;
 
     char choose = 0 ;
 
-    while(action > 0) {
-        cout<< "Remain actions : " << remain_actions
-        << "1.Move  2.Guide  3.Pick up  4.Advance  5.Defeat  6.Special Action  7.Use perk\n"
-        << "\nChoose your action :" ;
+    while(remain_actions > 0) {
+        gamestage.printLineDelay("Remain actions : " + to_string(remain_actions) + '\n' + "1.Move  2.Guide  3.Pick up  4.Advance  5.Defeat  6.Special Action  7.Use perk  8.status\n" + "\nChoose your action : " );
         cin>> choose ;
 
         if(choose == '1') {
             action = make_shared<Move_Hero>() ;
             if(action -> Activate(gamestage , &gamestage.archaologist)) {
                 remain_actions-- ;
-                cout<< "Move done\n" ;
+                gamestage.printLineDelay("Move done\n") ;
+                continue;
             }
-            cout<< "Move not done\n" ;
+            gamestage.printLineDelay( "Move not done\n") ;
         }
         else if(choose == '2') {
             action = make_shared<Guide>() ;
             if(action -> Activate(gamestage , &gamestage.archaologist)) {
                 remain_actions-- ;
-                cout<< "Guide done\n" ;
+                gamestage.printLineDelay( "Guide done\n") ;
+                continue;
             }
-            cout<< "Guide not done\n" ;
+            gamestage.printLineDelay( "Guide not done\n") ;
         }
         else if(choose == '3') {
             action = make_shared<Pick_Up>() ;
             if(action -> Activate(gamestage , &gamestage.archaologist)) {
                 remain_actions-- ;
-                cout<< "Pick_Up done\n" ;
+                gamestage.printLineDelay( "Pick_Up done\n") ;
+                continue;
             }
-            cout<< "Pick_Up not done\n" ;
+            gamestage.printLineDelay( "Pick_Up not done\n") ;
         }
         else if(choose == '4') {
             action = make_shared<Advance>() ;
             if(action -> Activate(gamestage , &gamestage.archaologist)) {
                 remain_actions-- ;
-                cout<< "Advance done\n" ;
+                gamestage.printLineDelay( "Advance done\n") ;
+                continue;
             }
-            cout<< "Advance not done\n" ;
+            gamestage.printLineDelay( "Advance not done\n") ;
         }
         else if(choose == '5') {
             action = make_shared<Defeat>() ;
             if(action -> Activate(gamestage , &gamestage.archaologist)) {
                 remain_actions-- ;
-                cout<< "Defeat done\n" ;
+                gamestage.printLineDelay( "Defeat done\n") ;
+                continue;
             }
-            cout<< "Defeat not done\n" ;
+            gamestage.printLineDelay( "Defeat not done\n") ;
         }
         else if(choose == '6') {
             action = make_shared<Special_Action>() ;
                 if(action -> Activate(gamestage , &gamestage.archaologist)) {
                 remain_actions-- ;
-                cout<< "Special_Action done\n" ;
+                gamestage.printLineDelay( "Special_Action done\n") ;
+                continue;
             }
-            cout<< "Special_Action not done\n" ;
+            gamestage.printLineDelay( "Special_Action not done\n") ;
         }
         else if(choose == '7') {
             auto perk_variant = gamestage.archaologist.get_perk();
             if (auto perk_ptr = std::get_if<std::shared_ptr<Perk_card>>(&perk_variant)) {
                 (*perk_ptr)->ability(gamestage);
+                continue;
+            }
+            else {
+                gamestage.printLineDelay("There is no perk card use\n") ;
             }
         }
+        else if(choose == '8') {
+            gamestage.Game_map.Print_Map_And_All_Info(gamestage.get_archaologist_place() , gamestage.get_mayor_place() , gamestage.get_dracula_place() , gamestage.get_invisible_man_place() , gamestage.dracula.get_casket() , gamestage.invisible_man.get_investigate()) ;
+            gamestage.archaologist.Print_Hero_Info() ;
+        }
         else {
-            cout<< "\nChooss right number\n" ;
+            gamestage.printLineDelay("\nChooss right number\n") ;
             continue;
         }
+    }
+
+    if(remain_actions == 0) {
+        return true ;
+    }
+    else {
+        return false ;
     }
 }
 

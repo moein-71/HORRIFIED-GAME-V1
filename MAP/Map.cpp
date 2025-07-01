@@ -889,8 +889,13 @@ void Map::Print_Character_Info
 ){
 
     const int left_width = 56;
-    const int right_width = 66;
+    const int right_width = 80;
     const int space = 4;
+
+    auto trim = [](const string& str, size_t max_len) -> string {
+        if(str.size() <= max_len) return str;
+        return str.substr(0, max_len - 3) + "...";
+    };
 
     cout << "╔" << repeat("═", left_width) << "╗"
          << string(space, ' ')
@@ -902,7 +907,8 @@ void Map::Print_Character_Info
          << "║" << string(space, ' ')
          << "║ " << left << setw(25) << "Item"
          << " : " << setw(25) << "Location"
-         << " (x, Color) ║\n";
+        << left << setw(25) << " (x, Color, Str)" << " ║\n";
+
 
     cout << "╠" << repeat("═", left_width) << "╣"
          << string(space, ' ')
@@ -911,14 +917,25 @@ void Map::Print_Character_Info
     vector<pair<string, pair<string, string>>> villager_entries;
     for(const auto& [place, villagers] : villager_place){
         for(const auto& v : villagers){
-            villager_entries.emplace_back(v.get_name(), make_pair(place, v.get_safe_place()));
+
+            villager_entries.emplace_back(
+                v.get_name(), 
+                make_pair(place, v.get_safe_place())
+            );
         }
     }
 
-    vector<tuple<string, string, int, string>> item_entries;
+    vector<tuple<string, string, int, string, int>> item_entries;
     for(const auto& [place, items] : item_place){
         for(const auto& [item, count] : items){
-            item_entries.emplace_back(item.get_name(), place, count, item.get_color());
+            item_entries.emplace_back(
+
+                item.get_name(),
+                place,
+                count,
+                item.get_color(),
+                item.get_strength()
+            );
         }
     }
 
@@ -929,11 +946,19 @@ void Map::Print_Character_Info
 
             const auto& [name, places] = villager_entries[i];
             const auto& [location, safe] = places;
-            cout << "║ " << left << setw(20) << name
-                 << " : " << setw(17) << location
-                 << " | " << setw(12) << safe
+
+            string name_short = trim(name, 20);
+            string loc_short = trim(location, 17);
+            string safe_short = trim(safe, 12);
+
+            cout << "║ "
+                 << left << setw(20) << name_short
+                 << " : "
+                 << setw(17) << loc_short
+                 << " | "
+                 << setw(12) << safe_short
                  << "║";
-        } 
+        }
         else{
             cout << "║" << string(left_width, ' ') << "║";
         }
@@ -941,32 +966,30 @@ void Map::Print_Character_Info
         cout << string(space, ' ');
 
         if(i < item_entries.size()){
+            const auto& [item_name, item_loc, item_count, item_color, item_strength] = item_entries[i];
 
-            const auto& [item_name, item_loc, item_count, item_color] = item_entries[i];
+            string item_name_short = trim(item_name, 25);
+            string item_loc_short = trim(item_loc, 25);
+            string color_short = trim(item_color, 10);
 
-            string trimmed_color = item_color;
-            const int max_color_length = 8;
+            string status = "(" + to_string(item_count) + ", " + color_short + ", " + to_string(item_strength) + ")";
+            string status_short = trim(status, 20);
 
-            if(trimmed_color.length() > max_color_length){
-                trimmed_color = trimmed_color.substr(0, max_color_length - 2) + "..";
-            }
+            int pad = right_width - (25 + 3 + 25 + 1 + 1 + (int)status_short.size());
+            if(pad < 0) pad = 0;
 
-            stringstream info_stream;
-            info_stream << "(" << item_count << ", " << trimmed_color << ")";
-            string info = info_stream.str();
-
-            if(info.length() > 13){
-                info = info.substr(0, 12) + ")";
-            }
-
-            cout << "║ " << left << setw(22) << item_name
-                << ": " << setw(22) << item_loc
-                << " " << setw(18) << info << "║";
+            cout << "║ "
+                 << left << setw(25) << item_name_short
+                 << " : "
+                 << left << setw(25) << item_loc_short
+                 << " "
+                 << status_short
+                 << string(pad, ' ')
+                 << "║";
         }
         else{
             cout << "║" << string(right_width, ' ') << "║";
         }
-
         cout << '\n';
     }
 
@@ -975,17 +998,16 @@ void Map::Print_Character_Info
          << "╚" << repeat("═", right_width) << "╝\n";
 
 cout << R"(
-                        ╔══════════════════════════════════════════════════╗
-                        ║             Character Locations                  ║
-                        ║══════════════════════════════════════════════════║
-                        ║ Archaeologist  : )" << setw(20) << left << archaologist_place << R"(            ║
+                                    ╔══════════════════════════════════════════════════╗
+                                    ║             Character Locations                  ║
+                                    ║══════════════════════════════════════════════════║
+                                    ║ Archaeologist  : )" << setw(20) << left << archaologist_place << R"(            ║
 
-                        ║ Mayor          : )" << setw(20) << left << mayor_place << R"(            ║
+                                    ║ Mayor          : )" << setw(20) << left << mayor_place << R"(            ║
 
-                        ║ Dracula        : )" << setw(20) << left << dracula_place << R"(            ║
+                                    ║ Dracula        : )" << setw(20) << left << dracula_place << R"(            ║
 
-                        ║ Invisible_Man  : )" << setw(20) << left << invisible_mam_place << R"(            ║
-                        ╚══════════════════════════════════════════════════╝
+                                    ║ Invisible_Man  : )" << setw(20) << left << invisible_mam_place << R"(            ║
+                                    ╚══════════════════════════════════════════════════╝
 )" << '\n';
 }
-

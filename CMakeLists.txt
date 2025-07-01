@@ -18,13 +18,11 @@ set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 # لیست کامل فایل‌های سورس
-add_executable(a.out
+add_executable(app
     # فایل‌های اصلی
     Programm/main.cpp
     Programm/Programm.cpp
-    Programm/Programm.hpp
     Game/Game.cpp
-    Game/Game.hpp
     
     # فایل‌های Game_turn
     Game_turn/Turn_archaeologist/Turn_archaeologist.cpp
@@ -88,7 +86,7 @@ add_executable(a.out
 )
 
 # دایرکتوری‌های شامل
-target_include_directories(a.out PRIVATE
+target_include_directories(app PRIVATE
     ${CMAKE_CURRENT_SOURCE_DIR}
     ${CMAKE_CURRENT_SOURCE_DIR}/ACTION
     ${CMAKE_CURRENT_SOURCE_DIR}/Game
@@ -107,4 +105,4 @@ target_include_directories(a.out PRIVATE
 
 # در صورت نیاز کتابخانه‌ها
 find_package(Threads REQUIRED)
-target_link_libraries(a.out PRIVATE Threads::Threads)
+target_link_libraries(app PRIVATE Threads::Threads)

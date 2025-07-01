@@ -6,10 +6,10 @@
 
 using namespace std;
 
-Invisible_man::Invisible_man(): Monster(1, "Invisible_man", {"Inn", "Bern", "Institute", "Laboratory", "Mansion"}){
+Invisible_man::Invisible_man(): Monster(1, "Invisible_man", {"Inn", "Barn", "Institute", "Laboratory", "Mansion"}){
 
     investigate["Inn"] = 1;
-    investigate["Bern"] = 1;
+    investigate["Barn"] = 1;
     investigate["Institute"] = 1;
     investigate["Laboratory"] = 1;
     investigate["Mansion"] = 1;
@@ -67,5 +67,5 @@ bool Invisible_man::can_kill_villager(Villager villager){
     return near_villager.count(villager) && near_villager[villager];
 }
 bool Invisible_man::check_investigate() {
-    return !investigate["Inn"] && !investigate["Bern"] && !investigate["Institute"] && !investigate["Laboratory"] && !investigate["Mansion"] ;
+    return !investigate["Inn"] && !investigate["Barn"] && !investigate["Institute"] && !investigate["Laboratory"] && !investigate["Mansion"] ;
 }

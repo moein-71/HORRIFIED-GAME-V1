@@ -274,7 +274,8 @@ void Hero::Print_Hero_Info(){
     int color_width = 10;
     int loc_width = 18;
     int count_width = 7;
-    int table_width = name_width + color_width + loc_width + count_width + 3;
+    int strength_width = 6;
+    int table_width = name_width + color_width + loc_width + count_width + strength_width + 4;
 
     cout << "╔" << repeat("═", table_width) << "╗\n";
     cout << "║ Hero: " << left << setw(table_width - 7)
@@ -284,18 +285,21 @@ void Hero::Print_Hero_Info(){
     cout << "╠" << repeat("═", name_width) << "╦"
             << repeat("═", color_width) << "╦"
             << repeat("═", loc_width) << "╦"
-            << repeat("═", count_width) << "╣\n";
+            << repeat("═", count_width) << "╦"
+            << repeat("═", strength_width) << "╣\n";
 
     cout << "║ " << left << setw(name_width - 1) << "Item Name"
             << "║ " << left << setw(color_width - 1) << "Color"
             << "║ " << left << setw(loc_width - 1) << "Location"
             << "║ " << left << setw(count_width - 1) << "Count"
+            << "║ " << left << setw(strength_width - 1) << "Str"
             << "║\n";
 
     cout << "╠" << repeat("═", name_width) << "╬"
             << repeat("═", color_width) << "╬"
             << repeat("═", loc_width) << "╬"
-            << repeat("═", count_width) << "╣\n";
+            << repeat("═", count_width) << "╬"
+            << repeat("═", strength_width) << "╣\n";
 
     for(const auto& [item_obj, count] : item){
 
@@ -311,11 +315,13 @@ void Hero::Print_Hero_Info(){
                 << "║ " << left << setw(color_width - 1) << item_obj.get_color()
                 << "║ " << left << setw(loc_width - 1) << spawn
                 << "║ " << left << setw(count_width - 1) << count
+                << "║ " << left << setw(strength_width - 1) << item_obj.get_strength()
                 << "║\n";
     }
 
     cout << "╚" << repeat("═", name_width) << "╩"
             << repeat("═", color_width) << "╩"
             << repeat("═", loc_width) << "╩"
-            << repeat("═", count_width) << "╝\n";
+            << repeat("═", count_width) << "╩"
+            << repeat("═", strength_width) << "╝\n";
 }

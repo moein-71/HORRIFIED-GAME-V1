@@ -98,28 +98,28 @@ Game::Game() {
     // string name, string spawn_place, string color, int strength
 
     item_bag.emplace_back(Item("Flower" , "Docks" , "Yellow" , 2)) ;
-    item_bag.emplace_back(Item("Tarot Deck" , "Camp" , "Yellow" , 1)) ;
+    item_bag.emplace_back(Item("Tarot_Deck" , "Camp" , "Yellow" , 1)) ;
     item_bag.emplace_back(Item("Garlic" , "Inn" , "Yellow" , 2)) ;
-    item_bag.emplace_back(Item("Mirrored Box" , "Mansion" , "Yellow" , 3)) ;
+    item_bag.emplace_back(Item("Mirrored_Box" , "Mansion" , "Yellow" , 3)) ;
     item_bag.emplace_back(Item("Stake" , "Abbey" , "Yellow" , 3)) ;
-    item_bag.emplace_back(Item("Scroll of Thoth" , "Museum" , "Yellow" , 4)) ;
+    item_bag.emplace_back(Item("Scroll_of_Thoth" , "Museum" , "Yellow" , 4)) ;
     item_bag.emplace_back(Item("Violin" , "Camp" , "Yellow" , 3)) ;
     item_bag.emplace_back(Item("Tablet" , "Museum" , "Yellow" , 3)) ;
     item_bag.emplace_back(Item("Wolfsbane" , "Camp" , "Yellow" , 4)) ;
     item_bag.emplace_back(Item("Charm" , "Camp" , "Yellow" , 4)) ;
     item_bag.emplace_back(Item("Dart" , "Inn" , "Red" , 2)) ;
-    item_bag.emplace_back(Item("Fire Poker" , "Mansion" , "Red" , 3)) ;
-    item_bag.emplace_back(Item("Rapier" , "Theatre" , "Red" , 5)) ;
+    item_bag.emplace_back(Item("Fire_Poker" , "Mansion" , "Red" , 3)) ;
+    item_bag.emplace_back(Item("Rapier" , "Theater" , "Red" , 5)) ;
     item_bag.emplace_back(Item("Shovel" , "Graveyard" , "Red" , 2)) ;
     item_bag.emplace_back(Item("Torch" , "Barn" , "Red" , 5)) ;
     item_bag.emplace_back(Item("Pitchfork" , "Barn" , "Red" , 4)) ;
     item_bag.emplace_back(Item("Rifle" , "Barn" , "Red" , 6)) ;
-    item_bag.emplace_back(Item("Silver Cane" , "Shop" , "Red" , 6)) ;
+    item_bag.emplace_back(Item("Silver_Cane" , "Shop" , "Red" , 6)) ;
     item_bag.emplace_back(Item("Knife" , "Docks" , "Red" , 3)) ;
     item_bag.emplace_back(Item("Pistol" , "Precinct" , "Red" , 6)) ;
-    item_bag.emplace_back(Item("Bear Trap" , "Shop" , "Red" , 4)) ;
+    item_bag.emplace_back(Item("Bear_Trap" , "Shop" , "Red" , 4)) ;
     item_bag.emplace_back(Item("Speargun" , "Institute" , "Red" , 4)) ;
-    item_bag.emplace_back(Item("Anatomy Text" , "Institute" , "Blue" , 1)) ;
+    item_bag.emplace_back(Item("Anatomy_Text" , "Institute" , "Blue" , 1)) ;
     item_bag.emplace_back(Item("Centrifuge" , "Laboratory" , "Blue" , 1)) ;
     item_bag.emplace_back(Item("Kite" , "Tower" , "Blue" , 1)) ;
     item_bag.emplace_back(Item("Research" , "Tower" , "Blue" , 2)) ;
@@ -128,33 +128,33 @@ Game::Game() {
     item_bag.emplace_back(Item("Experiment" , "Laboratory" , "Blue" , 2)) ;
     item_bag.emplace_back(Item("Analysis" , "Institute" , "Blue" , 2)) ;
     item_bag.emplace_back(Item("Rotenone" , "Institute" , "Blue" , 3)) ;
-    item_bag.emplace_back(Item("Cosmic Ray Diffuser" , "Tower" , "Blue" , 3)) ;
-    item_bag.emplace_back(Item("Monocane  Mixture" , "Inn" , "Blue" , 3)) ;
+    item_bag.emplace_back(Item("Cosmic_Ray_Diffuser" , "Tower" , "Blue" , 3)) ;
+    item_bag.emplace_back(Item("Monocane_Mixture" , "Inn" , "Blue" , 3)) ;
     item_bag.emplace_back(Item("Nebularium" , "Tower" , "Blue" , 3)) ;
     item_bag.emplace_back(Item("Fossil" , "Camp" , "Blue" , 3)) ;
     item_bag.emplace_back(Item("Flower" , "Docks" , "Yellow" , 2)) ;
-    item_bag.emplace_back(Item("Tarot Deck" , "Camp" , "Yellow" , 1)) ;
+    item_bag.emplace_back(Item("Tarot_Deck" , "Camp" , "Yellow" , 1)) ;
     item_bag.emplace_back(Item("Garlic" , "Inn" , "Yellow" , 2)) ;
-    item_bag.emplace_back(Item("Mirrored Box" , "Mansion" , "Yellow" , 3)) ;
+    item_bag.emplace_back(Item("Mirrored_Box" , "Mansion" , "Yellow" , 3)) ;
     item_bag.emplace_back(Item("Stake" , "Abbey" , "Yellow" , 3)) ;
-    item_bag.emplace_back(Item("Scroll of Thoth" , "Museum" , "Yellow" , 4)) ;
+    item_bag.emplace_back(Item("Scroll_of_Thoth" , "Museum" , "Yellow" , 4)) ;
     item_bag.emplace_back(Item("Violin" , "Camp" , "Yellow" , 3)) ;
     item_bag.emplace_back(Item("Tablet" , "Museum" , "Yellow" , 3)) ;
     item_bag.emplace_back(Item("Wolfsbane" , "Camp" , "Yellow" , 4)) ;
     item_bag.emplace_back(Item("Charm" , "Camp" , "Yellow" , 4)) ;
     item_bag.emplace_back(Item("Dart" , "Inn" , "Red" , 2)) ;
-    item_bag.emplace_back(Item("Fire Poker" , "Mansion" , "Red" , 3)) ;
-    item_bag.emplace_back(Item("Rapier" , "Theatre" , "Red" , 5)) ;
+    item_bag.emplace_back(Item("Fire_Poker" , "Mansion" , "Red" , 3)) ;
+    item_bag.emplace_back(Item("Rapier" , "Theater" , "Red" , 5)) ;
     item_bag.emplace_back(Item("Shovel" , "Graveyard" , "Red" , 2)) ;
     item_bag.emplace_back(Item("Torch" , "Barn" , "Red" , 5)) ;
     item_bag.emplace_back(Item("Pitchfork" , "Barn" , "Red" , 4)) ;
     item_bag.emplace_back(Item("Rifle" , "Barn" , "Red" , 6)) ;
-    item_bag.emplace_back(Item("Silver Cane" , "Shop" , "Red" , 6)) ;
+    item_bag.emplace_back(Item("Silver_Cane" , "Shop" , "Red" , 6)) ;
     item_bag.emplace_back(Item("Knife" , "Docks" , "Red" , 3)) ;
     item_bag.emplace_back(Item("Pistol" , "Precinct" , "Red" , 6)) ;
-    item_bag.emplace_back(Item("Bear Trap" , "Shop" , "Red" , 4)) ;
+    item_bag.emplace_back(Item("Bear_Trap" , "Shop" , "Red" , 4)) ;
     item_bag.emplace_back(Item("Speargun" , "Institute" , "Red" , 4)) ;
-    item_bag.emplace_back(Item("Anatomy Text" , "Institute" , "Blue" , 1)) ;
+    item_bag.emplace_back(Item("Anatomy_Text" , "Institute" , "Blue" , 1)) ;
     item_bag.emplace_back(Item("Centrifuge" , "Laboratory" , "Blue" , 1)) ;
     item_bag.emplace_back(Item("Kite" , "Tower" , "Blue" , 1)) ;
     item_bag.emplace_back(Item("Research" , "Tower" , "Blue" , 2)) ;
@@ -163,8 +163,8 @@ Game::Game() {
     item_bag.emplace_back(Item("Experiment" , "Laboratory" , "Blue" , 2)) ;
     item_bag.emplace_back(Item("Analysis" , "Institute" , "Blue" , 2)) ;
     item_bag.emplace_back(Item("Rotenone" , "Institute" , "Blue" , 3)) ;
-    item_bag.emplace_back(Item("Cosmic Ray Diffuser" , "Tower" , "Blue" , 3)) ;
-    item_bag.emplace_back(Item("Monocane  Mixture" , "Inn" , "Blue" , 3)) ;
+    item_bag.emplace_back(Item("Cosmic_Ray_Diffuser" , "Tower" , "Blue" , 3)) ;
+    item_bag.emplace_back(Item("Monocane_Mixture" , "Inn" , "Blue" , 3)) ;
     item_bag.emplace_back(Item("Nebularium" , "Tower" , "Blue" , 3)) ;
     item_bag.emplace_back(Item("Fossil" , "Camp" , "Blue" , 3)) ;
 
@@ -174,6 +174,7 @@ Game::Game() {
 
 void Game::set_player_1(shared_ptr<Game_turn> player_1) {
     this -> player_1 = player_1 ;
+    this -> turn = player_1 ;
 }
 
 void Game::set_player_2(shared_ptr<Game_turn> player_2) {
@@ -245,7 +246,8 @@ shared_ptr<Monster_card> Game::get_random_monster_card() {
 
 Villager Game::get_villager(string name) {
 
-    for(int counter = 0 ; Villager villager : villagers_bag) {
+    int counter = 0 ;
+    for( Villager villager : villagers_bag) {
         if(villager.get_name() == name) {
             villagers_bag.erase( villagers_bag.begin() + counter) ;
             return villager ;
@@ -268,15 +270,20 @@ std::string Game::find_place_with_more_item_map() {
 }
 
 bool Game::remove_all_item_in_place(std::string place) {
-
+    int j = 0 ;
     vector<pair<Item, int>> remove_item = this->Game_map.Remove_All_Item_In_Place(place) ;
 
-    if(!remove_item.empty()) { ;
+    if(!remove_item.empty()) { 
         for(auto add : remove_item) {
             for(int i{} ; i < add.second ; ++i) {
                 this -> set_item_bag(add.first) ;
+                if(j==0) {
+                    this->printLineDelay(add.first.get_spawn_place() + " be clear\n") ;
+                    j++ ;
+                }
             }
         }
+        
         return true ;
     }
     return false ;
@@ -326,8 +333,8 @@ void Game::set_frenzy_monster( const string & name) {
 }
 
 void Game::set_villager_in_Game_map(const std::string place , const std::string name) {
-
-    for(int counter{} ; const Villager & temp : this->villagers_bag) {
+    int counter{} ;
+    for( const Villager & temp : this->villagers_bag) {
         if(temp.get_name() == name) {
             this -> Game_map.set_villager(place , temp) ;
             this -> villagers_bag.erase(villagers_bag.begin() + counter) ;
@@ -385,8 +392,30 @@ int Game::get_added_action() {
     return added_action ;
 }
 
+int Game::get_monster_card_number() {
+    this->Monster_cards_bag.shrink_to_fit() ;
+    return this->Monster_cards_bag.size() ;
+}
+
 bool Game::Check_Place_Exist_in_map(string place) {
     return this -> Game_map.Check_Place_Exist(place) ;
+}
+
+void Game::increase_Terror_level() {
+    this -> Terror_level++ ;
+}
+
+int Game::get_Terror_level() {
+    return this -> Terror_level ;
+}
+
+
+void Game::printLineDelay(const std::string& line, int delayMs) {
+    for (char c : line) {
+        cout << c << flush;
+        this_thread::sleep_for(chrono::milliseconds(delayMs));
+    }
+    cout << endl;
 }
 
 

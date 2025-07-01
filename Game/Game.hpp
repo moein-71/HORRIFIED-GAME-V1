@@ -35,6 +35,7 @@ class Move_Hero ;
 class Guide ;
 class Defeat ;
 class Advance ;
+class Program ;
 
 class Game {
 
@@ -51,6 +52,7 @@ class Game {
     friend class Turn_archaologist ;
     friend class Turn_mayor ;
     friend class Game_turn ;
+    friend class Program ;
 
     public :
 
@@ -95,17 +97,23 @@ class Game {
         std::string get_dracula_name() ;
         std::string get_invisible_man_name() ;
         int get_added_action() ;
+        int get_monster_card_number() ;
 
         bool Check_Place_Exist_in_map(std::string place) ;
+
+        void increase_Terror_level() ;
+        int get_Terror_level() ;
+
+        void printLineDelay(const std::string& line, int delayMs = 0) ; //30
 
     private :
     
         int Terror_level ;
         int added_action ;
-        std::shared_ptr<Game_turn> turn ;
-        std::shared_ptr<Game_turn> player_1 ;
-        std::shared_ptr<Game_turn> player_2 ;
-        std::shared_ptr<Game_turn> monster ;
+        std::shared_ptr<Game_turn> turn = nullptr ;
+        std::shared_ptr<Game_turn> player_1 = nullptr ;
+        std::shared_ptr<Game_turn> player_2 = nullptr ;
+        std::shared_ptr<Game_turn> monster = nullptr ;
         std::string last_hero_turn ; // archaologist , Mayor  // in constructor we find out how start first and ho start last and its use in monster card abilitys
         Map Game_map ;
         Archaologist archaologist ;

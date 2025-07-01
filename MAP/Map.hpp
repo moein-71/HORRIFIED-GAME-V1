@@ -56,9 +56,13 @@ class Map{
         int bfs_distance(const std::string& start, const std::string& end);
         void Print_Map_And_All_Info(std::string, std::string, std::string, std::string,
                                     std::unordered_map<std::string, bool>,
-                                    std::unordered_map<std::string, bool>
+                                    std::unordered_map<std::string, bool>,
+                                    int
                                 );//This function outputs city routes. 
         void Print_Character_Info(std::string, std::string, std::string, std::string);//This function outputs the positions of the characters and items in the game.
+        std::string Find_Near_Place_To_Villager(std::string);
+        void Move_Villager_To_Safe_House();
+        std::string Move_Character_Near_Dracula(std::string, Hero*, Hero*);
         std::string repeat(const std::string& s, int n) ;
     private:
 

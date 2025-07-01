@@ -207,10 +207,10 @@ vector<pair<Item, int>> Map::Remove_All_Item_In_Place(string place){
 }
 string Map::Find_Near_Destination(int max_steps, string current_location, Archaologist archaologist, Mayor mayor){
 
-    unordered_map<std::string, std::string> parent;
-    unordered_map<std::string, int> distance;
-    queue<std::string> q;
-    unordered_set<std::string> visited;
+    unordered_map<string, string> parent;
+    unordered_map<string, int> distance;
+    queue<string> q;
+    unordered_set<string> visited;
 
     q.push(current_location);
     distance[current_location] = 0;
@@ -219,12 +219,12 @@ string Map::Find_Near_Destination(int max_steps, string current_location, Archao
     string archaologist_loc = archaologist.get_now_place();
     string mayor_loc = mayor.get_now_place();
 
-    vector<std::string> candidates;
+    vector<string> candidates;
     int min_dist = -1;
 
     while (!q.empty()){
 
-        std::string node = q.front(); q.pop();
+        string node = q.front(); q.pop();
         int d = distance[node];
 
         bool is_hero = (node == archaologist_loc || node == mayor_loc);
@@ -263,7 +263,7 @@ string Map::Find_Near_Destination(int max_steps, string current_location, Archao
     int best_villager_count = villager_place.count(best_target) ? villager_place[best_target].size() : 0;
     bool best_is_hero = (best_target == archaologist_loc || best_target == mayor_loc);
 
-    for(const std::string& loc : candidates){
+    for(const string& loc : candidates){
 
         bool is_hero = (loc == archaologist_loc || loc == mayor_loc);
         int villager_count = villager_place.count(loc) ? villager_place[loc].size() : 0;
@@ -283,7 +283,7 @@ string Map::Find_Near_Destination(int max_steps, string current_location, Archao
         }
     }
 
-    vector<std::string> path;
+    vector<string> path;
     string current = best_target;
 
     while(current != current_location){
@@ -579,6 +579,211 @@ string Map::Move_Hero_Away_From_Monsters(
     else
         return path[max_steps - 1];
 }
+void Map::Move_Villager_To_Safe_House(){
+
+    vector<tuple<string, string, string>> move_requests;
+
+    for(auto& [place, villager_list] : villager_place){
+        for(auto& villager : villager_list){
+
+            string now = villager.get_now_place();
+            string safe = villager.get_safe_place();
+
+            if(now == safe)continue;
+
+            unordered_map<string, string> parent;
+            unordered_set<string> visited;
+            queue<string> q;
+
+            q.push(now);
+            visited.insert(now);
+            parent[now] = "";
+
+            bool found = false;
+            while(!q.empty()){
+
+                string current = q.front(); q.pop();
+
+                if(current == safe){
+                    found = true;
+                    break;
+                }
+                if(!connection.count(current))continue;
+                for(const string& neighbor : connection.at(current)){
+                    if(!visited.count(neighbor)){
+
+                        visited.insert(neighbor);
+                        parent[neighbor] = current;
+                        q.push(neighbor);
+                    }
+                }
+            }
+
+            if (!found) continue;
+
+            vector<string> path;
+            string current = safe;
+            while(!current.empty()){
+
+                path.push_back(current);
+                current = parent[current];
+            }
+            reverse(path.begin(), path.end());
+
+            if(path.size() >= 2){
+
+                string next_step = path[1]; 
+                move_requests.emplace_back(now, next_step, villager.get_name());
+            }
+        }
+    }
+
+    for(const auto& [now_place, new_place, name] : move_requests){
+        set_villager_place(now_place, new_place, name);
+    }
+}
+string Map::Move_Character_Near_Dracula(string dracula_place, Hero* archaologist, Hero* mayor){
+
+    if (archaologist->get_now_place() == dracula_place || mayor->get_now_place() == dracula_place)
+        return "Don't move";
+
+    if (villager_place.count(dracula_place) && !villager_place[dracula_place].empty())
+        return "Don't move";
+
+    unordered_map<string, int> distance;
+    unordered_map<string, string> parent;
+    queue<string> q;
+
+    q.push(dracula_place);
+    distance[dracula_place] = 0;
+    parent[dracula_place] = "";
+
+    while(!q.empty()){
+
+        string current = q.front(); q.pop();
+        for(const string& neighbor : connection[current]){
+            if(!distance.count(neighbor)){
+
+                distance[neighbor] = distance[current] + 1;
+                parent[neighbor] = current;
+                q.push(neighbor);
+            }
+        }
+    }
+
+    string closest_name = "";
+    string closest_now = "";
+    int min_dist = INT_MAX;
+    bool is_villager = false;
+
+    for(Hero* hero : {archaologist, mayor}){
+
+        string place = hero->get_now_place();
+        if(distance.count(place) && distance[place] < min_dist){
+
+            min_dist = distance[place];
+            closest_name = hero->get_name();
+            closest_now = place;
+            is_villager = false;
+        }
+    }
+
+    for(const auto& [place, villager_list] : villager_place){
+        for(const auto& villager : villager_list){
+
+            string now = villager.get_now_place();
+            if(distance.count(now) && distance[now] < min_dist){
+
+                min_dist = distance[now];
+                closest_name = villager.get_name();
+                closest_now = now;
+                is_villager = true;
+            }
+        }
+    }
+
+    if(min_dist == INT_MAX)return "Don't move";
+
+    vector<string> path;
+    string current = closest_now;
+
+    while(!current.empty()){
+
+        path.push_back(current);
+        current = parent[current];
+    }
+    reverse(path.begin(), path.end());
+
+    if(path.size() <= 1)return "Don't move";
+
+    string next_place = path[1];
+
+    if(is_villager){
+
+        set_villager_place(closest_now, next_place, closest_name);
+    } 
+    else{
+
+        if(archaologist->get_name() == closest_name){
+            archaologist->set_now_place(next_place);
+        } 
+        else{
+            mayor->set_now_place(next_place);
+        }
+    }
+
+    return closest_name;
+}
+string Map::Find_Near_Place_To_Villager(string invisible_man_place){
+
+    unordered_map<string, string> parent;
+    unordered_set<string> visited;
+    queue<string> q;
+
+    q.push(invisible_man_place);
+    visited.insert(invisible_man_place);
+    parent[invisible_man_place] = "";
+
+    string target_place = "";
+    bool found = false;
+
+    while(!q.empty()){
+
+        string current = q.front(); q.pop();
+        if(villager_place.count(current) && !villager_place.at(current).empty()){
+            target_place = current;
+            found = true;
+            break;
+        }
+        for(const auto& neighbor : connection.at(current)){
+            if(!visited.count(neighbor)){
+
+                visited.insert(neighbor);
+                parent[neighbor] = current;
+                q.push(neighbor);
+            }
+        }
+    }
+
+    if(!found){
+        return invisible_man_place;
+    }
+
+    vector<string> path;
+    string current = target_place;
+
+    while(!current.empty()){
+
+        path.push_back(current);
+        current = parent[current];
+    }
+
+    reverse(path.begin(), path.end());
+
+    if(path.size() <= 1)return path[0];         
+    else if(path.size() == 2)return path[1];   
+    else return path[2];                          
+}
 
 
 
@@ -606,8 +811,10 @@ void Map::Print_Map_And_All_Info
     string dracula_place, 
     string invisible_mam_place,
     unordered_map<string, bool> casket,
-    unordered_map<string, bool> investigate
+    unordered_map<string, bool> investigate,
+    int Terror_level
 ){
+cout<< "\nTerror_level : " << Terror_level << '\n' ;
 cout << R"(
 ╔══════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
 ║                                     The Cursed Land (Horrified)                                                  ║
@@ -631,7 +838,7 @@ cout << R"(
 ╚══════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
 )";
 
-    const int table_width = 45;
+    const int table_width = 56;
 
     cout << "╔" << repeat("═", table_width) << "╗    ╔" << repeat("═", table_width) << "╗\n";
     cout << "║ " << setw(table_width - 2) << left << "Dracula Casket"
@@ -675,36 +882,37 @@ void Map::Print_Character_Info
     string invisible_mam_place
 ){
 
-    const int left_width = 45;
-    const int right_width = 55;
+    const int left_width = 56;
+    const int right_width = 66;
     const int space = 4;
 
     cout << "╔" << repeat("═", left_width) << "╗"
-              << string(space, ' ')
-              << "╔" << repeat("═", right_width) << "╗\n";
+         << string(space, ' ')
+         << "╔" << repeat("═", right_width) << "╗\n";
 
     cout << "║ " << left << setw(20) << "Villager"
-              << " : " << setw(left_width - 24) << "Location"
-              << "║" << string(space, ' ')
-              << "║ " << left << setw(25) << "Item"
-              << " : " << setw(right_width - 33) << "Location"
-              << "(x) ║\n";
+         << " : " << setw(17) << "Location"
+         << " | " << setw(12) << "Safe Place"
+         << "║" << string(space, ' ')
+         << "║ " << left << setw(25) << "Item"
+         << " : " << setw(25) << "Location"
+         << " (x, Color) ║\n";
 
     cout << "╠" << repeat("═", left_width) << "╣"
-              << string(space, ' ')
-              << "╠" << repeat("═", right_width) << "╣\n";
+         << string(space, ' ')
+         << "╠" << repeat("═", right_width) << "╣\n";
 
-    vector<pair<string, string>> villager_entries;
-    for(const auto& [place, villagers]: villager_place){
-        for(const auto& v: villagers){
-            villager_entries.emplace_back(v.get_name(), place);
+    vector<pair<string, pair<string, string>>> villager_entries;
+    for(const auto& [place, villagers] : villager_place){
+        for(const auto& v : villagers){
+            villager_entries.emplace_back(v.get_name(), make_pair(place, v.get_safe_place()));
         }
     }
 
-    vector<tuple<string, string, int>> item_entries;
-    for(const auto& [place, items]: item_place){
-        for(const auto& [item, count]: items){
-            item_entries.emplace_back(item.get_name(), place, count);
+    vector<tuple<string, string, int, string>> item_entries;
+    for(const auto& [place, items] : item_place){
+        for(const auto& [item, count] : items){
+            item_entries.emplace_back(item.get_name(), place, count, item.get_color());
         }
     }
 
@@ -712,10 +920,13 @@ void Map::Print_Character_Info
 
     for(size_t i = 0; i < maxLines; ++i){
         if(i < villager_entries.size()){
-            auto& [name, place] = villager_entries[i];
+
+            const auto& [name, places] = villager_entries[i];
+            const auto& [location, safe] = places;
             cout << "║ " << left << setw(20) << name
-                      << " : " << setw(left_width - 24) << place
-                      << "║";
+                 << " : " << setw(17) << location
+                 << " | " << setw(12) << safe
+                 << "║";
         } 
         else{
             cout << "║" << string(left_width, ' ') << "║";
@@ -725,21 +936,37 @@ void Map::Print_Character_Info
 
         if(i < item_entries.size()){
 
-            auto& [investigate_name, investigate_place, investigate_count] = item_entries[i];
-            cout << "║ " << left << setw(25) << investigate_name
-                      << " : " << setw(right_width - 33) << investigate_place
-                      << "(" << investigate_count << ") ║";
-        } 
-        
+            const auto& [item_name, item_loc, item_count, item_color] = item_entries[i];
+
+            string trimmed_color = item_color;
+            const int max_color_length = 8;
+
+            if(trimmed_color.length() > max_color_length){
+                trimmed_color = trimmed_color.substr(0, max_color_length - 2) + "..";
+            }
+
+            stringstream info_stream;
+            info_stream << "(" << item_count << ", " << trimmed_color << ")";
+            string info = info_stream.str();
+
+            if(info.length() > 13){
+                info = info.substr(0, 12) + ")";
+            }
+
+            cout << "║ " << left << setw(22) << item_name
+                << ": " << setw(22) << item_loc
+                << " " << setw(18) << info << "║";
+        }
         else{
             cout << "║" << string(right_width, ' ') << "║";
         }
+
         cout << '\n';
     }
 
     cout << "╚" << repeat("═", left_width) << "╝"
-              << string(space, ' ')
-              << "╚" << repeat("═", right_width) << "╝\n";
+         << string(space, ' ')
+         << "╚" << repeat("═", right_width) << "╝\n";
 
 cout << R"(
                         ╔══════════════════════════════════════════════════╗
@@ -755,3 +982,4 @@ cout << R"(
                         ╚══════════════════════════════════════════════════╝
 )" << '\n';
 }
+

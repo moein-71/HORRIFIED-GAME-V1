@@ -8,7 +8,7 @@ using namespace std ;
 void The_innocent::ability(Game& gamestage) {
 
     constexpr int add_item = 3 ;
-    constexpr int move = 1 ;
+    constexpr int move = 6 ;
     constexpr int dice_number = 3 ;
     constexpr int strike_number = 3 ;
 

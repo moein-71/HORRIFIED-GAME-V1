@@ -84,7 +84,7 @@ bool Turn_archaologist::phase(Game& gamestage) {
             }
         }
         else if(choose == '8') {
-            gamestage.Game_map.Print_Map_And_All_Info(gamestage.get_archaologist_place() , gamestage.get_mayor_place() , gamestage.get_dracula_place() , gamestage.get_invisible_man_place() , gamestage.dracula.get_casket() , gamestage.invisible_man.get_investigate()) ;
+            gamestage.Game_map.Print_Map_And_All_Info(gamestage.get_archaologist_place() , gamestage.get_mayor_place() , gamestage.get_dracula_place() , gamestage.get_invisible_man_place() , gamestage.dracula.get_casket() , gamestage.invisible_man.get_investigate() , gamestage.get_Terror_level()) ;
             gamestage.archaologist.Print_Hero_Info() ;
         }
         else {

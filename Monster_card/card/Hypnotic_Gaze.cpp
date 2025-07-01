@@ -20,7 +20,8 @@ void Hypnotic_gaze::ability(Game& gamestage) {
 
     //Event 
 
-    
+    // gamestage.move_character_near_dracula(gamestage.get_dracula_place , Hero*) 
+
     //Strike
 
     array<string , strike_number> monster_turn {gamestage.get_invisible_man_name()} ;

@@ -409,6 +409,13 @@ int Game::get_Terror_level() {
     return this -> Terror_level ;
 }
 
+std::string Game::move_character_near_dracula(std::string place , Hero* arch, Hero* mayor) {
+    return this -> Game_map.Move_Character_Near_Dracula(place , arch , mayor) ;
+}
+
+void Game::move_villager_to_safe_place() {
+    this->Game_map.Move_Villager_To_Safe_House() ;
+}
 
 void Game::printLineDelay(const std::string& line, int delayMs) {
     for (char c : line) {

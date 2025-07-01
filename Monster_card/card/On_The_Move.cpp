@@ -19,6 +19,15 @@ void On_the_move::ability(Game& gamestage) {
 
     //Event 
     
+    if(gamestage.get_frenzy_monster() == gamestage.get_dracula_name()) {
+        gamestage.set_frenzy_monster(gamestage.get_invisible_man_name()) ;
+    }
+    else if(gamestage.get_frenzy_monster() == gamestage.get_invisible_man_name()) {
+        gamestage.set_frenzy_monster(gamestage.get_dracula_name()) ;
+    }
+
+    gamestage.move_villager_to_safe_place() ;
+
     //Strike
 
     array<string , strike_number> monster_turn {gamestage.get_frenzy_monster()} ;

@@ -47,19 +47,16 @@ bool Guide::Activate(Game& game, Hero* hero){
     while(1){
         counter++ ;
         game.printLineDelay("If you want to send the villager from your current location to somewhere, enter the letter A\nif you want to bring the villager from a neighbor to your current location, enter the letter B.\nor write exit to stop this action.\n\n",20);
-        getline(cin, choose);
+        cin>>choose ;
 
         if(choose == "exit") {
-            if(counter == 1) {
                 return false ;
-            }
-            break;
         }
         else if(choose == "A"){
 
             while(1){
-                game.printLineDelay("Please write the name of the place you want to send the villager to or write exit.\n");
-                getline(cin, choose_place_name);
+                game.printLineDelay("Enter the name of the place\n");
+                cin>> choose_place_name ;
 
                 if(choose_place_name == "exit") {
                     if(counter == 1) {
@@ -68,17 +65,15 @@ bool Guide::Activate(Game& game, Hero* hero){
                     break;
                 }
 
-                game.printLineDelay("Please enter villager's name or write exit.\n");
+                game.printLineDelay("Enter villager's name or write exit.\n");
                 getline(cin, villager_name);
 
                 if(villager_name == "exit")
-                    if(counter == 1) {
                         return false ;
-                    }                
-                    break;
+                    
 
                 report = send_villager_another_place(now_place, choose_place_name, villager_name, neighbor, game , hero);
-                cout << report << '\n';
+                game.printLineDelay(report + '\n');
                 if(report == "Successful") {
                     return true ;
                 }
@@ -90,23 +85,18 @@ bool Guide::Activate(Game& game, Hero* hero){
         else if(choose == "B"){
             
             while(1){
-                game.printLineDelay( "Please write the name of the place where you want to get the village from or write exit.\n");
+                game.printLineDelay("Enter the name of the place or write exit\n");
                 getline(cin, choose_place_name);
 
                 if(choose_place_name == "exit")
-                    if(counter == 1) {
-                        return false ;
-                    }
-                    break;
+                    return false ;
+            
 
-                game.printLineDelay( "Please enter villager's name or write exit.\n");
+                game.printLineDelay("Enter villager's name or write exit.\n");
                 getline(cin, villager_name);
 
                 if(villager_name == "exit")
-                    if(counter == 1) {
                         return false ;
-                    }
-                    break;
 
                 report = take_villager_another_place(now_place, choose_place_name, villager_name, neighbor, game , hero);
                 cout << report << '\n';

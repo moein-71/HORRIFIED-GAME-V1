@@ -1,4 +1,6 @@
 #include "Kill.hpp"
+#include "variant"
+#include "../../ITEM/Item.hpp"
 
 using namespace std ;
 
@@ -7,12 +9,20 @@ bool Kill::activate(Game & game , const std::string & monster) {
 
     if(monster == game.dracula.get_name()) {
         if(game.get_dracula_place() == game.get_archaologist_place()) {
-            game.archaologist.When_Monster_Killed_A_Hero() ;
+            game.printLineDelay("Dracula want to kill you " + game.archaologist.get_name()) ; 
+            auto item_or_bool = game.archaologist.When_Monster_Killed_A_Hero() ;
+            if (auto p = get_if<Item>(&item_or_bool)) {
+                game.set_item_bag(*p) ;
+            }
             game.printLineDelay(game.get_dracula_name() + " Kill the archaologist\n") ;
             return true ;
         }
         else if(game.get_dracula_place() == game.get_mayor_place()) {
-            game.mayor.When_Monster_Killed_A_Hero() ;
+            game.printLineDelay("Dracula want to kill you " + game.mayor.get_name()) ; 
+            auto item_or_bool = game.archaologist.When_Monster_Killed_A_Hero() ;
+            if (auto p = get_if<Item>(&item_or_bool)) {
+                game.set_item_bag(*p) ;
+            }
             game.printLineDelay(game.get_dracula_name() + " Kill the mayor\n") ;
             return true ;
         }

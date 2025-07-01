@@ -97,7 +97,7 @@ void Program::Start() {
 
 void Program::Run() {
 
-    this -> base_game.Game_map.Print_Map_And_All_Info(this->base_game.get_archaologist_place() , this->base_game.get_mayor_place() , this->base_game.get_dracula_place() , this->base_game.get_invisible_man_place() , this->base_game.dracula.get_casket() , this->base_game.invisible_man.get_investigate() ) ;
+    this -> base_game.Game_map.Print_Map_And_All_Info(this->base_game.get_archaologist_place() , this->base_game.get_mayor_place() , this->base_game.get_dracula_place() , this->base_game.get_invisible_man_place() , this->base_game.dracula.get_casket() , this->base_game.invisible_man.get_investigate() , base_game.get_Terror_level()) ;
     
     
     if(!this -> base_game.turn->phase(this -> base_game)) {

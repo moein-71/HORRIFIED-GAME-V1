@@ -2,6 +2,19 @@
 #define PROGRAM_HPP
 
 #include "../Game/Game.hpp"
+#include "Archaologist.hpp"
+#include "Mayor.hpp"
+
+#include "Item.hpp"
+
+#include "Villager.hpp"
+
+#include "../Game_turn/Game_turn.hpp"
+#include "../Game_turn/Turn_monster/Turn_monster.hpp"
+#include "../Game_turn/Turn_archaeologist/Turn_archaeologist.hpp"
+#include "../Game_turn/Turn_mayor/Turn_mayor.hpp"
+
+
 #include <sstream>
 
 class Program {
@@ -12,8 +25,9 @@ class Program {
         void Run() ;
         bool End() ; //if game has been end return true 
 
-        void printLineDelay(const std::string& line, int delayMs = 50) ;
+        void printLineDelay(const std::string& line, int delayMs = 0) ; //50
         void showWelcomeScreen() ;
+        int CheckInputNumber() ;
 
     private : 
 

@@ -38,7 +38,11 @@
 using namespace std ;
 
 void Program::Start() {
-    this -> showWelcomeScreen() ;
+    // this -> showWelcomeScreen() ;
+
+    for(int i{} ; i < 12 ; ++i) {
+        base_game.set_item_to_map(base_game.get_random_item()) ;
+    }
 
     printLineDelay("\nEnter name for Player 1 :") ;
     string player_1 ;
@@ -50,18 +54,16 @@ void Program::Start() {
     int garlic_player_2 ;
     cin>> player_2 ;
 
-    string number ;
-    stringstream ss;
+    cin.ignore() ;
+    cout<< "\n" ;
+    printLineDelay(player_1) ;
+    printLineDelay("how many days ago you eat garlic ? ") ;
+    garlic_player_1 = this -> CheckInputNumber() ;
 
-
-    while(cin>>number) {
-        printLineDelay(player_1) ;
-        printLineDelay(" how many days ago you eat garlic ? ") ; /// we have somthing to do 
-    }
-    cout<< "\n\n" ;
+    cout<< "\n" ;
     printLineDelay(player_2) ;
-    printLineDelay(" how many days ago you eat garlic ? ") ;
-    cin>> garlic_player_2 ;
+    printLineDelay("how many days ago you eat garlic ? ") ;
+    garlic_player_2 = this -> CheckInputNumber() ;
 
     if(garlic_player_1 > garlic_player_2) {
         swap(player_1 , player_2) ;
@@ -69,7 +71,8 @@ void Program::Start() {
     }
 
     while(1){
-        printLineDelay("\n\nChoose your hero 1.Mayer of 2.Archaologist ? ") ;
+        printLineDelay(player_1) ;
+        printLineDelay("\nChoose your hero 1.Mayer of 2.Archaologist ? ") ;
         auto mayor = std::make_shared<Turn_mayor>();
         auto archaologist = make_shared<Turn_archaologist>() ;
 
@@ -78,11 +81,15 @@ void Program::Start() {
         if(choose == '1') {
             this -> base_game.set_player_1(mayor) ;
             this -> base_game.set_player_2(archaologist) ;
+            this -> base_game.mayor.set_player_name(player_1) ;
+            this -> base_game.archaologist.set_player_name(player_2) ;
             break ;
         }
         else if(choose == '2') {
             this -> base_game.set_player_1(archaologist) ;
             this -> base_game.set_player_2(mayor) ;
+            this -> base_game.mayor.set_player_name(player_2) ;
+            this -> base_game.archaologist.set_player_name(player_1) ;
             break ;
         }
     }
@@ -90,10 +97,33 @@ void Program::Start() {
 
 void Program::Run() {
 
+    this -> base_game.Game_map.Print_Map_And_All_Info(this->base_game.get_archaologist_place() , this->base_game.get_mayor_place() , this->base_game.get_dracula_place() , this->base_game.get_invisible_man_place() , this->base_game.dracula.get_casket() , this->base_game.invisible_man.get_investigate() ) ;
+    
+    
+    if(!this -> base_game.turn->phase(this -> base_game)) {
+        throw logic_error("somthing in phase goes wrong\n") ;
+    }
+    if(!this -> base_game.turn->phase(this -> base_game)) {
+        throw logic_error("somthing in phase goes wrong\n") ;
+    }
 }
 
 bool Program::End() {
-
+    if(base_game.get_monster_card_number() == 0) {
+        printLineDelay("\n\nMONSTER SIDE WINS\n\n" , 100) ;
+        return true ;
+    }
+    else if(base_game.get_Terror_level() == 5) {
+        printLineDelay("\n\nMONSTER SIDE WINS\n\n" , 100) ;
+        return true ;
+    }
+    else if(base_game.get_dracula_place() == "DEAD" && base_game.get_invisible_man_place() == "DEAD") {
+        printLineDelay("\n\nHERO SIDE WINS\n\n" , 100) ;
+        return true ;
+    }
+    else {
+        return false ;
+    }
 }
 
 void Program::printLineDelay(const string& line, int delayMs) {
@@ -128,4 +158,24 @@ void Program::showWelcomeScreen() {
 
     printLineDelay("Press ENTER to continue...", 30);
     cin.ignore();
+}
+
+
+int Program::CheckInputNumber() {
+    int number;
+    std::string input;
+
+    while (true) {
+        printLineDelay("Please enter a number: ");
+        std::getline(std::cin, input);
+
+        std::stringstream ss(input);
+
+        if (ss >> number && ss.eof()) {
+            return number ;
+            break;
+        } else {
+            std::cout << "Invalid input. Please try again.\n";
+        }
+    }
 }

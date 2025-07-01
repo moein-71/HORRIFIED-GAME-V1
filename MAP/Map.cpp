@@ -67,18 +67,18 @@ void Map::set_connection(){
     connection["Graveyard"] = {"Church"};
     connection["Institute"] = {"Laboratory"};
     connection["Docks"] = {"Tower"};
-    connection["Tower"] = {"Docks", "Dungeon", "Theatre"};
+    connection["Tower"] = {"Docks", "Dungeon", "Theater"};
     connection["Dungeon"] = {"Tower"};
-    connection["Inn"] = {"Camp", "Precinct", "Mansion", "Theatre"};
-    connection["Precinct"] = {"Inn", "Camp", "Theatre", "Mansion"};
-    connection["Camp"] = {"Precinct", "Cave", "Mansion", "Theatre", "Inn"};
+    connection["Inn"] = {"Camp", "Precinct", "Mansion", "Theater"};
+    connection["Precinct"] = {"Inn", "Camp", "Theater", "Mansion"};
+    connection["Camp"] = {"Precinct", "Cave", "Mansion", "Theater", "Inn"};
     connection["Cave"] = {"Camp"};
-    connection["Theatre"] = {"Tower", "Bank", "Shop", "Precinct", "Mansion", "Inn", "Camp"};
-    connection["Shop"] = {"Theatre", "Church", "Laboratory"};
+    connection["Theater"] = {"Barn", "Tower" , "Shop", "Precinct", "Mansion", "Inn", "Camp"};
+    connection["Shop"] = {"Theater", "Church", "Laboratory"};
     connection["Laboratory"] = {"Shop", "Institute"};
     connection["Abbey"] = {"Mansion", "Crypt"};
-    connection["Mansion"] = {"Abbey", "Camp", "Inn", "Theatre", "Precinct", "Shop", "Museum", "Church"};
-    connection["Bank"] = {"Theatre"};
+    connection["Mansion"] = {"Abbey", "Camp", "Inn", "Theater", "Precinct", "Shop", "Museum", "Church"};
+    connection["Barn"] = {"Theater"};
 }
 void Map::set_item(Item inf_item){
     item_place[inf_item.get_spawn_place()][inf_item]++;
@@ -161,10 +161,12 @@ bool Map::Kill_Villager(string place , string name){
 }
 Item Map::Pickeup_Item(string place, string item_name){
 
-    for(const auto& item: item_place[place]){
+    auto temp_item = item_place[place] ;
+
+    for(auto item : temp_item){
         if(item.first.get_name() == item_name){
 
-            item_place[place][item.first]--;
+           (item_place[place])[item.first]--;
 
             if(!item_place[place][item.first]){
                 item_place[place].erase(item.first);
@@ -610,7 +612,7 @@ cout << R"(
 ╔══════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
 ║                                     The Cursed Land (Horrified)                                                  ║
 ╠══════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
-║  Cave ___Camp           Precinct        Inn                  Bank                Dungeon                         ║
+║  Cave ___Camp           Precinct        Inn                  Barn                Dungeon                         ║
 ║           |                 |            |                     |                    |                            ║
 ║           |                 |            |                     |                    |                            ║
 ║           |_________________|____________|__________________Theatre ______________Tower_____Docks                ║
@@ -653,7 +655,7 @@ cout << R"(
 
         if(investigate_ptr != investigate.end()){
             string name = investigate_ptr->first;
-            string status = investigate_ptr->second ? "Found" : "Missing";
+            string status = investigate_ptr->second ? "Missing" : "Found";
             investigate_line = name + string(24 - name.size(), ' ') + ": " + status;
             ++investigate_ptr;
         }

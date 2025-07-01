@@ -35,7 +35,7 @@ using namespace std ;
 
 Game::Game() {
 
-    this -> Terror_level = 6 ;
+    this -> Terror_level = 0 ;
     this -> added_action = 0 ;
 
     this -> monster = make_shared<Turn_monster>() ;

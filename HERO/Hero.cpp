@@ -235,7 +235,7 @@ variant<int, Item> Hero::When_Monster_Killed_A_Hero(){
        
     int choose;
     string exeption_choose;
-
+    cin.ignore() ;
     while(1){
 
         cout << "Please enter number 1 if you want go to hospital, or number 2 for use an item and bach to life.\n";
@@ -250,8 +250,7 @@ variant<int, Item> Hero::When_Monster_Killed_A_Hero(){
             }
             
             else if(choose == 2){
-                auto it = Back_To_Life_By_Use_An_Item();
-                return it;
+                return Back_To_Life_By_Use_An_Item();
             }
 
             else{
@@ -265,20 +264,17 @@ variant<int, Item> Hero::When_Monster_Killed_A_Hero(){
 }
 Item Hero::Back_To_Life_By_Use_An_Item(){
 
-    random_device rd;
-    mt19937 gen(rd());
-    uniform_int_distribution<> dist(0, item.size() - 1);
+    auto it = item.begin() ;
 
-    int rand_index = dist(gen);
-    auto it = item.begin();
-    advance(it, rand_index);
+    it->second-- ;
 
-    item[it->first]--;
+    auto temp = it->first ;
 
-    if(!item[it->first])
-        item.erase(it->first);
+    if(it -> second == 0)
+        item.erase(it);
     
-    return it -> first;
+    return temp;
+
 }
 void Hero::Go_To_Hospital(){
     set_now_place("Hospital");

@@ -1,3 +1,4 @@
+#include <cstdlib>
 #include "Programm.hpp"
 #include "Archaologist.hpp"
 #include "Mayor.hpp"
@@ -93,6 +94,8 @@ void Program::Start() {
             break ;
         }
     }
+
+    system("clear");
 }
 
 void Program::Run() {
@@ -106,6 +109,9 @@ void Program::Run() {
     if(!this -> base_game.turn->phase(this -> base_game)) {
         throw logic_error("somthing in phase goes wrong\n") ;
     }
+    cout<< "Click to continue .......\n" ;
+    cin.ignore() ;
+    // system("clear");
 }
 
 bool Program::End() {

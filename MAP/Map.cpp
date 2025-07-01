@@ -86,18 +86,25 @@ void Map::set_item(Item inf_item){
 void Map::set_villager(string place, Villager villager){
     villager_place[place].push_back(villager);
 }
-bool Map::set_villager_place(string now_place, string new_place, string villager_name){
+bool Map::set_villager_place(string now_place , string new_place, string villager_name){
     
     auto& villager_now_place = villager_place[now_place];
     
-    for(int i{}; i < villager_now_place.size(); ++i){
-        if(villager_now_place[i].get_name() == villager_name){
+    for(int i{}; auto & chooses_villager : villager_now_place){ ///////////////////////////////-
+        if(chooses_villager.get_name() == villager_name){
 
-            villager_now_place[i].set_now_place(new_place);
-            set_villager(new_place, villager_now_place[i]);
+            chooses_villager.set_now_place(new_place);
+
+            set_villager(new_place , chooses_villager);
+cout<< now_place << new_place << "\n\n" ;
             villager_now_place.erase(villager_now_place.begin() + i);
+            villager_now_place.shrink_to_fit() ;
+
+
+            
             return true;
         }
+        i++ ;
     }
     return false;
 }

@@ -87,6 +87,9 @@ bool Turn_archaologist::phase(Game& gamestage) {
             gamestage.Game_map.Print_Map_And_All_Info(gamestage.get_archaologist_place() , gamestage.get_mayor_place() , gamestage.get_dracula_place() , gamestage.get_invisible_man_place() , gamestage.dracula.get_casket() , gamestage.invisible_man.get_investigate() , gamestage.get_Terror_level()) ;
             gamestage.archaologist.Print_Hero_Info() ;
         }
+        else if(choose == '9'){
+            return true ;
+        }
         else {
             gamestage.printLineDelay("\nChooss right number\n") ;
             continue;

@@ -6,7 +6,7 @@ using namespace std;
 bool Guide::Activate(Game& game, Hero* hero){
 
     bool Hozoor = 0;
-    string now_place = hero ->get_now_place();
+    string now_place = hero -> get_now_place();
     auto neighbor = game.Game_map.get_connection(now_place);
 
     auto vector_villager_info = game.Game_map.get_villager(now_place);
@@ -46,7 +46,7 @@ bool Guide::Activate(Game& game, Hero* hero){
 
     while(1){
         counter++ ;
-        game.printLineDelay("If you want to send the villager from your current location to somewhere, enter the letter A\nif you want to bring the villager from a neighbor to your current location, enter the letter B.\nor write exit to stop this action.\n\n",20);
+        game.printLineDelay("For sending villager to a neighbor location , Enter A\nFor bring back villager from neighbor location , Enter B.\nor write exit to stop this action.\n\n",20);
         cin>>choose ;
 
         if(choose == "exit") {
@@ -55,18 +55,15 @@ bool Guide::Activate(Game& game, Hero* hero){
         else if(choose == "A"){
 
             while(1){
-                game.printLineDelay("Enter the name of the place\n");
+                game.printLineDelay("Enter the name of the place :");
                 cin>> choose_place_name ;
 
                 if(choose_place_name == "exit") {
-                    if(counter == 1) {
                         return false ;
-                    }
-                    break;
                 }
 
-                game.printLineDelay("Enter villager's name or write exit.\n");
-                getline(cin, villager_name);
+                game.printLineDelay("Enter villager's name or write exit : ");
+                cin>> villager_name ;
 
                 if(villager_name == "exit")
                         return false ;
@@ -85,15 +82,15 @@ bool Guide::Activate(Game& game, Hero* hero){
         else if(choose == "B"){
             
             while(1){
-                game.printLineDelay("Enter the name of the place or write exit\n");
-                getline(cin, choose_place_name);
+                 game.printLineDelay("Enter the name of the place :");
+                cin>> choose_place_name ;
 
-                if(choose_place_name == "exit")
-                    return false ;
-            
+                if(choose_place_name == "exit") {
+                        return false ;
+                }
 
-                game.printLineDelay("Enter villager's name or write exit.\n");
-                getline(cin, villager_name);
+                game.printLineDelay("Enter villager's name or write exit : ");
+                cin>> villager_name ;
 
                 if(villager_name == "exit")
                         return false ;
@@ -104,7 +101,7 @@ bool Guide::Activate(Game& game, Hero* hero){
                     return true ;
                 }
                 else {
-                    return false ;
+                    continue;
                 }
             }
         }
@@ -116,6 +113,16 @@ bool Guide::Activate(Game& game, Hero* hero){
 string Guide::send_villager_another_place(string now_place, string choose_place_name, string villager_name, vector<string> neighbor, Game& game , Hero* hero){
 
     bool Hozoor = 0;
+    for(auto place_name: neighbor){
+        if(choose_place_name == place_name){
+            Hozoor = 1;
+            break;
+        }
+    }
+    if(!Hozoor)
+        return "The place name you entered does not exist at neighbor of the current location.(field)";
+
+    Hozoor = 0;
     auto villager_info = game.Game_map.get_villager(now_place);
     for(auto villager: villager_info){
         if(villager.get_name() == villager_name){
@@ -126,22 +133,13 @@ string Guide::send_villager_another_place(string now_place, string choose_place_
     if(!Hozoor)
         return "The villager name you entered does not exist at the current location.(field)";
 
-    Hozoor = 0;
-    for(auto place_name: neighbor){
-        if(choose_place_name == place_name){
-            Hozoor = 1;
-            break;
-        }
-    }
-    if(!Hozoor)
-    return "The place name you entered does not exist at neighbor of the current location.(field)";
-
-    game.Game_map.set_villager_place(now_place, choose_place_name, villager_name);
+    game.Game_map.set_villager_place(now_place, choose_place_name, villager_name); 
     if(choose_place_name == game.Game_map.get_villager_safe_place(choose_place_name , villager_name)) {
         hero->set_perk(game.get_random_perk()) ;
     }
     return "Successful" ;
 }
+
 string Guide::take_villager_another_place(string now_place, string choose_place_name, string villager_name, vector<string> neighbor, Game& game , Hero* hero){
 
     bool Hozoor = 0;
@@ -152,7 +150,7 @@ string Guide::take_villager_another_place(string now_place, string choose_place_
         }
     }
     if(!Hozoor)
-    return "The place name you entered does not exist at neighbor of the current location.(field)";
+        return "The place name you entered does not exist at neighbor of the current location.(field)";
 
     auto villager_info = game.Game_map.get_villager(choose_place_name);
     for(auto villager: villager_info){
@@ -164,7 +162,7 @@ string Guide::take_villager_another_place(string now_place, string choose_place_
     if(!Hozoor)
         return "The villager name you entered does not exist at the current location.(field)";
 
-    game.Game_map.set_villager_place(choose_place_name, now_place, villager_name);
+    game.Game_map.set_villager_place(choose_place_name , now_place , villager_name);
     if(choose_place_name == game.Game_map.get_villager_safe_place(choose_place_name , villager_name)) {
         hero->set_perk(game.get_random_perk()) ;
     }

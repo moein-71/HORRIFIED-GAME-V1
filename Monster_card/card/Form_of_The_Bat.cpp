@@ -19,8 +19,10 @@ void Form_of_The_bat::ability(Game& gamestage) {
 
     //Event 
 
-    string dracula_new_place = gamestage.get_last_hero_turn() == "Mayor" ? gamestage.get_mayor_place() : gamestage.get_archaologist_place() ;
-    gamestage.set_dracula_place(dracula_new_place) ;
+    if(gamestage.get_dracula_place() != "DEAD"){
+        string dracula_new_place = gamestage.get_last_hero_turn() == "Mayor" ? gamestage.get_mayor_place() : gamestage.get_archaologist_place() ;
+        gamestage.set_dracula_place(dracula_new_place) ;
+    }
 
     //Strike
 
@@ -34,18 +36,31 @@ void Form_of_The_bat::ability(Game& gamestage) {
 
     for(int i{} ; i < strike_number ; ++i ) {
 
+        if(monster_turn[i] == gamestage.get_dracula_name()) {
+            if(gamestage.get_dracula_place() == "DEAD") {
+                continue ;
+            }
+        }
+
+        if(monster_turn[i] == gamestage.get_invisible_man_name()) {
+            if(gamestage.get_invisible_man_place() == "DEAD") {
+                continue ;
+            }
+        }
+
         if(kill) break ;
 
-        //Move 
+       //Move 
         action = make_unique<Move_monster>() ;
-        for(int i{} ; i < move ; ++i) {
+        for(int j{} ; j < move ; ++j) {
             action->activate(gamestage , monster_turn[i]) ;
-        } 
+        }
+        gamestage.printLineDelay(monster_turn[i] + " move to " + (monster_turn[i] == gamestage.get_dracula_name() ? gamestage.get_dracula_place() : gamestage.get_invisible_man_place())) ;
 
         //Dice
         set<char> dice ;
 
-        for(int i{} ; i < dice_number ; ++i) {
+        for(int j{} ; j < dice_number ; ++j) {
             dice.insert(gamestage.throw_dice()) ;
         }
 
@@ -86,7 +101,7 @@ void Form_of_The_bat::ability(Game& gamestage) {
     }
 }
 
-std::string Form_of_The_bat::info() const {
+void Form_of_The_bat::info() const {
     cout<< "\nForm_of_The_Bat\n"
     << "add 2 item"
     << "Dracula moved to the last Hero who has played\n" 

@@ -20,7 +20,9 @@ void Sunrise::ability(Game& gamestage) {
 
     //Event
 
-    gamestage.set_dracula_place("Crypt") ; /////////////////// check place names
+    if(gamestage.get_dracula_place() != "DEAD"){
+        gamestage.set_dracula_place("Crypt") ;
+    }
 
     //Strike
 
@@ -34,18 +36,31 @@ void Sunrise::ability(Game& gamestage) {
 
     for(int i{} ; i < strike_number ; ++i ) {
 
+        if(monster_turn[i] == gamestage.get_dracula_name()) {
+            if(gamestage.get_dracula_place() == "DEAD") {
+                continue ;
+            }
+        }
+
+        if(monster_turn[i] == gamestage.get_invisible_man_name()) {
+            if(gamestage.get_invisible_man_place() == "DEAD") {
+                continue ;
+            }
+        }
+
         if(kill) break ;
 
         //Move 
         action = make_unique<Move_monster>() ;
-        for(int i{} ; i < move ; ++i) {
+        for(int j{} ; j < move ; ++j) {
             action->activate(gamestage , monster_turn[i]) ;
-        } 
+        }
+        gamestage.printLineDelay(monster_turn[i] + " move to " + (monster_turn[i] == gamestage.get_dracula_name() ? gamestage.get_dracula_place() : gamestage.get_invisible_man_place())) ;
 
         //Dice
         set<char> dice ;
 
-        for(int i{} ; i < dice_number ; ++i) {
+        for(int j{} ; j < dice_number ; ++j) {
             dice.insert(gamestage.throw_dice()) ;
         }
 
@@ -86,7 +101,7 @@ void Sunrise::ability(Game& gamestage) {
     }
 }
 
-std::string Sunrise::info() const {
+void Sunrise::info() const {
     cout<< "\nSunrise\n"
     << "add 0 item"
     << "Dracula moved to the Crypt  \n" 

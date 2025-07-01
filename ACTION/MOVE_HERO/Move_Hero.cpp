@@ -7,26 +7,27 @@ bool Move_Hero::Activate(Game& game, Hero* hero){
 
     string now_place = hero -> get_now_place();
     auto neighbor = game.Game_map.get_connection(now_place);
+    game.printLineDelay("Your now place : " + now_place) ; 
 
-    cout << "Your neighbor of now_place are:\n";
+    game.printLineDelay("Your Neighbor_places :\n");
     for(auto neighbor_place_name: neighbor){
-        cout << neighbor_place_name << setw(5); 
+        game.printLineDelay(neighbor_place_name+ "   "); 
     }
-    cout << '\n';
+    cout << "\n";
 
     bool Hozoor{};
     bool found{0};
     string choose_place_name;
+    cin.ignore() ;
     while(!found){
 
         Hozoor = 0;
 
-        cout << "Please enter the name of place that you want to go there or you want to stop move_hero then write exit.\n";
+        game.printLineDelay("Enter where you go , or exit.\n");
         getline(cin, choose_place_name);
         
         if(choose_place_name == "exit")
             return false ;
-            break;
 
         for(auto neighbor_place_name: neighbor){
             

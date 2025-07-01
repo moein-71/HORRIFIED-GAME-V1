@@ -8,31 +8,33 @@ bool Pick_Up::Activate(Game& game, Hero* hero){
     string now_place = hero -> get_now_place();
     auto unordered_item = game.Game_map.get_item_of_place(now_place);
 
+    if(unordered_item.empty()) {
+        game.printLineDelay("There is no item in this place") ;
+        return false ;
+    }
+
     for(auto pair_item: unordered_item){
-        cout << "Item name: " << pair_item.first.get_name()
-        << setw(10) << "Number item: " << pair_item.second;
+        game.printLineDelay( "Item name: " + pair_item.first.get_name() + " , " + "Number item: " + to_string(pair_item.second));
     }
 
     int choose_number;
     string choose_name;
     string exeption_choose_number;
 
-    cout << "You can stop pick_up item by write exit\n";
-
     int counter = 0 ;
     while(1){
-        counter++ ; 
-        cout << "Please enter name of item that you want or write exit to stop pick_up item.\n";
-        getline(cin, choose_name);
+        game.printLineDelay("Enter the item name , for exit type : exit\n");
+        cin>> choose_name ;
 
         if(choose_name == "exit") {
-            if(counter == 1) {
+            if(counter == 0) {
                 return false ;
             }
             return true ;
         }
 
-        cout << "Please enter number of item that you want.\n";
+        game.printLineDelay("Enter number of item :");
+        cin.ignore() ;
         getline(cin, exeption_choose_number);
 
         istringstream iss(exeption_choose_number);
@@ -41,9 +43,12 @@ bool Pick_Up::Activate(Game& game, Hero* hero){
 
             if(iss >> choose_number && choose_number > 0 && choose_number <= game.Game_map.get_item_number(now_place, choose_name)){
 
-                for(int i{game.Game_map.get_item_number(now_place, choose_name)}; i > 0; --i){
+                int item_number = game.Game_map.get_item_number(now_place, choose_name) ;
+
+                for(int i{} ; i < item_number; ++i){
 
                     hero ->set_item(game.Game_map.Pickeup_Item(now_place, choose_name));
+                    counter++ ; 
                 }
             }
             else{

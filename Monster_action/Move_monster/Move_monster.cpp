@@ -4,17 +4,16 @@ using namespace std ;
 
 bool Move_monster::activate(Game & game , const string & monster) {
 
-    if(monster == game.dracula.get_name()) {
+    if(monster == game.get_dracula_name()) {
             game.dracula.set_now_place(game.Game_map.Find_Near_Destination(1 , game.dracula.get_now_place() , game.archaologist , game.mayor)) ;
             return true ;
     }
-    else if(monster == game.invisible_man.get_name()) {
+    else if(monster == game.get_invisible_man_name()) {
             game.invisible_man.set_now_place(game.Game_map.Find_Near_Destination(1 , game.invisible_man.get_now_place() , game.archaologist , game.mayor)) ;
             game.invisible_man.reset_near_villager(game.Game_map.get_villager(game.invisible_man.get_now_place())) ;
             return true ;
     }
 
-    throw runtime_error("somthing goes wrong in Move_monster") ;    
     return false ;
     
 }

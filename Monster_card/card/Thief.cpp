@@ -34,7 +34,7 @@ using namespace std ;
     bool kill = false ; 
 
     for(int i{} ; i < strike_number ; ++i ) {
-        
+
         if(monster_turn[i] == gamestage.get_dracula_name()) {
             if(gamestage.get_dracula_place() == "DEAD") {
                 continue ;
@@ -94,6 +94,9 @@ using namespace std ;
         }
     }
 
+    if(invisible_man_power.empty()) {
+        return ;
+    }
     action = make_unique<Power>() ;
     for(auto active_power : invisible_man_power) {
         active_power->activate(gamestage , gamestage.get_invisible_man_name()) ;

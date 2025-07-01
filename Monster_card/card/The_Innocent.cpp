@@ -8,7 +8,7 @@ using namespace std ;
 void The_innocent::ability(Game& gamestage) {
 
     constexpr int add_item = 3 ;
-    constexpr int move = 6 ;
+    constexpr int move = 1 ;
     constexpr int dice_number = 3 ;
     constexpr int strike_number = 3 ;
 
@@ -48,12 +48,12 @@ void The_innocent::ability(Game& gamestage) {
 
         if(kill) break ;
 
-        //Move 
-        action = make_unique<Move_monster>() ;
-        for(int j{} ; j < move ; ++j) {
-            action->activate(gamestage , monster_turn[i]) ;
-        }
-        gamestage.printLineDelay(monster_turn[i] + " move to " + (monster_turn[i] == gamestage.get_dracula_name() ? gamestage.get_dracula_place() : gamestage.get_invisible_man_place())) ;
+        // //Move 
+        // action = make_unique<Move_monster>() ;
+        // for(int j{} ; j < move ; ++j) {
+        //     action->activate(gamestage , monster_turn[i]) ;
+        // }
+        // gamestage.printLineDelay(monster_turn[i] + " move to " + (monster_turn[i] == gamestage.get_dracula_name() ? gamestage.get_dracula_place() : gamestage.get_invisible_man_place())) ;
 
         //Dice
         set<char> dice ;
@@ -84,7 +84,7 @@ void The_innocent::ability(Game& gamestage) {
                     break ;
                 }
                 else {
-                    throw invalid_argument("somthing in ability sunrise goes wrong") ;
+                    throw invalid_argument("somthing in ability The_innocent goes wrong") ;
                 }
             }
             else if(chance == 'Z') {
@@ -93,6 +93,9 @@ void The_innocent::ability(Game& gamestage) {
         }
     }
 
+    if(invisible_man_power.empty()) {
+        return ;
+    }
     action = make_unique<Power>() ;
     for(auto active_power : invisible_man_power) {
         active_power->activate(gamestage , gamestage.get_invisible_man_name()) ;

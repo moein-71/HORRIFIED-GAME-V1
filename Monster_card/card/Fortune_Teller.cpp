@@ -93,6 +93,9 @@ void Fortune_teller::ability(Game& gamestage) {
         }
     }
 
+    if(invisible_man_power.empty()) {
+        return ;
+    }
     action = make_unique<Power>() ;
     for(auto active_power : invisible_man_power) {
         active_power->activate(gamestage , gamestage.get_invisible_man_name()) ;

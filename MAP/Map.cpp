@@ -96,7 +96,6 @@ bool Map::set_villager_place(string now_place , string new_place, string village
             chooses_villager.set_now_place(new_place);
 
             set_villager(new_place , chooses_villager);
-cout<< now_place << new_place << "\n\n" ;
             villager_now_place.erase(villager_now_place.begin() + i);
             villager_now_place.shrink_to_fit() ;
 

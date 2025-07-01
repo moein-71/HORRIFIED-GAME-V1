@@ -48,12 +48,12 @@ void The_innocent::ability(Game& gamestage) {
 
         if(kill) break ;
 
-        // //Move 
-        // action = make_unique<Move_monster>() ;
-        // for(int j{} ; j < move ; ++j) {
-        //     action->activate(gamestage , monster_turn[i]) ;
-        // }
-        // gamestage.printLineDelay(monster_turn[i] + " move to " + (monster_turn[i] == gamestage.get_dracula_name() ? gamestage.get_dracula_place() : gamestage.get_invisible_man_place())) ;
+        //Move 
+        action = make_unique<Move_monster>() ;
+        for(int j{} ; j < move ; ++j) {
+            action->activate(gamestage , monster_turn[i]) ;
+        }
+        gamestage.printLineDelay(monster_turn[i] + " move to " + (monster_turn[i] == gamestage.get_dracula_name() ? gamestage.get_dracula_place() : gamestage.get_invisible_man_place())) ;
 
         //Dice
         set<char> dice ;

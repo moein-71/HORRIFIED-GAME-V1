@@ -20,9 +20,9 @@ bool Turn_monster::phase(Game& gamestage) {
 
     gamestage.turn->handle_turn(gamestage) ;
 
-    // shared_ptr<Monster_card> monster_phase = gamestage.get_random_monster_card() ;
+    shared_ptr<Monster_card> monster_phase = gamestage.get_random_monster_card() ;
 
-    shared_ptr<Monster_card> monster_phase = make_shared<The_innocent>() ;
+    // shared_ptr<Monster_card> monster_phase = make_shared<The_innocent>() ;
     
     monster_phase->info() ;
 

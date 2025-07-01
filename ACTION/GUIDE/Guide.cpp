@@ -133,7 +133,7 @@ string Guide::send_villager_another_place(string now_place, string choose_place_
     if(!Hozoor)
         return "The villager name you entered does not exist at the current location.(field)";
 
-    game.Game_map.set_villager_place(now_place, choose_place_name, villager_name); 
+    game.Game_map.set_villager_place(now_place , choose_place_name, villager_name); 
     if(choose_place_name == game.Game_map.get_villager_safe_place(choose_place_name , villager_name)) {
         hero->set_perk(game.get_random_perk()) ;
     }

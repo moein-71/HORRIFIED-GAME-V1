@@ -195,10 +195,14 @@ int Game::random_number() {
 
 Item Game::get_random_item() {
 
+    if(item_bag.empty()) {
+        return Item("" , "" , "" , 0) ;
+    }
+
     int number = (this->random_number() % this->item_bag.size()) ;
 
     Item random_item = item_bag[number] ;
-    item_bag.erase(item_bag.begin() + number) ; // check it
+    item_bag.erase(item_bag.begin() + number) ;
     item_bag.shrink_to_fit() ;
 
     return random_item ;
@@ -211,6 +215,10 @@ void Game::set_item_bag(Item new_item) {
 
 
 void Game::set_item_to_map(Item new_item) {
+
+    if(new_item.get_name() == "") {
+        return ;
+    }
 
     this->Game_map.set_item(new_item) ;
 }

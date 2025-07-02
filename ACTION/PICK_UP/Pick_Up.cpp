@@ -45,7 +45,7 @@ bool Pick_Up::Activate(Game& game, Hero* hero){
 
                 int item_number = game.Game_map.get_item_number(now_place, choose_name) ;
 
-                for(int i{} ; i < item_number; ++i){
+                for(int i{} ; i < choose_number ; ++i){
 
                     hero ->set_item(game.Game_map.Pickeup_Item(now_place, choose_name));
                     counter++ ; 

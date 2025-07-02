@@ -9,7 +9,7 @@ class Break_of_dawn : public Perk_card {
 
         Break_of_dawn() ;
         void ability(Game& gamestage) override ;
-        std::string info() const override ;
+        void info() const override ;
 
     private :
 };

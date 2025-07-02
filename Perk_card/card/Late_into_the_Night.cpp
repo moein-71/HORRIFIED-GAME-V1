@@ -13,7 +13,7 @@ void Late_into_the_night::ability(Game& gamestage) {
     gamestage.set_added_action(added_action) ; 
 }
 
-std::string Late_into_the_night::info() const {
+void Late_into_the_night::info() const {
 
     cout<< "add two action to now turn player actions\n" ;
 }

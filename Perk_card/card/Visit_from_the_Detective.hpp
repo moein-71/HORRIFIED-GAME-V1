@@ -9,7 +9,7 @@ class Visit_from_the_detective : public Perk_card {
 
         Visit_from_the_detective() ;
         void ability(Game& gamestage) override ;
-        std::string info() const override ;
+        void info() const override ;
 
     private :
 };

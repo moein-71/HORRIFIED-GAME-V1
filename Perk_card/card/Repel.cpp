@@ -15,7 +15,7 @@ void Repel::ability(Game& gamestage)  {
     gamestage.set_invisible_man_place(gamestage.find_far_destination_monster_map(move_monster , gamestage.get_invisible_man_place() , gamestage.get_archaologist_place() , gamestage.get_mayor_place())) ;
 }
 
-std::string Repel::info() const  {
+void Repel::info() const  {
 
         cout<< "move Monsters two block far away from People  \n" ; 
 }

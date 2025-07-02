@@ -15,7 +15,7 @@ void Overstock::ability(Game& gamestage)  {
     }
 }
 
-std::string Overstock::info() const  {
+void Overstock::info() const  {
     
     cout<< "every player pick an item and placed in its location \n" ; 
 }

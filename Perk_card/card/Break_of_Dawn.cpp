@@ -17,7 +17,7 @@ void Break_of_dawn::ability(Game& gamestage) {
     }
 }
 
-std::string Break_of_dawn::info() const {
+void Break_of_dawn::info() const {
 
     cout<< "\nskip next monster phase\n" 
     << "add 2 item to map\n" ; 

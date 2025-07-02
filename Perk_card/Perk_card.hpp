@@ -20,7 +20,7 @@ class Perk_card {
 
         virtual ~Perk_card() = default ;
         virtual void ability(Game& gamestage) = 0 ;
-        virtual std::string info() const = 0 ;
+        virtual void info() const = 0 ;
         void set_perk_name(std::string name) ;
         std::string get_perk_name() ;
 

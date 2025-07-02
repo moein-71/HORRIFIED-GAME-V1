@@ -25,7 +25,7 @@ void Visit_from_the_detective::ability(Game& gamestage) {
     gamestage.set_invisible_man_place(place) ;
 }
 
-std::string Visit_from_the_detective::info() const {
+void Visit_from_the_detective::info() const {
     cout<< "\nVisit from the Detective\n"
     << "You can move Invisible Man where ever you want\n" ;
 }

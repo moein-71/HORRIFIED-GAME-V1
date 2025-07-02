@@ -9,7 +9,7 @@ class Hurry : public Perk_card {
 
         Hurry() ;
         void ability(Game& gamestage) override ;
-        std::string info() const override ;
+        void info() const override ;
 
     private :
 };

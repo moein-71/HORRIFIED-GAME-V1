@@ -35,7 +35,7 @@ class Hero{
         std::variant<std::shared_ptr<Perk_card> , bool> get_perk();
         std::vector <Item> get_item(std::string, int);
         std::vector<Item> get_investigate_item() ;
-        void remove_item_from_bag(Item , std::unordered_map <Item, int>* = nullptr);
+        void remove_item_from_bag(Item& , std::unordered_map <Item, int>* = nullptr);
 
         void Describe_Hero_Special_Action();//this function describe the special action of all hero
         std::variant<int, Item> When_Monster_Killed_A_Hero();

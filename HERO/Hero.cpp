@@ -5,7 +5,6 @@
 #include <variant>
 #include <iomanip>
 #include "Perk_card.hpp"
-#include "../ITEM/Item.hpp"
 
 using namespace std;
 
@@ -84,7 +83,7 @@ variant<std::shared_ptr<Perk_card> , bool> Hero::get_perk(){
 
     for(auto print: perk){
 
-        cout << counter << '.' << (*print.first).get_perk_name() << '   ';
+        cout << counter << '.' << (*print.first).get_perk_name() << "   ";
         vec.push_back(print.first);
         counter++;
     }
@@ -99,11 +98,11 @@ variant<std::shared_ptr<Perk_card> , bool> Hero::get_perk(){
 
         if(choose == counter){
 
-            return nullptr;//if player want to exit in this time func retrunes nullptr
+            return false;//if player want to exit in this time func retrunes nullptr
         }
 
         cout<< "INFO :\n" << vec[choose - 1]->info() << '\n' ;
-        cout<< "\nIf you want to back type : N , otherwise only type a letter\n" ;
+        cout<< "If you want to back type : N , otherwise only type a letter\n" ; //priblem
         string y_or_n ; 
         cin>> y_or_n ;
         if(y_or_n == "N") {
@@ -131,7 +130,7 @@ vector<Item> Hero::get_item(string color, int strength){
         return {};
     }
 
-    unordered_map<Item, int> second_item;
+    unordered_map<Item , int> second_item;
     for(auto item_info: item){
         if(item_info.first.get_color() == color){
             second_item[item_info.first] = item_info.second;
@@ -144,8 +143,8 @@ vector<Item> Hero::get_item(string color, int strength){
     }
 
     for(auto item_name: second_item){
-        cout << "Item name:" << item_name.first.get_name() << setw(5)
-        << "Item number:" << item_name.second << '\n';
+        cout << "Item name : " << item_name.first.get_name() << setw(5)
+        << "Item number : " << item_name.second << '\n';
     }
     cout << "\n__________________________________________________________________________\n";
 
@@ -153,27 +152,27 @@ vector<Item> Hero::get_item(string color, int strength){
     int sum_strength{};
     string choose_item;
     vector <Item> choose;
-    unordered_map <Item, int> copy_item = second_item;
-    while(1 && !copy_item.empty()){
+    while(1 && !item.empty()){
 
         Hozoor = 0;
 
         cout << "Please enter name of item that you want or write exit.\n";
-        getline(cin, choose_item);
+        cin>> choose_item ;
 
         if(choose_item == "exit"){
             return {};
         }
 
-        for(auto item_info: copy_item){
+        for(auto item_info : item){
             if(item_info.first.get_name() == choose_item){
                 
                 Hozoor = 1;
                 sum_strength += item_info.first.get_strength();
                 choose.push_back(item_info.first);
-                remove_item_from_bag(item_info.first , &copy_item);
+                // remove_item_from_bag(item[item_info.first] , &);
             }
         }
+
         if(!Hozoor){
             cout << "There is no such item.\n";
             continue;
@@ -187,6 +186,7 @@ vector<Item> Hero::get_item(string color, int strength){
         return {};
     }
     else{
+        cout<<"dfakjjlllllllllllllllllllllllllllllllllllllllllllllll\n" ;
         for(auto item_info: choose){
             remove_item_from_bag(item_info);
         }
@@ -206,11 +206,25 @@ vector<Item> Hero::get_investigate_item() {
     return temp ;
 }
 
-void Hero::remove_item_from_bag(Item remove_item , std::unordered_map <Item, int>* item_bag ){
+void Hero::remove_item_from_bag(Item& remove_item , std::unordered_map <Item, int>* item_bag ){
 
-    item_bag == nullptr ? item_bag = &(this -> item) : item_bag = item_bag ;
-    if(!(--(*item_bag)[remove_item])){
-        (*item_bag).erase(remove_item);
+    if(item_bag == nullptr) {
+        item_bag = &(this->item);
+    }
+
+    if (item_bag == nullptr) {
+        throw runtime_error("item bag was null in Hero.cpp") ; 
+        return;
+    }
+
+    auto it = item_bag->find(remove_item);
+    if(it == item_bag->end()) {
+        throw runtime_error("this item is not exist") ;
+        return;
+    }
+
+    if(--(it->second) == 0){
+        item_bag->erase(it);
     }
 }
 

@@ -45,6 +45,9 @@ void Program::Start() {
         base_game.set_item_to_map(base_game.get_random_item()) ;
     }
 
+    base_game.archaologist.set_perk(base_game.get_random_perk()) ;
+    base_game.mayor.set_perk(base_game.get_random_perk()) ;
+
     printLineDelay("\nEnter name for Player 1 :") ;
     string player_1 ;
     int garlic_player_1 ;

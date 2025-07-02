@@ -29,7 +29,7 @@ class Map{
         std::string get_villager_place(std::string) ;
         std::string get_villager_safe_place(std::string , std::string) ;
         std::vector<std::string> get_connection(std::string) ;
-        std::unordered_map<Item, int> get_item_of_place(std::string);
+        std::unordered_map<Item , int> get_item_of_place(std::string);
         int get_item_number(std::string , std::string) ;
 
         void set_connection();

@@ -17,7 +17,7 @@ bool Turn_archaologist::phase(Game& gamestage) {
     char choose = 0 ;
 
     while(remain_actions > 0) {
-        gamestage.printLineDelay("Remain actions : " + to_string(remain_actions) + '\n' + "1.Move  2.Guide  3.Pick up  4.Advance  5.Defeat  6.Special Action  7.Use perk  \n8.Status  9.Action_info  0.Skip\n" + "\nChoose your action : " );
+        gamestage.printLineDelay("Remain actions : " + to_string(remain_actions) + '\n' + "1.Move  2.Guide  3.Pick up  4.Advance  5.Defeat  6.Special Action  7.Use perk  8.Status  9.Action_info  0.Skip\n" + "\nChoose your action : " );
         cin>> choose ;
 
         if(choose == '1') {
@@ -90,7 +90,7 @@ bool Turn_archaologist::phase(Game& gamestage) {
             gamestage.archaologist.Print_Hero_Info() ;
         }
         else if(choose == '9') {
-            cout<< Move_Hero().info() << Guide().info() << Pick_Up().info() << Advance().info() << Defeat().info() << Special_Action().info() ;
+            cout<< Move_Hero().info() << Guide().info() << Pick_Up().info() << Advance().info() << Defeat().info() << Special_Action().info() << '\n' ;
         }
         else if(choose == '0'){
             return true ;

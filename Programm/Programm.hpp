@@ -25,7 +25,7 @@ class Program {
         void Run() ;
         bool End() ; //if game has been end return true 
 
-        void printLineDelay(const std::string& line, int delayMs = 50) ; //50
+        void printLineDelay(const std::string& line, int delayMs = 0) ; //50
         void showWelcomeScreen() ;
         int CheckInputNumber() ;
 

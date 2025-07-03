@@ -19,7 +19,8 @@ bool Turn_mayor::phase(Game& gamestage) {
     while(remain_actions > 0) {
         gamestage.printLineDelay("Remain actions : " + to_string(remain_actions) + '\n' + "1.Move  2.Guide  3.Pick up  4.Advance  5.Defeat  6.Special Action  7.Use perk  8.Status  9.Action_info  0.Skip\n" + "\nChoose your action : " );
         cin>> choose ;
-
+        cout<< '\n' ;
+ 
         if(choose == '1') {
             action = make_shared<Move_Hero>() ;
             if(action -> Activate(gamestage , &gamestage.mayor)) {
@@ -82,7 +83,7 @@ bool Turn_mayor::phase(Game& gamestage) {
             gamestage.mayor.Print_Hero_Info() ;
         }
         else if(choose == '9') {
-            cout<< Move_Hero().info() << Guide().info() << Pick_Up().info() << Advance().info() << Defeat().info() << Special_Action().info() ;
+            cout<< Move_Hero().info() << Guide().info() << Pick_Up().info() << Advance().info() << Defeat().info() << Special_Action().info() << '\n' ;
         }
         else if(choose == '0'){
 

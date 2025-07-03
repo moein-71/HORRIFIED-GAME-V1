@@ -40,7 +40,7 @@ bool Kill::activate(Game & game , const std::string & monster) {
     }
     else if(monster == game.invisible_man.get_name()) {
         for(auto kill_villager : game.Game_map.get_villager(game.invisible_man.get_now_place())) {
-            if(game.invisible_man.can_kill_villager(kill_villager)) {
+            if(game.invisible_man.can_kill_villager(kill_villager.get_name())) {
                 if(game.Game_map.Kill_Villager(game.invisible_man.get_now_place() , kill_villager.get_name())) {
                     game.printLineDelay(game.get_invisible_man_name() + " Kill a villager in the day\n") ;
                     game.increase_Terror_level() ;

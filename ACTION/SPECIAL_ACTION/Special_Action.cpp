@@ -32,6 +32,11 @@ bool Special_Action::Activate(Game& game, Hero* hero){
         if(game.Game_map.Check_Count_Neighbor_Connection(game.archaologist.get_now_place() , choose)){
 
             auto it = game.Game_map.get_item_of_place(choose);
+
+            if(it.empty()) {
+                return false ;
+            }
+            
             game.Game_map.Remove_All_Item_In_Place(choose);
 
             for(auto pair_it: it){
@@ -40,7 +45,6 @@ bool Special_Action::Activate(Game& game, Hero* hero){
                     
                 }
             }
-            cout<< "Kjkajdf" ;
             return true ;
         }
         else{

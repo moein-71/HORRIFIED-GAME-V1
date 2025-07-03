@@ -38,32 +38,32 @@ bool Invisible_man::set_investigate_found(string place){
         throw invalid_argument("In this place there is no any Invisible_man item.");
     }
 }
-void Invisible_man::reset_near_villager(vector<Villager> villager){
+void Invisible_man::reset_near_villager(vector<string> villager_name){
 
-    for(auto obj_villager : villager){
+    for(auto obj_villager : villager_name){
 
         if(near_villager.count(obj_villager)){
 
             near_villager[obj_villager] = 1;
         }
-
         else{
 
             near_villager[obj_villager] = 0;
         }
     }
 
-    for(auto pair: near_villager){
-
-        auto it = find_if(villager.begin(), villager.end(), [&](const Villager& V){return V.get_name() == pair.first.get_name();});
-
-        if(it == villager.end()){
-
-            near_villager.erase(pair.first);
+    vector<string> to_remove;
+    for(const auto& pair : near_villager){
+        if(find(villager_name.begin(), villager_name.end(), pair.first) == villager_name.end()){
+            to_remove.push_back(pair.first);
         }
     }
+    
+    for(const auto& key : to_remove){
+        near_villager.erase(key);
+    }
 }
-bool Invisible_man::can_kill_villager(Villager villager){
+bool Invisible_man::can_kill_villager(string villager){
     return near_villager.count(villager) && near_villager[villager];
 }
 bool Invisible_man::check_investigate() {

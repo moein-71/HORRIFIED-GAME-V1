@@ -56,6 +56,7 @@ using namespace std ;
         }
         gamestage.printLineDelay(monster_turn[i] + " move to " + (monster_turn[i] == gamestage.get_dracula_name() ? gamestage.get_dracula_place() : gamestage.get_invisible_man_place())) ;
 
+
         //Dice
         set<char> dice ;
 
@@ -81,7 +82,7 @@ using namespace std ;
                 }
                 else if(monster_turn[i] == gamestage.get_dracula_name()) {
                     action = make_unique<Power>() ;
-                    action->activate(gamestage , gamestage.get_frenzy_monster()) ;
+                    action->activate(gamestage , gamestage.get_dracula_name()) ;
                     break ;
                 }
                 else {

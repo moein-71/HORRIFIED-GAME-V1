@@ -25,10 +25,10 @@ bool Turn_monster::phase(Game& gamestage) {
 
     shared_ptr<Monster_card> monster_phase = gamestage.get_random_monster_card() ;    
 
-    monster_phase->info() ;
-
+    gamestage.printLineDelay(monster_phase->info()) ;
 
     monster_phase->ability(gamestage) ; 
+
 
     return true ;
 }

@@ -86,7 +86,6 @@ Game::Game() {
     Monster_cards_bag.emplace_back(make_shared<Thief>()) ;
     Monster_cards_bag.emplace_back(make_shared<Thief>()) ;
 
-
     // string name, string safe_place, string now_place
 
     villagers_bag.emplace_back(Villager("Dr.Cranly" , "Precinct" , "")) ;
@@ -301,10 +300,11 @@ bool Game::remove_all_item_in_place(std::string place) {
                 }
             }
         }
-        
         return true ;
     }
-    return false ;
+    else {
+        throw runtime_error("all place all clear") ;
+    }
 }
 
 void Game::handle_turn() {

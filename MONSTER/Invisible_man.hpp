@@ -14,8 +14,8 @@ class Invisible_man : public Monster {
         Invisible_man();
 
         std::unordered_map <std::string, bool> get_investigate()const;
-        void reset_near_villager(std:: vector<Villager>);
-        bool can_kill_villager(Villager);
+        void reset_near_villager(std::vector<std::string>);
+        bool can_kill_villager(std::string);
         bool set_investigate_found(std::string);
         bool check_investigate() ;
        
@@ -23,7 +23,7 @@ class Invisible_man : public Monster {
     private:
 
         std::unordered_map <std::string, bool> investigate;
-        std::unordered_map <Villager, bool> near_villager;
+        std::unordered_map <std::string , bool> near_villager;
 };
 
 #endif//INVISIBLE_MAN_H

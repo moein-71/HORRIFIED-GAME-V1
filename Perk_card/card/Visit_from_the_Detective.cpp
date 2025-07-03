@@ -8,6 +8,9 @@ Visit_from_the_detective::Visit_from_the_detective() {
 
 void Visit_from_the_detective::ability(Game& gamestage) {
     
+    if(gamestage.get_invisible_man_place() == "DEAD") {
+        return ;
+    }
     string place ;
     cout<< "\nWhich place you want to send Invisible Man ?\n" ;
     gamestage.print_map() ;

@@ -2,6 +2,7 @@
 #include <iostream>
 #include <ctime>
 
+
 using namespace std;
 
 Monster::Monster(int frenzy, string name, vector<string>const spawn_place): frenzy(frenzy),
@@ -21,7 +22,11 @@ int Monster::get_frenzy()const{
 string Monster::get_name()const{
     return name;
 }
-string Monster::get_now_place()const{
+string Monster::get_now_place(){
+    if(now_place == "DEAD") {
+        printLineDelay(this -> name + " is DEAD\n") ;
+        return  "DEAD" ;
+    }
     return now_place;
 }
 vector <string> Monster::get_spawn_place()const{
@@ -32,7 +37,16 @@ vector <string> Monster::get_spawn_place()const{
 
 void Monster::set_now_place(string new_place){
     if(now_place == "DEAD") {
+        printLineDelay(this -> name + " is DEAD\n") ;
         return ;
     }
     this -> now_place = new_place;
+}
+
+void Monster::printLineDelay(const std::string& line, int delayMs) {
+    for (char c : line) {
+        cout << c << flush;
+        this_thread::sleep_for(chrono::milliseconds(delayMs));
+    }
+    cout << endl;
 }

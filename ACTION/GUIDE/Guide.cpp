@@ -64,7 +64,7 @@ bool Guide::Activate(Game& game, Hero* hero){
 
                 game.printLineDelay("Enter villager's name or write exit : ");
                 cin.ignore() ;
-                getline(cin , villager_name) ;
+                cin>> villager_name ;
 
                 if(villager_name == "exit")
                         return false ;

@@ -40,7 +40,7 @@ using namespace std ;
 
 void Program::Start() {
 
-    // this -> showWelcomeScreen() ;
+    this -> showWelcomeScreen() ;
 
     for(int i{} ; i < 12 ; ++i) {
         base_game.set_item_to_map(base_game.get_random_item()) ;
@@ -48,7 +48,7 @@ void Program::Start() {
 
     base_game.archaologist.set_perk(base_game.get_random_perk()) ;
     base_game.mayor.set_perk(base_game.get_random_perk()) ;
-
+    
     printLineDelay("\nEnter name for Player 1 :") ;
     string player_1 ;
     int garlic_player_1 ;

@@ -93,7 +93,7 @@ Game::Game() {
     villagers_bag.emplace_back(Villager("Prof.Pearson" , "Museum" , "")) ;
     villagers_bag.emplace_back(Villager("Maleva" , "Shop" , "")) ;
     villagers_bag.emplace_back(Villager("Fritz" , "Institute" , "")) ;
-    villagers_bag.emplace_back(Villager("Wilbur & Chick" , "Dungeon" , "")) ;
+    villagers_bag.emplace_back(Villager("Wilbur_&_Chick" , "Dungeon" , "")) ;
     villagers_bag.emplace_back(Villager("Maria" , "Camp" , "")) ;
 
     // string name, string spawn_place, string color, int strength

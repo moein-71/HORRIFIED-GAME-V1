@@ -273,7 +273,7 @@ string Map::Find_Near_Destination(int max_steps, string current_location, Archao
     bool best_is_hero = (best_target == archaologist_loc || best_target == mayor_loc);
 
     for(const string& loc : candidates){
-
+        
         bool is_hero = (loc == archaologist_loc || loc == mayor_loc);
         int villager_count = villager_place.count(loc) ? villager_place[loc].size() : 0;
 

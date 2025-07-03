@@ -106,7 +106,7 @@ class Game {
         void increase_Terror_level() ;
         int get_Terror_level() ;
 
-        void printLineDelay(const std::string& line, int delayMs = 0) ; //20
+        void printLineDelay(const std::string& line, int delayMs = 20) ; //20
 
     private :
     

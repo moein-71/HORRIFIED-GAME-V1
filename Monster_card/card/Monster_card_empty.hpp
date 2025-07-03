@@ -8,7 +8,7 @@ class Monster_card_empty : public Monster_card {
     public :
 
         void ability(Game& gamestage) override ;
-        void info() const override ;
+        std::string info() const override ;
 
     private :
 };

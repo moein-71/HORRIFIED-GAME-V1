@@ -105,10 +105,11 @@ void Form_of_The_bat::ability(Game& gamestage) {
     }
 }
 
-void Form_of_The_bat::info() const {
-    cout<< "\nForm_of_The_Bat\n"
-    << "add 2 item\n"
-    << "Dracula moved to the last Hero who has played\n" 
-    << "Strike : 1 Move , 2 Dice\n" 
-    << "Turn : Invisible Man\n" ;
+std::string Form_of_The_bat::info() const {
+    string info = "\nForm_of_The_Bat\n" ;
+    info += "add 2 item\n" ;
+    info += "Dracula moved to the last Hero who has played\n" ;
+    info += "Strike : 1 Move , 2 Dice\n" ;
+    info += "Turn : Invisible Man\n" ;
+    return info ;
 }

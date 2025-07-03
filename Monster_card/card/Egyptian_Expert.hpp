@@ -8,7 +8,7 @@ class Egyptian_expert : public Monster_card {
     public :
 
         void ability(Game& gamestage) override ;
-        void info() const override ;
+        std::string info() const override ;
 
     private :
 };

@@ -103,11 +103,12 @@ using namespace std ;
     }
 }
 
-void Thief::info() const {
-    cout<< "\nThief\n"
-    << "add 2 item\n"
-    << "Move the Invisible Man to the location with the highest number of items" 
-    << "\nremove all items from that location on the map and return them outside the game\n" 
-    << "Strike : 1 Move , 3 Dice\n" 
-    << "Turn : Invisible Man , Dracula\n" ;
+std::string Thief::info() const {
+    string info = "\nThief\n" ;
+    info +=  "add 2 item\n" ;
+    info +=  "Move the Invisible Man to the location with the highest number of items" ;
+    info +=  "\nremove all items from that location on the map and return them outside the game\n" ;
+    info +=  "Strike : 1 Move , 3 Dice\n" ;
+    info +=  "Turn : Invisible Man , Dracula\n" ;
+    return info ;
 }

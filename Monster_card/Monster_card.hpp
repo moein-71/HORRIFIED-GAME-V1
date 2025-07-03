@@ -20,7 +20,7 @@ class Monster_card {
 
         virtual ~Monster_card() = default ;
         virtual void ability(Game& gamestage) = 0 ;
-        virtual void info() const = 0 ;
+        virtual std::string info() const = 0 ;
 
     private :
 };

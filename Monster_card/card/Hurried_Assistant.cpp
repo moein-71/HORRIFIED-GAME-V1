@@ -102,11 +102,12 @@ void Hurried_assistant::ability(Game& gamestage) {
     }
 }
 
-void Hurried_assistant::info() const {
-    cout<< "\nHurried_Assistant\n"
-    << "add 3 item\n"
-    << "Dr. Cranly goes to Laboratory\n" 
-    << "Strike : 2 Move , 3 Dice\n" 
-    << "Turn : Dracula\n" ;
+std::string Hurried_assistant::info() const {
+    string info = "\nHurried_Assistant\n" ;
+    info += "add 3 item\n" ;
+    info += "Dr. Cranly goes to Laboratory\n" ;
+    info += "Strike : 2 Move , 3 Dice\n" ;
+    info += "Turn : Dracula\n" ;
+    return info ;
 }
 

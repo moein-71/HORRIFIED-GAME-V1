@@ -108,10 +108,11 @@ void On_the_move::ability(Game& gamestage) {
     }
 }
 
-void On_the_move::info() const {
-    cout<< "\nOn_The_Move\n"
-    << "add 3 item\n"
-    << "Villager are be close to their safe place on block\n" 
-    << "Strike : 3 Move , 2 Dice\n" 
-    << "Turn : Frenzied Monster\n" ;
+std::string On_the_move::info() const {
+    string info = "\nOn_The_Move\n" ;
+    info += "add 3 item\n" ;
+    info += "Villager are be close to their safe place on block\n" ;
+    info += "Strike : 3 Move , 2 Dice\n" ;
+    info += "Turn : Frenzied Monster\n" ;
+    return info ;
 }

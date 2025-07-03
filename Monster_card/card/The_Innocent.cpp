@@ -102,11 +102,12 @@ void The_innocent::ability(Game& gamestage) {
     }
 }
 
-void The_innocent::info() const {    
-    cout<< "\nThe_Innocent\n"
-    << "add 3 item\n"
-    << "Maria goes to Barn\n" 
-    << "Strike : 1 Move , 3 Dice\n" 
-    << "Turn : Frenzied Monster , Dracula , invisible man\n" ;
+std::string The_innocent::info() const {    
+    string info = "\nThe_Innocent\n" ;
+    info += "add 3 item\n" ;
+    info += "Maria goes to Barn\n" ;
+    info += "Strike : 1 Move , 3 Dice\n" ;
+    info += "Turn : Frenzied Monster , Dracula , invisible man\n" ;
+    return info ;
 }
 

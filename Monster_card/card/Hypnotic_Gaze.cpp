@@ -102,10 +102,11 @@ void Hypnotic_gaze::ability(Game& gamestage) {
     }
 }
 
-void Hypnotic_gaze::info() const {
-     cout<< "\nHypnotic Gaze\n"
-    << "add 2 item\n"
-    << "closest villager or hero get closer one block\n" 
-    << "Strike : 1 Move , 2 Dice\n" 
-    << "Turn : Invisible Man\n" ;
+std::string Hypnotic_gaze::info() const {
+    string info = "\nHypnotic Gaze\n" ;
+    info += "add 2 item\n" ;
+    info += "closest villager or hero get closer one block\n" ;
+    info += "Strike : 1 Move , 2 Dice\n" ;
+    info += "Turn : Invisible Man\n" ;
+    return info ;
 }

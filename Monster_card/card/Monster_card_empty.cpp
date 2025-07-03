@@ -6,7 +6,7 @@ void Monster_card_empty::ability(Game& gamestage) {
 
 }
 
-void Monster_card_empty::info() const {
-
+std::string Monster_card_empty::info() const {
+    return "" ;
 }
 

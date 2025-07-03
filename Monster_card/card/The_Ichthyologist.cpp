@@ -102,10 +102,11 @@ void The_ichthyologist::ability(Game& gamestage) {
     }
 }
 
-void The_ichthyologist::info() const {
-    cout<< "\nThe_Ichthyologist\n"
-    << "add 3 item\n"
-    << "Dr.Read are goes to Institute\n" 
-    << "Strike : 1 Move , 2 Dice\n" 
-    << "Turn : Frenzied Monster\n" ;
+std::string The_ichthyologist::info() const {
+    string info = "\nThe_Ichthyologist\n" ;
+    info += "add 3 item\n" ;
+    info += "Dr.Read are goes to Institute\n" ; 
+    info += "Strike : 1 Move , 2 Dice\n" ;
+    info += "Turn : Frenzied Monster\n" ;
+    return info ;
 }

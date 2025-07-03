@@ -103,12 +103,13 @@ void Egyptian_expert::ability(Game& gamestage) {
     }
 }
 
-void Egyptian_expert::info() const {
-    cout<< "\nEgyptian_Expert\n"
-    << "add 3 item\n"
-    << "Prof.Pearson goes to Cave\n" 
-    << "Strike : 2 Move , 2 Dice\n" 
-    << "Turn : Dracula , Frenzied Monster \n" ;
+std::string Egyptian_expert::info() const {
+    string info = "\nEgyptian_Expert\n" ;
+    info += "add 3 item\n" ;
+    info += "Prof.Pearson goes to Cave\n" ;
+    info += "Strike : 2 Move , 2 Dice\n" ;
+    info += "Turn : Dracula , Frenzied Monster \n" ;
+    return info ;
 }
 
 

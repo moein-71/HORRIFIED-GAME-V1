@@ -102,11 +102,12 @@ void Former_employer::ability(Game& gamestage) {
     }
 }
 
-void Former_employer::info() const {
-    cout<< "\nFormer_Employer\n"
-    << "add 3 item\n"
-    << "Dr. Cranly goes to Laboratory\n" 
-    << "Strike : 1 Move , 2 Dice\n" 
-    << "Turn : Invisible Man , Frenzied Monster\n" ;
+std::string Former_employer::info() const {
+    string info = "\nFormer_Employer\n" ;
+    info += "add 3 item\n" ;
+    info += "Dr. Cranly goes to Laboratory\n" ;
+    info += "Strike : 1 Move , 2 Dice\n" ;
+    info += "Turn : Invisible Man , Frenzied Monster\n" ;
+    return info ;
 }
 

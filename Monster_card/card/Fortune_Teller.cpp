@@ -104,7 +104,7 @@ void Fortune_teller::ability(Game& gamestage) {
 
 void Fortune_teller::info() const {
     cout<< "\nFortune_Teller\n"
-    << "add 3 item"
+    << "add 3 item\n"
     << "Maleva goes to Camp\n" 
     << "Strike : 1 Move , 2 Dice\n" 
     << "Turn : Frenzied Monster\n" ;

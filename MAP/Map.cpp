@@ -89,13 +89,14 @@ void Map::set_villager(string place, Villager villager){
 bool Map::set_villager_place(string now_place , string new_place, string villager_name){
     
     auto& villager_now_place = villager_place[now_place];
-    
-    for(int i{}; auto & chooses_villager : villager_now_place){ ///////////////////////////////-
+    int i{} ;
+    for( auto & chooses_villager : villager_now_place){ ///////////////////////////////-
         if(chooses_villager.get_name() == villager_name){
 
             chooses_villager.set_now_place(new_place);
 
             set_villager(new_place , chooses_villager);
+            chooses_villager.set_now_place(new_place) ;
             villager_now_place.erase(villager_now_place.begin() + i);
             villager_now_place.shrink_to_fit() ;
 
@@ -138,7 +139,8 @@ bool Map::Kill_Villager(string place , string name){
 
     if(name != "") {
         if(villager_place[place].size() >= 1) {
-            for(int i{} ; auto kill_villager : villager_place[place]) {
+            int i{} ;
+            for(auto kill_villager : villager_place[place]) {
                 if(kill_villager.get_name() == name) {
                     villager_place[place].erase(villager_place[place].begin() + i);
                     if(!villager_place[place].size()){
@@ -180,7 +182,8 @@ Item Map::Pickeup_Item(string place, string item_name){
             return item.first;
         }
     }
-} 
+    return Item("" , "" , "" , 1) ;
+}  
 string Map::Find_Place_With_More_Item(){
 
     int counter{};
@@ -355,7 +358,6 @@ string Map::Move_Monster_Away_From_Hero(string current_location, Hero* target_he
 
         if(distance.count(node) && distance[node] > best_distance){
             candidates.push_back(node);
-            continue;
         }
 
         if(steps == max_steps)
@@ -646,6 +648,7 @@ void Map::Move_Villager_To_Safe_House(){
 
     for(const auto& [now_place, new_place, name] : move_requests){
         set_villager_place(now_place, new_place, name);
+
     }
 }
 string Map::Move_Character_Near_Dracula(string dracula_place, Hero* archaologist, Hero* mayor){

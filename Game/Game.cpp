@@ -19,6 +19,7 @@
 #include "Overstock.hpp"
 #include "Repel.hpp"
 #include "Visit_from_the_Detective.hpp"
+#include "Perk_card/card/Perk_empty.hpp"
 
 #include "Egyptian_Expert.hpp"
 #include "Former_Employer.hpp"
@@ -30,6 +31,7 @@
 #include "The_Ichthyologist.hpp"
 #include "The_Innocent.hpp"
 #include "Thief.hpp"
+#include "Monster_card/card/Monster_card_empty.hpp"
 
 using namespace std ;
 
@@ -87,8 +89,8 @@ Game::Game() {
 
     // string name, string safe_place, string now_place
 
-    villagers_bag.emplace_back(Villager("Dr.Cranley" , "Precinct" , "")) ;
-    villagers_bag.emplace_back(Villager("Dr.Reed" , "Camp" , "")) ;
+    villagers_bag.emplace_back(Villager("Dr.Cranly" , "Precinct" , "")) ;
+    villagers_bag.emplace_back(Villager("Dr.Read" , "Camp" , "")) ;
     villagers_bag.emplace_back(Villager("Prof.Pearson" , "Museum" , "")) ;
     villagers_bag.emplace_back(Villager("Maleva" , "Shop" , "")) ;
     villagers_bag.emplace_back(Villager("Fritz" , "Institute" , "")) ;
@@ -224,6 +226,10 @@ void Game::set_item_to_map(Item new_item) {
 }
 shared_ptr<Perk_card> Game::get_random_perk() {
 
+    if(perk_bag.empty()) {
+        return make_shared<Perk_empty>() ;
+    }
+
     int number = (this->random_number() % this->perk_bag.size()) ;
 
     shared_ptr<Perk_card> random = perk_bag[number] ;
@@ -238,6 +244,10 @@ shared_ptr<Perk_card> Game::get_random_perk() {
 } 
 
 shared_ptr<Monster_card> Game::get_random_monster_card() {
+
+    if(Monster_cards_bag.empty()) {
+        return make_shared<Monster_card_empty>() ;
+    }
 
     int number = (this->random_number() % this->Monster_cards_bag.size()) ;
 
@@ -395,9 +405,9 @@ string Game::get_invisible_man_name() {
     return this->invisible_man.get_name() ;
 }
 int Game::get_added_action() {
-    added_action = this -> added_action ;
-    this -> added_action = 0 ;
-    return added_action ;
+    int temp = 0 ;
+    swap(this -> added_action , temp) ;
+    return temp ;
 }
 
 int Game::get_monster_card_number() {
@@ -417,8 +427,8 @@ int Game::get_Terror_level() {
     return this -> Terror_level ;
 }
 
-std::string Game::move_character_near_dracula(std::string place , Hero* arch, Hero* mayor) {
-    return this -> Game_map.Move_Character_Near_Dracula(place , arch , mayor) ;
+std::string Game::move_character_near_dracula(std::string dracula_place) {
+    return this -> Game_map.Move_Character_Near_Dracula(dracula_place , &this -> archaologist , &this -> mayor) ;
 }
 
 void Game::move_villager_to_safe_place() {

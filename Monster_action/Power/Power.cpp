@@ -19,6 +19,3 @@ bool Power::activate(Game & game , const std::string & monster) {
     return false ;
 }
 
-std::string Power::info() const {
-
-}  

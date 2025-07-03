@@ -18,6 +18,3 @@ bool Move_monster::activate(Game & game , const string & monster) {
     
 }
 
-std::string Move_monster::info() const {
-
-} 

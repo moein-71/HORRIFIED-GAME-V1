@@ -4,6 +4,7 @@
 using namespace std ;
 
 bool Turn_archaologist::phase(Game& gamestage) {
+
     gamestage.archaologist.Print_Hero_Info() ;
     
     gamestage.set_last_hero_turn(gamestage.archaologist.get_name()) ;
@@ -16,7 +17,7 @@ bool Turn_archaologist::phase(Game& gamestage) {
     char choose = 0 ;
 
     while(remain_actions > 0) {
-        gamestage.printLineDelay("Remain actions : " + to_string(remain_actions) + '\n' + "1.Move  2.Guide  3.Pick up  4.Advance  5.Defeat  6.Special Action  7.Use perk  8.status\n" + "\nChoose your action : " );
+        gamestage.printLineDelay("Remain actions : " + to_string(remain_actions) + '\n' + "1.Move  2.Guide  3.Pick up  4.Advance  5.Defeat  6.Special Action  7.Use perk  \n8.Status  9.Action_info  0.Skip\n" + "\nChoose your action : " );
         cin>> choose ;
 
         if(choose == '1') {
@@ -77,6 +78,7 @@ bool Turn_archaologist::phase(Game& gamestage) {
             auto perk_variant = gamestage.archaologist.get_perk();
             if (auto perk_ptr = std::get_if<std::shared_ptr<Perk_card>>(&perk_variant)) {
                 (*perk_ptr)->ability(gamestage);
+                remain_actions +=  gamestage.get_added_action() ;
                 continue;
             }
             else {
@@ -87,7 +89,10 @@ bool Turn_archaologist::phase(Game& gamestage) {
             gamestage.Game_map.Print_Map_And_All_Info(gamestage.get_archaologist_place() , gamestage.get_mayor_place() , gamestage.get_dracula_place() , gamestage.get_invisible_man_place() , gamestage.dracula.get_casket() , gamestage.invisible_man.get_investigate() , gamestage.get_Terror_level()) ;
             gamestage.archaologist.Print_Hero_Info() ;
         }
-        else if(choose == '9'){
+        else if(choose == '9') {
+            cout<< Move_Hero().info() << Guide().info() << Pick_Up().info() << Advance().info() << Defeat().info() << Special_Action().info() ;
+        }
+        else if(choose == '0'){
             return true ;
         }
         else {

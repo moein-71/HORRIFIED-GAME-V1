@@ -49,5 +49,5 @@ bool Defeat::Activate(Game& game, Hero* hero) {
 }
 
 std::string Defeat::info()const {
-
+    return "DEFEAT : Is for defeating Monsters\n" ;
 }

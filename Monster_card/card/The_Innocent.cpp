@@ -20,7 +20,7 @@ void The_innocent::ability(Game& gamestage) {
         
     //Event 
 
-    gamestage.set_villager_in_Game_map("Barn" , "Maria") ;
+    gamestage.set_villager_in_Game_map("Barn" , "Maria") ; 
     
     //Strike
 
@@ -104,7 +104,7 @@ void The_innocent::ability(Game& gamestage) {
 
 void The_innocent::info() const {    
     cout<< "\nThe_Innocent\n"
-    << "add 3 item"
+    << "add 3 item\n"
     << "Maria goes to Barn\n" 
     << "Strike : 1 Move , 3 Dice\n" 
     << "Turn : Frenzied Monster , Dracula , invisible man\n" ;

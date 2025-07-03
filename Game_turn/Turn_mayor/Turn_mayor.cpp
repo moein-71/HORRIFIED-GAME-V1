@@ -6,16 +6,18 @@ using namespace std ;
 bool Turn_mayor::phase(Game& gamestage) {
 
     gamestage.mayor.Print_Hero_Info() ;
+
     gamestage.set_last_hero_turn(gamestage.mayor.get_name()) ;
+
     gamestage.turn->handle_turn(gamestage) ;
     shared_ptr<Hero_Action> action = nullptr ;
     
-    int remain_actions = gamestage.mayor.get_action() + gamestage.get_added_action() ;
+    int remain_actions = gamestage.mayor.get_action() ;
 
     char choose = 0 ;
 
     while(remain_actions > 0) {
-        gamestage.printLineDelay("Remain actions : " + to_string(remain_actions) + '\n' + "1.Move  2.Guide  3.Pick up  4.Advance  5.Defeat  6.Special Action  7.Use perk  8.status\n" + "\nChoose your action : " );
+        gamestage.printLineDelay("Remain actions : " + to_string(remain_actions) + '\n' + "1.Move  2.Guide  3.Pick up  4.Advance  5.Defeat  6.Special Action  7.Use perk  8.Status  9.Action_info  0.Skip\n" + "\nChoose your action : " );
         cin>> choose ;
 
         if(choose == '1') {
@@ -64,13 +66,14 @@ bool Turn_mayor::phase(Game& gamestage) {
             gamestage.printLineDelay("Defeat not done\n") ;
         }
         else if(choose == '6') {
-             gamestage.printLineDelay("Mayor dont have Special_Action\n") ;
+            gamestage.printLineDelay("Mayor dont have Special_Action\n") ;
              continue;
         }
         else if(choose == '7') {
             auto perk_variant = gamestage.mayor.get_perk();
             if (auto perk_ptr = std::get_if<std::shared_ptr<Perk_card>>(&perk_variant)) {
                 (*perk_ptr)->ability(gamestage);
+                remain_actions +=  gamestage.get_added_action() ;
                 continue;
             }
         }
@@ -78,7 +81,11 @@ bool Turn_mayor::phase(Game& gamestage) {
             gamestage.Game_map.Print_Map_And_All_Info(gamestage.get_archaologist_place() , gamestage.get_mayor_place() , gamestage.get_dracula_place() , gamestage.get_invisible_man_place() , gamestage.dracula.get_casket() , gamestage.invisible_man.get_investigate() , gamestage.get_Terror_level()) ;
             gamestage.mayor.Print_Hero_Info() ;
         }
-        else if(choose == '9'){
+        else if(choose == '9') {
+            cout<< Move_Hero().info() << Guide().info() << Pick_Up().info() << Advance().info() << Defeat().info() << Special_Action().info() ;
+        }
+        else if(choose == '0'){
+
             return true ;
         }
         else {
@@ -87,6 +94,7 @@ bool Turn_mayor::phase(Game& gamestage) {
         }
     } 
     if(remain_actions == 0) {
+        gamestage.printLineDelay("SKIPED\n" , 70) ;
         return true ;
     }
     else {

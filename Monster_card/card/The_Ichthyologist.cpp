@@ -104,7 +104,7 @@ void The_ichthyologist::ability(Game& gamestage) {
 
 void The_ichthyologist::info() const {
     cout<< "\nThe_Ichthyologist\n"
-    << "add 3 item"
+    << "add 3 item\n"
     << "Dr.Read are goes to Institute\n" 
     << "Strike : 1 Move , 2 Dice\n" 
     << "Turn : Frenzied Monster\n" ;

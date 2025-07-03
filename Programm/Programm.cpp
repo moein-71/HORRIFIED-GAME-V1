@@ -39,7 +39,7 @@
 using namespace std ;
 
 void Program::Start() {
-    // this -> showWelcomeScreen() ;
+    this -> showWelcomeScreen() ;
 
     for(int i{} ; i < 12 ; ++i) {
         base_game.set_item_to_map(base_game.get_random_item()) ;
@@ -109,12 +109,19 @@ void Program::Run() {
     if(!this -> base_game.turn->phase(this -> base_game)) {
         throw logic_error("somthing in phase goes wrong\n") ;
     }
+    if(base_game.turn != base_game.monster) {
+        printLineDelay("MONSTER PHASE SKIPED\n" , 70) ;
+        printLineDelay("Click to continue .......\n") ;
+        cin.ignore() ;
+        system("clear");
+        return ;
+    }
     if(!this -> base_game.turn->phase(this -> base_game)) {
         throw logic_error("somthing in phase goes wrong\n") ;
     }
     cout<< "Click to continue .......\n" ;
     cin.ignore() ;
-    // system("clear");
+    system("clear");
 }
 
 bool Program::End() {

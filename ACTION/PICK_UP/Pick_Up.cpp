@@ -62,5 +62,5 @@ bool Pick_Up::Activate(Game& game, Hero* hero){
 }
 
 std::string Pick_Up::info()const {
-
+    return "PICK_UP : With action you can pick how many item you want from your place\n" ;
 }

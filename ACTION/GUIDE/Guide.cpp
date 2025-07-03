@@ -73,6 +73,9 @@ bool Guide::Activate(Game& game, Hero* hero){
                 report = send_villager_another_place(now_place, choose_place_name, villager_name, neighbor, game , hero);
                 game.printLineDelay(report + '\n');
                 if(report == "Successful") {
+                    if(choose_place_name == game.Game_map.get_villager_safe_place(choose_place_name , villager_name)) {
+                            hero->set_perk(game.get_random_perk()) ;
+                    }   
                     return true ;
                 }
                 else {
@@ -99,6 +102,9 @@ bool Guide::Activate(Game& game, Hero* hero){
                 report = take_villager_another_place(now_place, choose_place_name, villager_name, neighbor, game , hero);
                 cout << report << '\n';
                 if(report == "Successful") {
+                    if(now_place == game.Game_map.get_villager_safe_place(now_place , villager_name)) {
+                            hero->set_perk(game.get_random_perk()) ;
+                    }   
                     return true ;
                 }
                 else {
@@ -135,9 +141,7 @@ string Guide::send_villager_another_place(string now_place, string choose_place_
         return "The villager name you entered does not exist at the current location.(field)";
 
     game.Game_map.set_villager_place(now_place , choose_place_name, villager_name); 
-    if(choose_place_name == game.Game_map.get_villager_safe_place(choose_place_name , villager_name)) {
-        hero->set_perk(game.get_random_perk()) ;
-    }
+
     return "Successful" ;
 }
 
@@ -164,12 +168,10 @@ string Guide::take_villager_another_place(string now_place, string choose_place_
         return "The villager name you entered does not exist at the current location.(field)";
 
     game.Game_map.set_villager_place(choose_place_name , now_place , villager_name);
-    if(choose_place_name == game.Game_map.get_villager_safe_place(choose_place_name , villager_name)) {
-        hero->set_perk(game.get_random_perk()) ;
-    }
+
     return "Successful" ;
 }
 
 std::string Guide::info()const {
-
+    return "GUIDE : With this action you can send a villager to another place or take villager\n" ;
 }

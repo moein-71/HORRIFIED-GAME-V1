@@ -2,6 +2,7 @@
 #include "../../Monster_action/Move_monster/Move_monster.hpp"
 #include "../../Monster_action/Kill/Kill.hpp"
 #include "../../Monster_action/Power/Power.hpp"
+
 using namespace std ;
 
 void Form_of_The_bat::ability(Game& gamestage) {
@@ -106,7 +107,7 @@ void Form_of_The_bat::ability(Game& gamestage) {
 
 void Form_of_The_bat::info() const {
     cout<< "\nForm_of_The_Bat\n"
-    << "add 2 item"
+    << "add 2 item\n"
     << "Dracula moved to the last Hero who has played\n" 
     << "Strike : 1 Move , 2 Dice\n" 
     << "Turn : Invisible Man\n" ;

@@ -30,6 +30,9 @@ vector <string> Monster::get_spawn_place()const{
 
 
 
-void Monster::set_now_place(string now_place){
-    this -> now_place = now_place;
+void Monster::set_now_place(string new_place){
+    if(now_place == "DEAD") {
+        return ;
+    }
+    this -> now_place = new_place;
 }

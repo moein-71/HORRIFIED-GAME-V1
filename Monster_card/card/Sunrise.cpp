@@ -106,7 +106,7 @@ void Sunrise::ability(Game& gamestage) {
 
 void Sunrise::info() const {
     cout<< "\nSunrise\n"
-    << "add 0 item"
+    << "add 0 item\n"
     << "Dracula moved to the Crypt  \n" 
     << "Strike : 1 Move , 2 Dice\n" 
     << "Turn : Invisible Man , Frenzied Monster\n" ;

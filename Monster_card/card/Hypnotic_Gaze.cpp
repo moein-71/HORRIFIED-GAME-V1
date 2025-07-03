@@ -20,7 +20,7 @@ void Hypnotic_gaze::ability(Game& gamestage) {
 
     //Event 
 
-    // gamestage.move_character_near_dracula(gamestage.get_dracula_place , Hero*) 
+    gamestage.move_character_near_dracula(gamestage.get_dracula_place()) ;  // problem
 
     //Strike
 
@@ -104,8 +104,8 @@ void Hypnotic_gaze::ability(Game& gamestage) {
 
 void Hypnotic_gaze::info() const {
      cout<< "\nHypnotic Gaze\n"
-    << "add 2 item"
-    << "closest villager or hero get closer on block\n" 
+    << "add 2 item\n"
+    << "closest villager or hero get closer one block\n" 
     << "Strike : 1 Move , 2 Dice\n" 
     << "Turn : Invisible Man\n" ;
 }

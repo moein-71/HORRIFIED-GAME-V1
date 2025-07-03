@@ -105,7 +105,7 @@ using namespace std ;
 
 void Thief::info() const {
     cout<< "\nThief\n"
-    << "add 2 item"
+    << "add 2 item\n"
     << "Move the Invisible Man to the location with the highest number of items" 
     << "\nremove all items from that location on the map and return them outside the game\n" 
     << "Strike : 1 Move , 3 Dice\n" 

@@ -77,9 +77,9 @@ bool Move_Hero::Activate(Game& game, Hero* hero){
         }
         
     }
-
+    return false ;
 }
 
 std::string Move_Hero::info()const {
-
+    return "MOVE : You can move your self and villagers with this action\n" ;
 }

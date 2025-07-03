@@ -104,7 +104,7 @@ void The_delivery::ability(Game& gamestage) {
 
 void The_delivery::info() const {
     cout<< "\nThe_Delivery\n"
-    << "add 3 item"
+    << "add 3 item\n"
     << "Wilbur & Click are goes to Docks\n" 
     << "Strike : 1 Move , 3 Dice\n" 
     << "Turn : Frenzied Monster\n" ;

@@ -56,5 +56,5 @@ bool Advance::Activate(Game& game, Hero* hero){
 }
 
 std::string Advance::info()const {
-
+    return "ADVANCE : is for destroying dracula casckets and place item on Precinct\n" ;
 }

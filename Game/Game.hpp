@@ -99,14 +99,14 @@ class Game {
         int get_added_action() ;
         int get_monster_card_number() ;
 
-        std::string move_character_near_dracula(std::string, Hero*, Hero*) ;
+        std::string move_character_near_dracula(std::string dracula_place) ;
         void move_villager_to_safe_place() ;
         bool Check_Place_Exist_in_map(std::string place) ;
 
         void increase_Terror_level() ;
         int get_Terror_level() ;
 
-        void printLineDelay(const std::string& line, int delayMs = 0) ; //30
+        void printLineDelay(const std::string& line, int delayMs = 40) ; //30
 
     private :
     

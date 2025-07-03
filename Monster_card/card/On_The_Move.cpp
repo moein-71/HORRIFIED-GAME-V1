@@ -110,8 +110,8 @@ void On_the_move::ability(Game& gamestage) {
 
 void On_the_move::info() const {
     cout<< "\nOn_The_Move\n"
-    << "add 3 item"
-    << "closest villager or hero get closer on block\n" 
+    << "add 3 item\n"
+    << "Villager are be close to their safe place on block\n" 
     << "Strike : 3 Move , 2 Dice\n" 
     << "Turn : Frenzied Monster\n" ;
 }

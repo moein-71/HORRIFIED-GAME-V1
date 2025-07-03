@@ -69,6 +69,7 @@ add_executable(app
     Monster_card/card/The_Ichthyologist.cpp
     Monster_card/card/The_Innocent.cpp
     Monster_card/card/Thief.cpp
+    Monster_card/card/Monster_card_empty.cpp
     
     # فایل‌های Perk_card
     Perk_card/Perk_card.cpp
@@ -78,6 +79,7 @@ add_executable(app
     Perk_card/card/Overstock.cpp
     Perk_card/card/Repel.cpp
     Perk_card/card/Visit_from_the_Detective.cpp
+    Perk_card/card/Perk_empty.cpp
     
     # فایل‌های Monster_action
     Monster_action/Kill/Kill.cpp

@@ -5,6 +5,7 @@
 #include <variant>
 #include <iomanip>
 #include "Perk_card.hpp"
+#include "Perk_card/card/Perk_empty.hpp"
 
 using namespace std;
 
@@ -39,10 +40,14 @@ void Hero::set_item(Item item_info){
         item[item_info]++;
         return;
     }
-    item[item_info] = 1;
+    item[item_info] = 1; 
 }
 
 void Hero::set_perk(shared_ptr<Perk_card> new_perk) {
+    if(new_perk->get_perk_name() == make_shared<Perk_empty>()->get_perk_name()) {
+        this -> printLineDelay("There is no perk to add\n");
+        return ;
+    }
     if(perk.count(new_perk)) {
         perk[new_perk]++ ;
         return ;
@@ -83,50 +88,59 @@ variant<std::shared_ptr<Perk_card> , bool> Hero::get_perk(){
 
     for(auto print: perk){
 
-        cout << counter << '.' << (*print.first).get_perk_name() << "   ";
+        this -> printLineDelay(to_string(counter) + '.' + (*print.first).get_perk_name() + "   ");
         vec.push_back(print.first);
         counter++;
     }
 
-    cout << counter << '.' << "exit \n";
-    cout << "Whitch perk do you want : \n";
+    this -> printLineDelay(to_string(counter) + '.' + "exit \n");
+    this -> printLineDelay("Whitch perk do you want : \n");
     int choose;
-    string ch;cin >> ch;
-    istringstream iss(ch);
+    while(1){
+        string ch;cin >> ch;
+        istringstream iss(ch);
 
-    if(iss >> choose && choose >= 1 && choose <= counter){
+        
+        if(iss >> choose){
 
-        if(choose == counter){
+            if(choose == counter){
 
-            return false;//if player want to exit in this time func retrunes nullptr
+                return false;//if player want to exit in this time func retrunes nullptr
+            }
+            if(choose > counter || choose <= 0) {
+                this -> printLineDelay("Enter right number : \n" );
+                continue;
+            }
+
+            this -> printLineDelay("INFO :\n" );
+            vec[choose - 1]->info() ;
+            this -> printLineDelay("\nIf you want to back type : N , otherwise only type a letter\n"); 
+            string y_or_n ; 
+            cin>> y_or_n ;
+            if(y_or_n == "N") {
+                return true ;
+            }
+
+
+            perk[vec[choose - 1]]--;
+            if(!perk[vec[choose - 1]]){
+
+                perk.erase(vec[choose - 1]);
+            }
+            return vec[choose - 1];
         }
+        else{
 
-        cout<< "INFO :\n" << vec[choose - 1]->info() << '\n' ;
-        cout<< "If you want to back type : N , otherwise only type a letter\n" ; //priblem
-        string y_or_n ; 
-        cin>> y_or_n ;
-        if(y_or_n == "N") {
-            return true ;
-        }
-
-
-        perk[vec[choose - 1]]--;
-        if(!perk[vec[choose - 1]]){
-
-            perk.erase(vec[choose - 1]);
+            this -> printLineDelay("Enter right number : \n");
+            continue;
         }
     }
-    else{
 
-        throw invalid_argument("please enter a right value");
-    }
-
-    return vec[choose - 1];
 }
 vector<Item> Hero::get_item(string color, int strength){
 
     if(item.empty()){
-        cout << "Your item bag is empty.\n";
+        this -> printLineDelay( "Your item bag is empty.\n");
         return {};
     }
 
@@ -138,15 +152,15 @@ vector<Item> Hero::get_item(string color, int strength){
     }
 
     if(second_item.empty()){
-        cout << "Your item bag whith " << color << " is empty.\n";
+        this -> printLineDelay( "Your item bag whith " + color + " is empty.\n");
         return {};
     }
 
     for(auto item_name: second_item){
-        cout << "Item name : " << item_name.first.get_name() << setw(5)
-        << "Item number : " << item_name.second << '\n';
+        this -> printLineDelay( "Item name : " + item_name.first.get_name() + "   "
+        + "Item number : " + to_string(item_name.second)+ '\n');
     }
-    cout << "\n__________________________________________________________________________\n";
+    cout<< "\n__________________________________________________________________________\n";
 
     bool Hozoor = 0;
     int sum_strength{};
@@ -156,7 +170,7 @@ vector<Item> Hero::get_item(string color, int strength){
 
         Hozoor = 0;
 
-        cout << "Please enter name of item that you want or write exit.\n";
+        this -> printLineDelay( "Please enter name of item that you want or write exit.\n");
         cin>> choose_item ;
 
         if(choose_item == "exit"){
@@ -174,7 +188,7 @@ vector<Item> Hero::get_item(string color, int strength){
         }
 
         if(!Hozoor){
-            cout << "There is no such item.\n";
+            this -> printLineDelay( "There is no such item.\n");
             continue;
         }
         if(sum_strength >= strength){
@@ -182,11 +196,10 @@ vector<Item> Hero::get_item(string color, int strength){
         }
     }
     if(sum_strength < strength){
-        cout << "You can't run this action.\n";
+        this -> printLineDelay( "You can't run this action.\n");
         return {};
     }
     else{
-        cout<<"dfakjjlllllllllllllllllllllllllllllllllllllllllllllll\n" ;
         for(auto item_info: choose){
             remove_item_from_bag(item_info);
         }
@@ -230,14 +243,14 @@ void Hero::remove_item_from_bag(Item& remove_item , std::unordered_map <Item, in
 
 void Hero::Describe_Hero_Special_Action(){
 
-cout << R"(
+this -> printLineDelay( R"(
 Archaologist: 
 He can pick up any number of items from a nearby location.
 
 Mayor:
 She Has no special action.
 
-)";
+)");
 }
 
 variant<int, Item> Hero::When_Monster_Killed_A_Hero(){
@@ -252,7 +265,7 @@ variant<int, Item> Hero::When_Monster_Killed_A_Hero(){
     cin.ignore() ;
     while(1){
 
-        cout << "Please enter number 1 if you want go to hospital, or number 2 for use an item and bach to life.\n";
+        this -> printLineDelay( "Please enter number 1 if you want go to hospital, or number 2 for use an item and bach to life.\n");
         getline(cin, exeption_choose);
         istringstream iss(exeption_choose);
 
@@ -355,4 +368,12 @@ void Hero::Print_Hero_Info(){
             << repeat("═", loc_width) << "╩"
             << repeat("═", count_width) << "╩"
             << repeat("═", strength_width) << "╝\n";
+}
+
+void Hero::printLineDelay(const std::string& line, int delayMs) {
+    for (char c : line) {
+        cout << c << flush;
+        this_thread::sleep_for(chrono::milliseconds(delayMs));
+    }
+    cout << endl;
 }

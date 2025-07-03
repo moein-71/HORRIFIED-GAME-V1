@@ -6,11 +6,14 @@
 #include "Form_of_The_Bat.hpp"
 #include "Fortune_Teller.hpp"
 #include "Hurried_Assistant.hpp"
+#include "../../Monster_card/card/Hypnotic_Gaze.hpp"
+#include "../../Monster_card/card/On_The_Move.hpp"
 #include "Sunrise.hpp"
 #include "The_Delivery.hpp"
 #include "The_Ichthyologist.hpp"
 #include "The_Innocent.hpp"
 #include "Thief.hpp"
+#include "../../Monster_card/card/Monster_card_empty.hpp"
 
 using namespace std ;
 
@@ -20,13 +23,12 @@ bool Turn_monster::phase(Game& gamestage) {
 
     gamestage.turn->handle_turn(gamestage) ;
 
-    shared_ptr<Monster_card> monster_phase = gamestage.get_random_monster_card() ;
+    shared_ptr<Monster_card> monster_phase = gamestage.get_random_monster_card() ;    
 
-    // shared_ptr<Monster_card> monster_phase = make_shared<The_innocent>() ;
-    
     monster_phase->info() ;
 
-    monster_phase->ability(gamestage) ;
+
+    monster_phase->ability(gamestage) ; 
 
     return true ;
 }

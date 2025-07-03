@@ -54,6 +54,3 @@ bool Kill::activate(Game & game , const std::string & monster) {
     game.printLineDelay("Kill of " + monster + " is not successful\n") ;
     return false ;
 }   
-std::string Kill::info() const {
-
-}

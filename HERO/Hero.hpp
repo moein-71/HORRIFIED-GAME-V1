@@ -43,6 +43,8 @@ class Hero{
         void Go_To_Hospital();
         void Print_Hero_Info();
         std::string repeat(const std::string& s, int n) ;
+        void printLineDelay(const std::string& line, int delayMs = 30) ; //30
+
         
     private:
 

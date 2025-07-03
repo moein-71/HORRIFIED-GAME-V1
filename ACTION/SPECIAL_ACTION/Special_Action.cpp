@@ -49,6 +49,5 @@ bool Special_Action::Activate(Game& game, Hero* hero){
     }
 }
 std::string Special_Action::info()const{
-
-
+    return "SPECIAL_ACTION : Archaologist can get how many item he want from Neighbor places\n" ;
 }

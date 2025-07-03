@@ -39,12 +39,12 @@ void Map::set_connection(){
     connection["Precinct"] = {"Inn", "Camp", "Theatre", "Mansion"};
     connection["Camp"] = {"Precinct", "Cave", "Mansion", "Theatre", "Inn"};
     connection["Cave"] = {"Camp"};
-    connection["Theatre"] = {"Tower", "Bank", "Shop", "Precinct", "Mansion", "Inn", "Camp"};
+    connection["Theatre"] = {"Tower", "Barn", "Shop", "Precinct", "Mansion", "Inn", "Camp"};
     connection["Shop"] = {"Theatre", "Church", "Laboratory"};
     connection["Laboratory"] = {"Shop", "Institute"};
     connection["Abbey"] = {"Mansion", "Crypt"};
     connection["Mansion"] = {"Abbey", "Camp", "Inn", "Theatre", "Precinct", "Shop", "Museum", "Church"};
-    connection["Bank"] = {"Theatre"};
+    connection["Barn"] = {"Theatre"};
 }
 void Map::set_item(Item inf_item){
     item_place[inf_item.get_spawn_place()][inf_item]++;
@@ -272,7 +272,6 @@ string Map::Move_Monster_Away_From_Hero(string current_location, Hero* target_he
 
         if(distance.count(node) && distance[node] > best_distance){
             candidates.push_back(node);
-            continue;
         }
 
         if(steps == max_steps)
@@ -566,12 +565,11 @@ void Map::Move_Villager_To_Safe_House(){
         set_villager_place(now_place, new_place, name);
     }
 }
-string Map::Move_Character_Near_Dracula(string dracula_place, Hero* archaologist, Hero* mayor){
+string Map::Move_Character_Near_Dracula(string dracula_place, Hero* archaeologist, Hero* mayor){
 
-    if (archaologist->get_now_place() == dracula_place || mayor->get_now_place() == dracula_place)
+    if(archaeologist->get_now_place() == dracula_place || mayor->get_now_place() == dracula_place)
         return "Don't move";
-
-    if (villager_place.count(dracula_place) && !villager_place[dracula_place].empty())
+    if(villager_place.count(dracula_place) && !villager_place[dracula_place].empty())
         return "Don't move";
 
     unordered_map<string, int> distance;
@@ -586,6 +584,7 @@ string Map::Move_Character_Near_Dracula(string dracula_place, Hero* archaologist
 
         string current = q.front(); q.pop();
         for(const string& neighbor : connection[current]){
+
             if(!distance.count(neighbor)){
 
                 distance[neighbor] = distance[current] + 1;
@@ -595,68 +594,55 @@ string Map::Move_Character_Near_Dracula(string dracula_place, Hero* archaologist
         }
     }
 
-    string closest_name = "";
-    string closest_now = "";
     int min_dist = INT_MAX;
-    bool is_villager = false;
 
-    for(Hero* hero : {archaologist, mayor}){
+    for(Hero* hero : {archaeologist, mayor}){
 
         string place = hero->get_now_place();
-        if(distance.count(place) && distance[place] < min_dist){
+        if (distance.count(place))
+            min_dist = min(min_dist, distance[place]);
+    }
 
-            min_dist = distance[place];
-            closest_name = hero->get_name();
-            closest_now = place;
-            is_villager = false;
+    for(const auto& [place, villager_list] : villager_place){
+        for(const auto& villager : villager_list){
+            
+            string now = villager.get_now_place();
+            if (distance.count(now))
+                min_dist = min(min_dist, distance[now]);
         }
     }
+
+    if(min_dist == INT_MAX)
+        return "Don't move";
 
     for(const auto& [place, villager_list] : villager_place){
         for(const auto& villager : villager_list){
 
             string now = villager.get_now_place();
-            if(distance.count(now) && distance[now] < min_dist){
+            if(distance.count(now) && distance[now] == min_dist){
 
-                min_dist = distance[now];
-                closest_name = villager.get_name();
-                closest_now = now;
-                is_villager = true;
+                string next_place = parent[now];
+                if(next_place.empty())
+                    return "Don't move";
+                set_villager_place(now, next_place, villager.get_name());
+                return villager.get_name();
             }
         }
     }
+    for(Hero* hero : {archaeologist, mayor}){
 
-    if(min_dist == INT_MAX)return "Don't move";
+        string now = hero->get_now_place();
+        if(distance.count(now) && distance[now] == min_dist){
 
-    vector<string> path;
-    string current = closest_now;
-
-    while(!current.empty()){
-
-        path.push_back(current);
-        current = parent[current];
-    }
-    reverse(path.begin(), path.end());
-
-    if(path.size() <= 1)return "Don't move";
-
-    string next_place = path[1];
-
-    if(is_villager){
-
-        set_villager_place(closest_now, next_place, closest_name);
-    } 
-    else{
-
-        if(archaologist->get_name() == closest_name){
-            archaologist->set_now_place(next_place);
-        } 
-        else{
-            mayor->set_now_place(next_place);
+            string next_place = parent[now];
+            if (next_place.empty())
+                return "Don't move";
+            hero->set_now_place(next_place);
+            return hero->get_name();
         }
     }
 
-    return closest_name;
+    return "Don't move";
 }
 string Map::Find_Near_Place_To_Villager(string invisible_man_place){
 

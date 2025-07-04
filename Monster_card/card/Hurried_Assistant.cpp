@@ -8,8 +8,8 @@ using namespace std ;
 void Hurried_assistant::ability(Game& gamestage) {
 
     constexpr int add_item = 3 ;
-    constexpr int move = 0 ;
-    constexpr int dice_number = 0 ;
+    constexpr int move = 2 ;
+    constexpr int dice_number = 3 ;
     constexpr int strike_number = 1 ;
 
     //Item
@@ -105,7 +105,7 @@ void Hurried_assistant::ability(Game& gamestage) {
 std::string Hurried_assistant::info() const {
     string info = "\nHurried_Assistant\n" ;
     info += "add 3 item\n" ;
-    info += "Dr. Cranly goes to Laboratory\n" ;
+    info += "Fritz goes to Tower\n" ;
     info += "Strike : 2 Move , 3 Dice\n" ;
     info += "Turn : Dracula\n" ;
     return info ;

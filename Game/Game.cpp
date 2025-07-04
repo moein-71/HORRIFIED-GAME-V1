@@ -174,11 +174,17 @@ Game::Game() {
 }
 
 void Game::set_player_1(shared_ptr<Game_turn> player_1) {
+    if(player_1 == nullptr) {
+        throw bad_alloc() ;
+    }
     this -> player_1 = player_1 ;
     this -> turn = player_1 ;
 }
 
 void Game::set_player_2(shared_ptr<Game_turn> player_2) {
+    if(player_2 == nullptr) {
+        throw bad_alloc() ;
+    }
     this -> player_2 = player_2 ;
 }
 
@@ -258,6 +264,10 @@ shared_ptr<Monster_card> Game::get_random_monster_card() {
         throw runtime_error("in get_random_monster_card somthing goes wrong \n") ;
     }
 
+    if(random == nullptr) {
+        throw bad_alloc() ;
+    }
+
     return random ;
 }
 
@@ -272,7 +282,8 @@ Villager Game::get_villager(string name) {
         ++counter ;
     }
 
-    throw runtime_error("in Get_villager somthing goes wrong \n") ;
+    return Villager("" , "" , "") ;
+
 }
 
 char Game::throw_dice() {
@@ -303,7 +314,8 @@ bool Game::remove_all_item_in_place(std::string place) {
         return true ;
     }
     else {
-        throw runtime_error("all place all clear") ;
+        printLineDelay("all place all clear") ;
+        return false ;
     }
 }
 
@@ -364,7 +376,7 @@ void Game::set_villager_in_Game_map(const std::string place , const std::string 
         return ;
     }
     else {
-        cout<< "\nsorry but this villager has been died\n" ;
+        printLineDelay( "\nsorry but this villager has been died\n") ;
     }
 }        
 

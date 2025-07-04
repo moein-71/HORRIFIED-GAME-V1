@@ -10,11 +10,6 @@ bool Move_monster::activate(Game & game , const string & monster) {
     }
     else if(monster == game.get_invisible_man_name()) {
             game.invisible_man.set_now_place(game.Game_map.Find_Near_Destination(1 , game.invisible_man.get_now_place() , game.archaologist , game.mayor)) ;
-            vector<string> villager_name ;
-            for(auto villager : game.Game_map.get_villager(game.invisible_man.get_now_place())) {
-                villager_name.push_back(villager.get_name()) ;
-            }
-            game.invisible_man.reset_near_villager(villager_name) ;
             return true ;
     }
 

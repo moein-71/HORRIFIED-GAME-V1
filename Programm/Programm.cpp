@@ -114,7 +114,7 @@ void Program::Run() {
         printLineDelay("MONSTER PHASE SKIPED\n" , 70) ;
         printLineDelay("Click to continue .......\n") ;
         cin.ignore() ;
-        // system("clear");
+        system("clear");
         return ;
     }
     if(!this -> base_game.turn->phase(this -> base_game)) {
@@ -123,7 +123,7 @@ void Program::Run() {
     cout<< "Click to continue .......\n" ;
     cin.ignore() ;
     cin.ignore() ;
-    // system("clear");
+    system("clear");
 }
 
 bool Program::End() {

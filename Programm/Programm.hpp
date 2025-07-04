@@ -16,6 +16,7 @@
 
 
 #include <sstream>
+#include <new>
 
 class Program {
     
@@ -25,7 +26,7 @@ class Program {
         void Run() ;
         bool End() ; //if game has been end return true 
 
-        void printLineDelay(const std::string& line, int delayMs = 50) ; //50
+        void printLineDelay(const std::string& line, int delayMs = 40) ; //40
         void showWelcomeScreen() ;
         int CheckInputNumber() ;
 

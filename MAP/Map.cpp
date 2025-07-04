@@ -142,6 +142,9 @@ bool Map::Kill_Villager(string place , string name){
             int i{} ;
             for(auto kill_villager : villager_place[place]) {
                 if(kill_villager.get_name() == name) {
+                    if(kill_villager.get_safe_place() == place) {
+                        return false ;
+                    }
                     villager_place[place].erase(villager_place[place].begin() + i);
                     if(!villager_place[place].size()){
                         villager_place.erase(place);
@@ -313,6 +316,10 @@ string Map::Find_Near_Destination(int max_steps, string current_location, Archao
     }
 }
 string Map::Move_Monster_Away_From_Hero(string current_location, Hero* target_hero, Hero* other_hero) {
+
+    if(target_hero == nullptr || other_hero == nullptr) {
+        throw bad_alloc() ;
+    }
 
     const int max_steps = 2;  
     unordered_map<string, string> parent;

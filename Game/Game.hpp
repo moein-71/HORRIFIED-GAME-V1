@@ -9,6 +9,7 @@
 #include <ctime>
 #include <random>
 #include <stdexcept>
+#include <new>
 #include <format>
 #include <array>
 #include <set>
